@@ -1,0 +1,9 @@
+# CLI metadata for linking and pushing SQL migrations to hosted Supabase.
+# Configure hosted Auth, redirects and Realtime in the Supabase Dashboard.
+project_id = "homecircle"
+
+[db.migrations]
+enabled = true
+
+[db.seed]
+enabled = false

@@ -1,0 +1,13 @@
+from fastapi import APIRouter
+
+from app.api.v1.households import router as household_router
+from app.api.v1.invitations import router as invitation_router
+
+router = APIRouter(prefix="/api/v1")
+router.include_router(household_router)
+router.include_router(invitation_router)
+
+
+@router.get("/health", tags=["health"])
+async def api_health():
+    return {"status": "ok", "api_version": "v1"}
