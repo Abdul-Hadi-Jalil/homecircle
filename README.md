@@ -2,7 +2,27 @@
 
 Everything your home needs, in one place.
 
-Milestone 0 establishes an Android-first Flutter app, FastAPI API, and Supabase SQL foundation for a household manager. It includes minimal functional authentication and household onboarding, plus placeholders for later feature screens. The Stitch screens and full product features are outside this milestone.
+HomeCircle is an Android-first household management application built with Flutter, FastAPI, and hosted Supabase. The implemented Milestone 1 covers authentication, profile editing, household creation/joining/switching, member administration, and invitation management. Inventory, tasks, shopping, and chat are future feature areas with placeholder routes.
+
+## Project highlights
+
+- Feature-first Flutter MVVM with Provider, typed repositories, and guarded navigation.
+- Independent FastAPI service using parameterized async PostgreSQL queries.
+- Verified bearer identity, restricted database login, row-level security, and transaction-scoped authorization.
+- Household switching that clears stale state and rejects responses from an earlier identity/scope.
+- Locked dependencies, unit/widget tests, and optional tests against an isolated hosted database.
+
+```mermaid
+flowchart LR
+    UI[Flutter views] --> VM[ChangeNotifier ViewModels]
+    VM --> Repo[Repositories and services]
+    Repo --> Auth[Supabase Auth]
+    Repo --> API[FastAPI verified bearer endpoints]
+    API --> SQL[Async Psycopg repositories]
+    SQL --> DB[Hosted Supabase PostgreSQL and RLS]
+```
+
+For a walkthrough, register/sign in, create a household, inspect membership, create an invitation, and join from a second development account. Use the verification reports below to distinguish implemented flows from external acceptance checks. No production usage or performance claim is implied.
 
 ## Structure and architecture
 
