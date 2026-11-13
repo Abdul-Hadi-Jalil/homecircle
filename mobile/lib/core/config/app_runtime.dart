@@ -11,6 +11,9 @@ import '../../features/household/repositories/household_repository.dart';
 import '../../features/household/services/household_api.dart';
 import '../../features/household/services/realtime_scope.dart';
 import '../../features/household/viewmodels/session_view_model.dart';
+import '../../features/inventory/services/inventory_api.dart';
+import '../../features/inventory/repositories/inventory_repository.dart';
+import '../../features/inventory/viewmodels/inventory_view_model.dart';
 import '../network/api_client.dart';
 import '../network/network_status.dart';
 import '../storage/local_store.dart';
@@ -34,6 +37,10 @@ class AppRuntime {
   final NetworkStatus network;
   final http.Client client;
   final LocalStore store;
+  late final InventoryViewModel inventory = InventoryViewModel(
+    InventoryRepository(InventoryApi(households.service.api), store),
+    session,
+  );
 
   static Future<AppRuntime> initialize(AppConfig config) async {
     final store = LocalStore(await SharedPreferences.getInstance());
@@ -84,6 +91,7 @@ class AppRuntime {
   }
 
   void dispose() {
+    inventory.dispose();
     session.dispose();
     diagnostics.dispose();
     client.close();

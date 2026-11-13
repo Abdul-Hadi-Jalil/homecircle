@@ -145,3 +145,12 @@ See the [verification report](docs/verification.md) for actual dependency versio
 ## Milestone 1
 
 Authentication, verification/recovery, profile editing, household create/join/switching, members, admin settings and secure invitation management are implemented. Hosted migrations are applied. See the [implementation and verification report](docs/milestone-1-report.md) for API permissions, exact test results and the remaining real-email/separate-test-project acceptance checks. Milestone 2 has not started.
+
+## Milestone 2
+
+The inventory API and Flutter module support consumables, durable items, categories,
+locations, search/filters, stock/condition changes, activity, private photos and
+archive/restore, with scoped cached reading and local form drafts. Hosted migration,
+RLS/concurrency and real Storage acceptance remain pending a separate test project.
+See [PROJECT_STATUS.md](docs/PROJECT_STATUS.md) for current results, deployment
+requirements and the authoritative completion status.

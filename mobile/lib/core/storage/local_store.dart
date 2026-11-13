@@ -38,6 +38,11 @@ class LocalStore {
     String form,
   ) => _readMap('${_prefix(userId)}household.$householdId.draft.$form');
 
+  Future<void> removeDraft(String userId, String householdId, String form) =>
+      preferences.remove(
+        '${_prefix(userId)}household.$householdId.draft.$form',
+      );
+
   Future<void> cache(
     String userId,
     String householdId,

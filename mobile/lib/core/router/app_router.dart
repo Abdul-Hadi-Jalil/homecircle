@@ -10,6 +10,7 @@ import '../../features/dashboard/views/home_view.dart';
 import '../../features/household/viewmodels/session_view_model.dart';
 import '../../features/household/views/household_view.dart';
 import '../../shared/widgets/route_placeholder.dart';
+import '../../features/inventory/views/inventory_views.dart';
 import '../localization/generated/app_localizations.dart';
 import '../widgets/app_widgets.dart';
 import 'route_guard.dart';
@@ -121,9 +122,8 @@ GoRouter createRouter(SessionViewModel session) => GoRouter(
             GoRoute(
               path: '/inventory',
               name: 'inventory',
-              builder: (context, state) => RoutePlaceholder(
-                title: AppLocalizations.of(context)!.inventory,
-              ),
+              builder: (context, state) =>
+                  InventoryOverview(key: ValueKey(session.scopeRevision)),
             ),
           ],
         ),
@@ -163,8 +163,6 @@ GoRouter createRouter(SessionViewModel session) => GoRouter(
     ),
     for (final entry in <(String, String, String Function(AppLocalizations))>[
       ('shopping', '/shopping', (l) => l.shopping),
-      ('inventoryDetails', '/inventory/:id', (l) => l.inventoryDetails),
-      ('addInventory', '/add-inventory', (l) => l.addInventory),
       ('createTask', '/create-task', (l) => l.createTask),
       ('taskDetails', '/tasks/:id', (l) => l.taskDetails),
       ('notifications', '/notifications', (l) => l.notifications),
@@ -176,6 +174,30 @@ GoRouter createRouter(SessionViewModel session) => GoRouter(
         builder: (context, state) =>
             RoutePlaceholder(title: entry.$3(AppLocalizations.of(context)!)),
       ),
+    GoRoute(
+      path: '/inventory/:id',
+      name: 'inventoryDetails',
+      builder: (context, state) => InventoryDetails(
+        key: ValueKey('${session.scopeRevision}-${state.pathParameters['id']}'),
+        id: state.pathParameters['id']!,
+      ),
+    ),
+    GoRoute(
+      path: '/add-inventory',
+      name: 'addInventory',
+      builder: (context, state) =>
+          InventoryEditor(key: ValueKey('new-${session.scopeRevision}')),
+    ),
+    GoRoute(
+      path: '/inventory/:id/edit',
+      name: 'editInventory',
+      builder: (context, state) => InventoryEditor(
+        key: ValueKey(
+          'edit-${session.scopeRevision}-${state.pathParameters['id']}',
+        ),
+        id: state.pathParameters['id']!,
+      ),
+    ),
   ],
 );
 

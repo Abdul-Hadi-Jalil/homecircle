@@ -8,7 +8,7 @@ Views render state and trigger actions. ChangeNotifier ViewModels handle loading
 
 Auth forms provide registration, login, reset email and password update after a recovery deep link. Email confirmation behavior is controlled by Supabase. Confirmation/recovery links use PKCE and the native callback scheme. Real email delivery and callback handling need validation against the configured development project.
 
-GoRouter defines all requested named routes. The permanent tabs are Home, Inventory, Tasks, Chat and Profile; Shopping is secondary. Guard order is restoration → authentication → password recovery → validated active household → admin-only settings/invitations. Users with multiple memberships choose a household; a valid preference is restored, and a sole membership is selected automatically. Invitations/joining are placeholders, not membership-management implementations.
+GoRouter defines all requested named routes. The permanent tabs are Home, Inventory, Tasks, Chat and Profile; Shopping is secondary. Guard order is restoration → authentication → password recovery → validated active household → admin-only settings/invitations. Users with multiple memberships choose a household; a valid preference is restored, and a sole membership is selected automatically. Invitations and joining are implemented; role management and member removal still have SQL RPCs without app management screens.
 
 `SessionViewModel` obtains memberships from the API on startup, foreground resume, explicit refresh and household selection. The preference is a convenience, never authorization. Switching clears visible active state immediately, increments `scopeRevision`, disconnects the old realtime scope, revalidates memberships, persists the selected ID and initializes the new scope. Generation counters discard stale responses after logout or identity changes. The navigation subtree is keyed by the scope revision. Future feature ViewModels must also reset on this revision and reject responses for old `(userId, householdId, revision)` scopes.
 
@@ -47,3 +47,31 @@ Use `<household_uuid>/<uploader_uuid>/<object_uuid>.<extension>` in every bucket
 Household activity, inventory and task events should share the active scope; chat and task discussions can add narrower private topics only with corresponding membership policies. Cancel channels on logout/switch, reject old callbacks using the scope revision, and enforce revocation on the server. Realtime join authorization alone is not a guarantee that existing sockets immediately lose access when membership changes. No permissive topic policies or publication changes are shipped prematurely.
 
 Firebase Cloud Messaging is reserved for a later notification milestone: platform app registration, device-token ownership, delivery permissions and server-side credentials are deliberately not fabricated or initialized here.
+
+## Milestone 2 inventory implementation
+
+The earlier storage/offline descriptions record the foundation baseline. Inventory
+now implements feature-specific API services, repositories, ChangeNotifier state,
+scoped cached reading and local form drafts. Cached list rows also seed offline
+item details. Only fetched views/pages are cached; photos remain in memory and
+require connectivity. There is no queued or automatic offline mutation replay.
+
+Inventory reads and mutations go through the backend service layer. A narrowly
+granted owner-executed function locks the household parent and validates the
+transaction actor's membership; ordinary members do not need household settings
+UPDATE privileges. Item locks, expected revisions and activity writes preserve
+transaction boundaries. Absolute quantity replacement requires a revision;
+relative adjustments use the locked current value.
+
+Inventory photos use the existing item's UUID as the second path segment:
+`<household_uuid>/<item_uuid>/<random_object_uuid>.jpg`. This is an inventory-specific
+exception to the foundation's proposed uploader-directory convention. The API
+normalizes validated images and uses the user's JWT against private Storage.
+Expiring upload authorizations, attachment revisions and finalized-orphan cleanup
+policies govern the lifecycle. Download returns authenticated, no-store bytes in
+JSON; no signed URL is issued. Referenced archived photos are retained for restore.
+Failed cleanup requires an operational retention retry through Storage API, not
+direct deletion of Storage metadata. Other feature buckets remain reserved.
+
+See [PROJECT_STATUS.md](PROJECT_STATUS.md) for current test results, unverified
+hosted migrations/RLS/Storage acceptance and required disposable-project setup.
