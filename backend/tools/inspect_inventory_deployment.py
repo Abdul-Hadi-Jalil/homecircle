@@ -33,6 +33,11 @@ def main():
                 "public.inventory_categories",
                 "public.inventory_activity",
                 "private.inventory_uploads",
+                "public.household_tasks",
+                "public.task_comments",
+                "public.task_activity",
+                "public.task_attachments",
+                "private.task_uploads",
             ]
             for name in names:
                 row = connection.execute("SELECT to_regclass(%s)::text", (name,)).fetchone()

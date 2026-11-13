@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"background":"#f9f9ff","on-surface-variant":"#444654","on-secondary-container":"#00714d","tertiary-fixed":"#ffddb5","on-error":"#ffffff","surface-dim":"#d2daf0","on-primary-container":"#f5f3ff","on-primary":"#ffffff","inverse-surface":"#283041","primary":"#2248d1","inverse-primary":"#b9c3ff","inverse-on-surface":"#edf0ff","on-primary-fixed":"#001356","surface-container":"#e8edff","surface-container-lowest":"#ffffff","on-secondary":"#ffffff","on-secondary-fixed":"#002113","secondary-fixed":"#82f9c1","outline-variant":"#c4c5d7","tertiary-container":"#9a6400","surface-variant":"#dbe2f8","surface":"#f9f9ff","on-primary-fixed-variant":"#0035be","primary-fixed-dim":"#b9c3ff","tertiary":"#794e00","error":"#ba1a1a","tertiary-fixed-dim":"#ffb956","primary-fixed":"#dde1ff","on-tertiary-fixed":"#2a1800","on-error-container":"#93000a","primary-container":"#4263eb","surface-container-high":"#e0e8fe","secondary-fixed-dim":"#64dca6","surface-tint":"#2c50d9","on-tertiary":"#ffffff","outline":"#747686","secondary":"#006c49","surface-container-low":"#f1f3ff","surface-container-highest":"#dbe2f8","on-tertiary-container":"#fff2e6","on-tertiary-fixed-variant":"#633f00","secondary-container":"#7ff6bf","error-container":"#ffdad6","on-secondary-fixed-variant":"#005236","on-surface":"#131c2b","surface-bright":"#f9f9ff","on-background":"#131c2b"},borderRadius:{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},spacing:{"margin":"1rem","space-xl":"1.5rem","space-sm":"0.5rem","space-xs":"0.25rem","margin-tablet":"1.5rem","space-2xl":"2rem","space-md":"1rem","gutter":"1rem","space-lg":"1.25rem"},fontFamily:{"headline-lg":["Inter"],"label-sm":["Inter"],"body-lg":["Inter"],"body-md":["Inter"],"display-lg":["Inter"],"body-sm":["Inter"],"headline-sm":["Inter"],"label-md":["Inter"],"title-md":["Inter"],"headline-md":["Inter"],"label-lg":["Inter"]},fontSize:{"headline-lg":["26px",{lineHeight:"34px",letterSpacing:"-0.015em",fontWeight:"700"}],"label-sm":["11px",{lineHeight:"14px",letterSpacing:"0.04em",fontWeight:"700"}],"body-lg":["16px",{lineHeight:"24px",fontWeight:"400"}],"body-md":["14px",{lineHeight:"20px",fontWeight:"400"}],"display-lg":["32px",{lineHeight:"40px",letterSpacing:"-0.02em",fontWeight:"700"}],"body-sm":["13px",{lineHeight:"18px",fontWeight:"400"}],"headline-sm":["18px",{lineHeight:"24px",fontWeight:"600"}],"label-md":["12px",{lineHeight:"16px",letterSpacing:"0.02em",fontWeight:"600"}],"title-md":["16px",{lineHeight:"22px",fontWeight:"600"}],"headline-md":["20px",{lineHeight:"28px",letterSpacing:"-0.01em",fontWeight:"600"}],"label-lg":["14px",{lineHeight:"20px",fontWeight:"600"}]}}}};</script><style>@layer base{html,body{width:100%;margin:0;padding:0;min-height:100vh;}body{overscroll-behavior-y:none;background-color:#f9f9ff;min-height:max(884px,100dvh);}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-body-md text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 inset-x-0 z-50 bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] pt-safe"><div class="h-16 px-space-xs flex items-center justify-between"><div class="flex items-center"><button aria-label="Go back" class="min-w-[48px] min-h-[48px] flex items-center justify-center text-on-surface rounded-full hover:bg-surface-container-high/60 transition-colors" onclick="history.back()"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><div class="flex items-center gap-space-xs ml-1"><img alt="HomeCircle Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2zEPBClITeRA5uI-ukj9T3-TJd7BEyjKJMpHfT_RNt9m6KPOPzJjlC6RfCGZtT_CzD1h8wVZXnKg4G3IY0WlIbhzQ-9A2zXBsYK4o3_1XtSAwbF5nmBIy1aiZOrfA_6B6RSBZHEtAYaBNGYchhEwydiNMnulnwvy-zWe0Lkk7a_U2domKG8LlQtgfhRVVXIIwDV8upAtJvwbi1EVTeld--tsVaviVeABgJ5jvtRhIjXI9jqJkGqLH"/><h1 class="font-title-md text-title-md text-on-surface font-semibold tracking-tight">Invite Family Members</h1></div></div><div class="flex items-center pr-space-sm"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex flex-col relative w-full pt-16 pb-safe bg-surface flex-1"><div class="flex flex-col w-full px-margin pb-space-2xl gap-y-space-lg">
+<!-- Friendly Warm Greeting & Context Banner -->
+<div class="flex flex-col gap-y-space-xs mt-space-xs">
+<div class="inline-flex items-center gap-space-xs self-start px-space-sm py-1 rounded-full bg-secondary-container text-on-secondary-container">
+<span class="material-symbols-outlined text-[16px]">group_add</span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider">Household Setup</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface font-bold tracking-tight">Invite Your Family</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">HomeCircle works better together. Keep everyone in sync on chores, groceries, and plans.</p>
+</div>
+<!-- Household Identity Card -->
+<div class="relative overflow-hidden bg-surface-container-lowest rounded-[20px] p-space-md shadow-sm">
+<div class="absolute -right-6 -bottom-6 w-32 h-32 rounded-full bg-primary-fixed/30 pointer-events-none blur-2xl"></div>
+<div class="flex items-center gap-space-md relative z-10">
+<div class="relative shrink-0 w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-primary-container flex items-center justify-center shadow-md shadow-primary/20 text-on-primary">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">cottage</span>
+<span class="absolute -bottom-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-secondary text-on-secondary text-[10px] font-bold">FH</span>
+</div>
+<div class="flex flex-col min-w-0 flex-1">
+<div class="flex items-center gap-1.5">
+<h3 class="font-headline-sm text-headline-sm text-on-surface truncate">Our Family Home</h3>
+<span class="material-symbols-outlined text-secondary text-[18px]">verified</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Created by Arham • 5 Member Slots Available</p>
+</div>
+</div>
+<!-- Active household photo collage preview -->
+<div class="mt-space-md pt-space-sm flex items-center justify-between">
+<div class="flex items-center -space-x-2 overflow-hidden">
+<img class="inline-block h-8 w-8 rounded-full object-cover shadow-sm ring-2 ring-surface-container-lowest" data-alt="Warm candid portrait of smiling south asian father wearing casual cozy sweater in bright modern sunlit kitchen" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmXy3-STEg7CLuwavAtmJdf6pPN9DRkQhvxGn8mSUkp70_-k1dLlYyIAXGShWbdCt_DmeenKyv231JtW9R9veUkb2EXKdmOWPX-w4TkcQD_psaojg_t0chwQSNC01sF2KVGkBhspuh3ku8c66syplH7XbaTirLTyLdTLFkaVr9JrTIt3qAOsHGHVoglAuJtg_95KQA_57mAg7Bv_14cfeHiGIvk_plCZPGF1qNQf0"/>
+<img class="inline-block h-8 w-8 rounded-full object-cover shadow-sm ring-2 ring-surface-container-lowest" data-alt="Close-up lifestyle portrait of caring cheerful mother outdoors in warm golden hour sunlight smiling genuinely" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmTcg31pNAYciccdLVH22HZ_2GOKsy_Yq5h_O2wA4fpwJsMFxU3GBKXU4Zm1GCrJz-kr-9446I7_GOIDbGxrXFFhEXAThcVesNhql59OVmxcBW8A8-jvg72wUW8tyGEaafIS68XZnEunBolXeDq5Y2_7b1OccghXeCZP9TZ-tenVPfCWdVW-qdLpk_tzzWtzgheu2upURKIrc40qJ82OQmepn5G8tPbaNIpLQ3X1E"/>
+<div class="flex h-8 w-8 items-center justify-center rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm shadow-sm ring-2 ring-surface-container-lowest">
+          +3
+        </div>
+</div>
+<span class="font-label-md text-label-md text-primary font-medium flex items-center gap-1">
+<span class="inline-block w-2 h-2 rounded-full bg-secondary"></span>
+        2 Members Active
+      </span>
+</div>
+</div>
+<!-- Invitation Code Highlight Card -->
+<div class="bg-surface-container-lowest rounded-[22px] p-space-lg shadow-md flex flex-col gap-y-space-md relative overflow-hidden">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider font-semibold">Household Invite Code</span>
+<span class="px-2.5 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">lock_open</span> Valid 7 days
+      </span>
+</div>
+<!-- Code Display Box -->
+<div class="relative flex items-center justify-between p-space-md bg-surface-container-low rounded-2xl group transition-all">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Tap to copy</span>
+<span class="font-display-lg text-display-lg font-bold tracking-wider text-primary select-all" id="invite-code-text">HC-482913</span>
+</div>
+<button aria-label="Copy invitation code" class="min-w-[48px] min-h-[48px] h-12 w-12 rounded-xl bg-surface-container-lowest hover:bg-surface-container flex items-center justify-center text-primary shadow-sm active:scale-95 transition-transform" id="copy-btn" type="button">
+<span class="material-symbols-outlined text-[24px]" id="copy-icon">content_copy</span>
+</button>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+      Share this code with family members so they can join your household instantly during onboarding.
+    </p>
+<!-- Dual Action Buttons -->
+<div class="grid grid-cols-2 gap-space-sm pt-space-xs">
+<button class="min-h-[48px] h-12 px-space-md rounded-xl bg-surface-container-high hover:bg-surface-container text-primary font-label-lg text-label-lg flex items-center justify-center gap-2 transition-colors active:scale-[0.98]" id="quick-copy-button" type="button">
+<span class="material-symbols-outlined text-[20px]">content_copy</span>
+<span>Copy Code</span>
+</button>
+<button class="min-h-[48px] h-12 px-space-md rounded-xl bg-primary-container hover:bg-primary text-on-primary font-label-lg text-label-lg flex items-center justify-center gap-2 shadow-sm transition-colors active:scale-[0.98]" id="share-button" type="button">
+<span class="material-symbols-outlined text-[20px]">share</span>
+<span>Share Invite</span>
+</button>
+</div>
+</div>
+<!-- Message Preview Card with Playful Delight Bubble -->
+<div class="bg-surface-container-low rounded-[20px] p-space-md flex flex-col gap-y-space-xs">
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px] text-tertiary">chat_bubble</span>
+<span class="font-label-md text-label-md font-semibold text-on-surface">Invitation Message Preview</span>
+</div>
+<div class="p-space-md bg-surface-container-lowest rounded-xl shadow-xs relative">
+<div class="absolute -top-1.5 left-6 w-3 h-3 bg-surface-container-lowest rotate-45"></div>
+<p class="font-body-sm text-body-sm text-on-surface leading-relaxed">
+        “Hey! Join <strong class="text-primary font-semibold">Our Family Home</strong> on HomeCircle! Use invitation code <strong class="text-primary font-semibold">HC-482913</strong> to link our shared chores and pantry lists.”
+      </p>
+</div>
+</div>
+<!-- Family Invitations & Members Status Section -->
+<div class="flex flex-col gap-y-space-sm">
+<div class="flex items-center justify-between px-space-xs">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Family Invitations &amp; Members</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant">4 Sent</span>
+</div>
+<div class="bg-surface-container-lowest rounded-[20px] p-space-xs shadow-sm divide-y-0 flex flex-col gap-y-1">
+<!-- Member Row 1: Father (Joined) -->
+<div class="min-h-[56px] p-space-sm flex items-center justify-between rounded-xl hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="relative shrink-0 w-10 h-10 rounded-full overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Headshot of a friendly smiling middle-aged father with glasses wearing everyday casual navy shirt" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBc-swSuHDk06nLCNm84dE_oOdiAIWyLUEVJ7SY-fngpHIeIGa4LjwApPxCddlNgBILoqUrL6U17-toxUHadr0ROBOaYR5iSD8FvV5ApsV3HItjQH7yRI86TXYWbKizVlWZKlH52PmZVRSq2K5-KbURi1fffTHT9Zo2J8izFmiOrUJzaXYFmUGOUQqQpHj5InPEMkRkMbHE9zvyocek1DvMhfX2GKP55khs1RmRSXw"/>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-md text-title-md text-on-surface truncate">Father</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Joined Oct 10</span>
+</div>
+</div>
+<div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+<span class="font-label-sm text-label-sm">Joined</span>
+</div>
+</div>
+<!-- Member Row 2: Mother (Joined) -->
+<div class="min-h-[56px] p-space-sm flex items-center justify-between rounded-xl hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="relative shrink-0 w-10 h-10 rounded-full overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Warm portrait of mother smiling warmly with soft ambient daylight in modern home background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2cbK8bsgylHgxIEVQ8euZdBpIGFvW2gxSZHFY3BU8uMA5rF_j9MWLSNj-w8aUpAGX_YsoXXYanWf8cjtoiu_ojBbE-zKIaxwp-xLuopSrBTgv0f4jqUtmzQVqF68MXdYIrclz4isbutc0WXy9a2HR5xMdRgAkANdOU0xowvYsZkxcYWq9DkB1V5AACqfHGzCKbg8j1ZmXukLtfJ7HhmboAg_VK7JzkNFjHE-_iTo"/>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-md text-title-md text-on-surface truncate">Mother</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Joined Oct 10</span>
+</div>
+</div>
+<div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+<span class="font-label-sm text-label-sm">Joined</span>
+</div>
+</div>
+<!-- Member Row 3: Ali (Pending) -->
+<div class="min-h-[56px] p-space-sm flex items-center justify-between rounded-xl hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-10 h-10 rounded-full bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center font-label-md text-label-md shrink-0 font-bold">
+            AL
+          </div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-md text-title-md text-on-surface truncate">Ali</span>
+<div class="flex items-center gap-1 font-body-sm text-body-sm text-on-surface-variant">
+<span>Invite sent 2d ago</span>
+<span>•</span>
+<button class="text-primary font-medium hover:underline focus:outline-none min-h-[24px]" type="button">Resend</button>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+<span class="font-label-sm text-label-sm">Pending</span>
+</div>
+</div>
+<!-- Member Row 4: Sarah (Pending) -->
+<div class="min-h-[56px] p-space-sm flex items-center justify-between rounded-xl hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-10 h-10 rounded-full bg-primary-fixed text-on-primary-fixed flex items-center justify-center font-label-md text-label-md shrink-0 font-bold">
+            SA
+          </div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-md text-title-md text-on-surface truncate">Sarah</span>
+<div class="flex items-center gap-1 font-body-sm text-body-sm text-on-surface-variant">
+<span>Invite sent 1d ago</span>
+<span>•</span>
+<button class="text-primary font-medium hover:underline focus:outline-none min-h-[24px]" type="button">Resend</button>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+<span class="font-label-sm text-label-sm">Pending</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Code Management Actions -->
+<div class="flex flex-col gap-y-space-sm pt-space-xs">
+<div class="flex items-center justify-between px-space-xs">
+<button class="min-h-[48px] inline-flex items-center gap-2 text-primary font-label-md text-label-md hover:opacity-80 active:scale-95 transition-transform" id="refresh-code-btn" type="button">
+<span class="material-symbols-outlined text-[20px]" id="refresh-icon">autorenew</span>
+<span>Generate New Code</span>
+</button>
+<button class="min-h-[48px] inline-flex items-center gap-1.5 text-error font-label-md text-label-md hover:opacity-80 active:scale-95 transition-transform" id="revoke-code-btn" type="button">
+<span class="material-symbols-outlined text-[18px]">cancel</span>
+<span>Revoke Existing Code</span>
+</button>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant text-center px-space-md">
+      Invitation codes expire after 7 days or can be revoked by admins at any time.
+    </p>
+</div>
+<!-- Floating Toast Notification (Hidden by default) -->
+<div class="fixed bottom-24 left-1/2 -translate-x-1/2 z-40 bg-inverse-surface text-inverse-on-surface px-space-lg py-2.5 rounded-full shadow-xl flex items-center gap-2 opacity-0 pointer-events-none transition-all duration-300 transform translate-y-3" id="toast-pill">
+<span class="material-symbols-outlined text-[20px] text-secondary-container">check_circle</span>
+<span class="font-label-md text-label-md" id="toast-text">Invitation code copied!</span>
+</div>
+<!-- Sticky Bottom Navigation CTA -->
+<div class="sticky bottom-0 inset-x-0 pt-space-sm pb-space-sm bg-gradient-to-t from-background via-background/95 to-transparent">
+<button class="w-full min-h-[48px] h-12 rounded-xl bg-primary-container hover:bg-primary text-on-primary font-label-lg text-label-lg flex items-center justify-center gap-2 shadow-md shadow-primary/20 active:scale-[0.99] transition-all" onclick="history.back()" type="button">
+<span>Done (Go to Dashboard)</span>
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<script>
+  (function () {
+    const code = "HC-482913";
+    const toast = document.getElementById("toast-pill");
+    const toastText = document.getElementById("toast-text");
+    const copyBtn = document.getElementById("copy-btn");
+    const copyIcon = document.getElementById("copy-icon");
+    const quickCopyBtn = document.getElementById("quick-copy-button");
+    const shareBtn = document.getElementById("share-button");
+    const refreshBtn = document.getElementById("refresh-code-btn");
+    const refreshIcon = document.getElementById("refresh-icon");
+    const revokeBtn = document.getElementById("revoke-code-btn");
+    const codeDisplay = document.getElementById("invite-code-text");
+
+    let toastTimer = null;
+    function triggerToast(message) {
+      if (toastTimer) clearTimeout(toastTimer);
+      toastText.textContent = message;
+      toast.classList.remove("opacity-0", "pointer-events-none", "translate-y-3");
+      toast.classList.add("opacity-100", "translate-y-0");
+      toastTimer = setTimeout(() => {
+        toast.classList.add("opacity-0", "pointer-events-none", "translate-y-3");
+        toast.classList.remove("opacity-100", "translate-y-0");
+      }, 2500);
+    }
+
+    function copyCodeAction() {
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(code).catch(() => {});
+      }
+      copyIcon.textContent = "done";
+      setTimeout(() => {
+        copyIcon.textContent = "content_copy";
+      }, 1800);
+      triggerToast("Invitation code copied to clipboard!");
+    }
+
+    if (copyBtn) copyBtn.addEventListener("click", copyCodeAction);
+    if (quickCopyBtn) quickCopyBtn.addEventListener("click", copyCodeAction);
+
+    if (shareBtn) {
+      shareBtn.addEventListener("click", () => {
+        const shareData = {
+          title: "Join Our Family Home on HomeCircle",
+          text: `Join Our Family Home on HomeCircle! Use invitation code ${code} to join our shared household.`,
+          url: "https://homecircle.app/invite/" + code
+        };
+        if (navigator.share) {
+          navigator.share(shareData).catch(() => {});
+        } else {
+          copyCodeAction();
+        }
+      });
+    }
+
+    if (refreshBtn) {
+      refreshBtn.addEventListener("click", () => {
+        refreshIcon.classList.add("animate-spin");
+        setTimeout(() => {
+          refreshIcon.classList.remove("animate-spin");
+          const randomSuffix = Math.floor(100000 + Math.random() * 900000);
+          codeDisplay.textContent = "HC-" + randomSuffix;
+          triggerToast("Generated fresh code: HC-" + randomSuffix);
+        }, 500);
+      });
+    }
+
+    if (revokeBtn) {
+      revokeBtn.addEventListener("click", () => {
+        triggerToast("Code revoked. Create a new code when ready.");
+      });
+    }
+  })();
+</script></main></body></html>

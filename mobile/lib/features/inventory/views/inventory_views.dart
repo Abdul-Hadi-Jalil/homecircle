@@ -10,6 +10,7 @@ import '../../../core/theme/app_theme.dart';
 import '../../../core/widgets/app_widgets.dart';
 import '../models/inventory_item.dart';
 import '../viewmodels/inventory_view_model.dart';
+import '../../tasks/widgets/related_repairs.dart';
 
 const inventoryUnits = [
   'piece',
@@ -582,6 +583,12 @@ class _InventoryDetailsState extends State<InventoryDetails> {
                 onPressed: vm.loadActivity,
                 child: const Text('More activity'),
               ),
+            RelatedRepairs(
+              key: ValueKey('repairs-${item.id}'),
+              itemId: item.id,
+              itemName: item.name,
+              canCreate: !item.archived,
+            ),
           ],
         ],
       ),

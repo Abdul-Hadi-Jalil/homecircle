@@ -10,6 +10,469 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get taskAny => 'Any';
+
+  @override
+  String get taskActivityCreated => 'Request created';
+
+  @override
+  String get taskActivityUpdated => 'Request updated';
+
+  @override
+  String get taskActivityAssigned => 'Assignment changed';
+
+  @override
+  String get taskActivityClaimed => 'Ownership taken';
+
+  @override
+  String get taskActivityUnassigned => 'Task unassigned';
+
+  @override
+  String get taskActivityPriority => 'Priority changed';
+
+  @override
+  String get taskActivityStatus => 'Status changed';
+
+  @override
+  String get taskActivityCompleted => 'Request completed';
+
+  @override
+  String get taskActivityCancelled => 'Request cancelled';
+
+  @override
+  String get taskActivityReopened => 'Request reopened';
+
+  @override
+  String get taskActivityArchived => 'Request archived';
+
+  @override
+  String get taskActivityRestored => 'Request restored';
+
+  @override
+  String get taskActivityCommentAdded => 'Comment added';
+
+  @override
+  String get taskActivityCommentEdited => 'Comment edited';
+
+  @override
+  String get taskActivityCommentDeleted => 'Comment deleted';
+
+  @override
+  String get taskActivityPhotoAdded => 'Photo added';
+
+  @override
+  String get taskActivityPhotoRemoved => 'Photo removed';
+
+  @override
+  String get taskCommentPhotoPartial =>
+      'Your comment was posted, but its photo could not be uploaded. Add it to the comment from the discussion.';
+
+  @override
+  String get taskNoSavedView =>
+      'This view has not been saved on this device. Reconnect to load it.';
+
+  @override
+  String get taskScreenTitle => 'Tasks & Requests';
+
+  @override
+  String get taskScreenSubtitle => 'Keep your family on track.';
+
+  @override
+  String get taskCreateRequest => 'Create Request';
+
+  @override
+  String get taskEditRequest => 'Edit Request';
+
+  @override
+  String get taskDetailsTitle => 'Task details';
+
+  @override
+  String get taskRepair => 'Repair';
+
+  @override
+  String get taskChore => 'Chore';
+
+  @override
+  String get taskGeneral => 'General';
+
+  @override
+  String get taskShoppingSoon => 'Shopping · Coming soon';
+
+  @override
+  String get taskAllTypes => 'All';
+
+  @override
+  String get taskLow => 'Low';
+
+  @override
+  String get taskNormal => 'Normal';
+
+  @override
+  String get taskHigh => 'High';
+
+  @override
+  String get taskUrgent => 'Urgent';
+
+  @override
+  String get taskOpen => 'Open';
+
+  @override
+  String get taskInProgress => 'In Progress';
+
+  @override
+  String get taskBlocked => 'Blocked';
+
+  @override
+  String get taskCompleted => 'Completed';
+
+  @override
+  String get taskCancelled => 'Cancelled';
+
+  @override
+  String get taskSearch => 'Search tasks';
+
+  @override
+  String get taskFilters => 'Filters';
+
+  @override
+  String get taskAllTasks => 'All Tasks';
+
+  @override
+  String get taskAssignedToMe => 'Assigned to Me';
+
+  @override
+  String get taskUnassigned => 'Unassigned';
+
+  @override
+  String get taskPriority => 'Priority';
+
+  @override
+  String get taskStatus => 'Status';
+
+  @override
+  String get taskDueDate => 'Due date';
+
+  @override
+  String get taskOverdue => 'Overdue';
+
+  @override
+  String get taskDueBefore => 'Due on or before';
+
+  @override
+  String get taskDueAfter => 'Due on or after';
+
+  @override
+  String get taskSort => 'Sort';
+
+  @override
+  String get taskSortPriority => 'Priority first';
+
+  @override
+  String get taskSortUpdated => 'Recently updated';
+
+  @override
+  String get taskSortDue => 'Due date';
+
+  @override
+  String get taskArchived => 'Archived';
+
+  @override
+  String get taskApplyFilters => 'Apply';
+
+  @override
+  String get taskClearFilters => 'Clear filters';
+
+  @override
+  String get taskTitleField => 'Title';
+
+  @override
+  String get taskDescription => 'Description';
+
+  @override
+  String get taskLocation => 'Room / location';
+
+  @override
+  String get taskType => 'Request type';
+
+  @override
+  String get taskAssignee => 'Assign to';
+
+  @override
+  String get taskLinkedItem => 'Linked inventory item';
+
+  @override
+  String get taskChooseItem => 'Choose inventory item';
+
+  @override
+  String get taskSearchItems => 'Search inventory';
+
+  @override
+  String get taskClearLink => 'Remove link';
+
+  @override
+  String get taskNoItems => 'No matching inventory items.';
+
+  @override
+  String get taskNoDueDate => 'No due date';
+
+  @override
+  String get taskClearDate => 'Clear date';
+
+  @override
+  String get taskSave => 'Save request';
+
+  @override
+  String get taskSaving => 'Saving…';
+
+  @override
+  String get taskDiscardDraft => 'Discard draft';
+
+  @override
+  String get taskDraftNote =>
+      'Changes are saved as a draft on this device. They are sent only when you save. Photos are not saved in drafts.';
+
+  @override
+  String get taskDraftRestored => 'Your saved draft has been restored.';
+
+  @override
+  String get taskAddPhoto => 'Attach photo';
+
+  @override
+  String get taskRemovePhoto => 'Remove photo';
+
+  @override
+  String get taskPhotoSelected => 'Photo selected';
+
+  @override
+  String get taskUploading => 'Uploading photo…';
+
+  @override
+  String get taskPhotoLimit =>
+      'Choose a JPEG, PNG or WebP up to 5 MiB and 16 MP.';
+
+  @override
+  String get taskPhotoPartial =>
+      'The request was saved, but its photo could not be uploaded. Add the photo from task details.';
+
+  @override
+  String get taskTitleRequired => 'Enter a title.';
+
+  @override
+  String get taskCommentRequired => 'Write a comment.';
+
+  @override
+  String get taskInvalidDate => 'Choose a valid date.';
+
+  @override
+  String get taskCreate => 'Create Task';
+
+  @override
+  String get taskEdit => 'Edit';
+
+  @override
+  String get taskRefresh => 'Refresh';
+
+  @override
+  String get taskLoadMore => 'Load more';
+
+  @override
+  String get taskEmpty => 'No tasks yet. Create a request to get started.';
+
+  @override
+  String get taskNoResults => 'No tasks match these filters.';
+
+  @override
+  String get taskCached =>
+      'Showing saved tasks. Reconnect and refresh before making changes.';
+
+  @override
+  String get taskError =>
+      'Could not load or save the request. Check your connection and try again.';
+
+  @override
+  String get taskNetworkError =>
+      'You are offline. Saved requests and local drafts remain available.';
+
+  @override
+  String get taskConflict =>
+      'This request changed. Refresh to review the latest version before saving again.';
+
+  @override
+  String get taskForbidden =>
+      'You no longer have access, or this action is restricted to its author or an administrator.';
+
+  @override
+  String get taskInvalidReference =>
+      'Choose a current household member and an inventory item from this household.';
+
+  @override
+  String get taskAlreadyClaimed =>
+      'Someone has already taken ownership. Refresh to see the assignee.';
+
+  @override
+  String get taskReopenRequired =>
+      'Reopen this request explicitly before changing its status.';
+
+  @override
+  String get taskNotAvailable => 'This request is no longer available.';
+
+  @override
+  String get taskTakeOwnership => 'Take Ownership';
+
+  @override
+  String get taskChangePriority => 'Change Priority';
+
+  @override
+  String get taskChangeStatus => 'Change Status';
+
+  @override
+  String get taskComplete => 'Mark Completed';
+
+  @override
+  String get taskReopen => 'Reopen';
+
+  @override
+  String get taskCancel => 'Cancel Request';
+
+  @override
+  String get taskArchive => 'Archive';
+
+  @override
+  String get taskRestore => 'Restore';
+
+  @override
+  String get taskArchiveQuestion => 'Archive this request?';
+
+  @override
+  String get taskArchiveHelp =>
+      'It will remain available under the Archived filter.';
+
+  @override
+  String get taskRestoreQuestion => 'Restore this request?';
+
+  @override
+  String get taskConfirm => 'Confirm';
+
+  @override
+  String get taskDismiss => 'Cancel';
+
+  @override
+  String get taskKeepCondition => 'Keep Current Condition';
+
+  @override
+  String get taskMarkWorking => 'Mark as Working';
+
+  @override
+  String get taskConditionQuestion =>
+      'Would you also like to update this item\'s condition?';
+
+  @override
+  String get taskConditionHelp =>
+      'The repair is completed. Updating the linked inventory item is a separate action.';
+
+  @override
+  String get taskConditionFailed =>
+      'The repair remains completed. The inventory condition update failed; refresh the item and try again from inventory.';
+
+  @override
+  String get taskCompletionNote => 'Completion note (optional)';
+
+  @override
+  String get taskCompletionHistory => 'Completion note';
+
+  @override
+  String get taskComments => 'Discussion';
+
+  @override
+  String get taskAddComment => 'Write a comment…';
+
+  @override
+  String get taskSendComment => 'Send';
+
+  @override
+  String get taskEditComment => 'Edit comment';
+
+  @override
+  String get taskDeleteComment => 'Delete comment';
+
+  @override
+  String get taskDeleteCommentQuestion => 'Delete this comment?';
+
+  @override
+  String get taskNoComments => 'No comments yet.';
+
+  @override
+  String get taskActivity => 'Activity';
+
+  @override
+  String get taskNoActivity => 'No activity available.';
+
+  @override
+  String get taskAttachments => 'Photos';
+
+  @override
+  String get taskNoAttachments => 'No photos attached.';
+
+  @override
+  String get taskViewPhoto => 'View photo';
+
+  @override
+  String get taskRefreshPhoto => 'Refresh photo';
+
+  @override
+  String get taskPhotoError =>
+      'Photo unavailable. Refresh for a new authorized link.';
+
+  @override
+  String get taskRemovePhotoQuestion => 'Remove this photo?';
+
+  @override
+  String get taskFormerMember => 'Former household member';
+
+  @override
+  String get taskSystem => 'System';
+
+  @override
+  String get taskCreatedBy => 'Created by';
+
+  @override
+  String get taskAssignedTo => 'Assigned to';
+
+  @override
+  String get taskUpdated => 'Updated';
+
+  @override
+  String get taskRelatedRepairs => 'Related repair requests';
+
+  @override
+  String get taskReportRepair => 'Report a repair';
+
+  @override
+  String get taskAllRelated => 'View all related repairs';
+
+  @override
+  String get taskNoRelated => 'No related repairs.';
+
+  @override
+  String get taskReassign => 'Assign / Reassign';
+
+  @override
+  String get taskUnassign => 'Unassign';
+
+  @override
+  String get taskReopenedHelp =>
+      'Reopening keeps previous completion events in Activity.';
+
+  @override
+  String get taskCommentPhoto => 'Add photo to comment';
+
+  @override
+  String get taskSaved => 'Request saved.';
+
+  @override
+  String get taskDone => 'Done';
+
+  @override
   String get appName => 'HomeCircle';
 
   @override

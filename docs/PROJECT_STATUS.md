@@ -1,6 +1,6 @@
 # HomeCircle — current project status
 
-Updated: 14 November 2026 (Asia/Karachi). Milestone 2 implementation and isolated verification are finished; hosted acceptance is pending. Milestone 3 has not started. Milestone 2's hosted acceptance remains pending; no hosted migration or production data changes have been made.
+Updated: 14 November 2026 (Asia/Karachi). Milestone 3 implementation and isolated verification are finished; hosted acceptance is pending. Milestone 2's hosted acceptance remains pending; no hosted migration or production data changes have been made.
 
 ## Milestones
 
@@ -9,7 +9,7 @@ Updated: 14 November 2026 (Asia/Karachi). Milestone 2 implementation and isolate
 | 0 — Foundation | Completed | Approved Flutter/FastAPI/Supabase foundation exists. Repaired environments and existing regression tests pass. |
 | 1 — Authentication & Households | Partially Implemented | Auth, households, invitations, member listing, switching and admin settings exist. Real email/device callbacks, signed-in multi-user and hosted SQL acceptance remain unverified. Role/removal RPCs have no management UI. |
 | 2 — Inventory | Partially Implemented — hosted acceptance pending | Backend, Flutter screens, photos, caches/drafts and isolated tests implemented. Analysis, tests and Android debug build pass. Actual migration deployment, RLS/concurrency and real Storage transfers remain unverified. Do not mark Completed yet. |
-| 3 — Tasks & Repairs | Not Started | Placeholder only; inventory foundation ready for the task module after hosted acceptance. |
+| 3 — Tasks & Repairs | Partially Implemented — hosted acceptance pending | Repair/Chore/General requests, assignment/claims, status/reopen, discussions/photos/activity, inventory links and offline caches/drafts implemented. Stitch exports in UI/ reviewed and adapted. Backend 146 passed/29 skipped; Flutter 58 passed/2 skipped; analysis and debug build pass. SQL migration and real Auth/API/Storage acceptance unverified. |
 | 4 — Shopping | Not Started | Placeholder only. |
 | 5 — Chat & Realtime | Not Started | Placeholder and channel lifecycle scaffold only; no feature subscriptions. |
 | 6 — Dashboard/Notifications/Activity | Partially Implemented | Navigation and diagnostics exist; product dashboard, FCM and family activity absent. Inventory has separate activity history. |
@@ -26,7 +26,7 @@ Updated: 14 November 2026 (Asia/Karachi). Milestone 2 implementation and isolate
 - Locally saved forms restore their original edit revision. Saving is explicit; failed offline saves retain drafts. Reconnection never replays writes. Photo bytes are not persisted in preferences/drafts.
 - Scope changes clear visible data, reject old-household actions and discard late responses. Reads started before writes cannot restore stale cached snapshots. Authorization failures do not use cache fallback.
 
-Inventory screens use the established HomeCircle theme. Exact Stitch fidelity and real device appearance remain unverified.
+The earlier M2 audit did not recover Stitch exports. The user subsequently identified them in `UI/` during M3; the initial default search missed that folder. M3 screens were reviewed against the supplied task designs and adapted to the shared HomeCircle theme. M2 exact-reference fidelity has not been re-audited; real device appearance remains unverified. Inventory/task UI is English; Urdu remains future work.
 
 ## Inventory security and concurrency
 
@@ -47,17 +47,17 @@ These are implementation/isolated-test findings. Actual PostgreSQL RLS, locking 
 | --- | --- |
 | Python virtualenv | Repaired in place using installed Python 3.13 and venv --upgrade; existing packages retained. |
 | flutter pub get --enforce-lockfile | Passed; regenerated old-user SDK/Pub paths without upgrading locked mobile versions. |
-| Backend pytest -q (from backend/) | 95 passed, 20 skipped; one existing Starlette/httpx deprecation warning. |
-| Ruff check / format | Passed, 41 files formatted, no findings; original E402/E501 errors resolved. |
+| Backend pytest -q (from backend/) | 146 passed, 29 skipped; one existing Starlette/httpx deprecation warning. |
+| Ruff check / format | Passed, 49 files formatted, no findings; original E402/E501 errors resolved. |
 | pip check | Passed, no broken requirements. |
 | flutter analyze | Passed, no issues. |
-| Full flutter test --no-pub | 39 passed, 2 skipped (optional live health/invalid-token checks). |
+| Full flutter test --no-pub --dart-define=CAPTURE_TASKS=true | 58 passed, 2 skipped (optional live health/invalid-token checks). |
 | Dart formatting | Passed, current source formatted. |
 | Android debug build | Passed with flutter build apk --debug --no-pub and the existing task-local Java trust store; TLS verification stayed enabled. No configured-user/device acceptance is implied. |
 | Hosted deployment diagnostic | Read-only connection attempt failed with OperationalError; catalog/history could not be established. No migrations applied. |
 | Disposable hosted test project | User confirmed it is not configured and requested implementation continue with the gap documented. No integration writes attempted. |
 
-Baseline after environment repair: backend 70 passed/13 skipped; Flutter 24 passed/2 skipped. Current counts supersede intermediate runs. Widget tests exposed narrow-phone overflow and a disposed bottom-sheet controller; both were fixed. Inventory layout was inspected in a widget capture; device acceptance remains pending.
+Baseline after environment repair: backend 70 passed/13 skipped; Flutter 24 passed/2 skipped. Current counts supersede intermediate runs. Widget tests exposed narrow-phone overflow and a disposed bottom-sheet controller; both were fixed. M3 overview/form/details captures with real test-loaded fonts at 360 × 800 were inspected for layout against supplied designs; this does not replace device or accessibility acceptance. Task-only suite: 19 passed.
 
 Test evidence:
 
@@ -78,8 +78,9 @@ Preserved existing migration order:
 6. 20261105000003_inventory.sql — existing categories/items/activity, constraints and policies.
 7. 20261105000004_inventory_photos.sql — existing expiring authorization/Storage policies.
 8. NEW 20261113000000_inventory_access.sql — ordinary-member parent lock, actor names, upload finalization and orphan cleanup policies.
+9. NEW 20261114000000_tasks.sql — task/comment/attachment/activity tables, constraints, revisions, member-removal assignment, scoped actor names, RLS, upload permits and private repair-photo policies.
 
-Older reports claim deployment of 1–5; not reverified. Deployment of 6–8 is unknown; none was applied during this task. Do not assume local migrations ran or rewrite deployed history. Apply pending SQL to a disposable hosted test project first using Supabase CLI, then run guarded behavior tests before app-project deployment.
+Older reports claim deployment of 1–5; not reverified. Deployment of 6–9 is unknown; none was applied during this task. Do not assume local migrations ran or rewrite deployed history. Apply pending SQL to a disposable hosted test project first using Supabase CLI, then run guarded behavior tests before app-project deployment.
 
 Implementation changes:
 
@@ -95,16 +96,55 @@ Implementation changes:
 1. Configure a separate disposable hosted project with all migrations. Set HOMECIRCLE_TEST_DB=hosted-test, HOMECIRCLE_TEST_PROJECT_REF, SUPABASE_TEST_DATABASE_URL, optional SUPABASE_TEST_DATABASE_SSLROOTCERT, and SUPABASE_URL identifying the different app project. Run python -m pytest -m integration -q from backend/. The guard rejects app-project/production/unsafe targets. Most tests roll back; concurrency tests commit generated IDs and clean only those IDs.
 2. Prove actual ordinary-member writes, outsider isolation, revocation, concurrent quantities, stale conflicts, archived discovery/restore, names and activity rollback. SQL source and skipped tests are not passing database evidence.
 3. Perform real test-project Auth -> FastAPI -> PostgreSQL -> Storage acceptance: create consumable/durable items, upload/replace/read/remove photos, archive/restore, switch households and repeat as outsider/revoked user. SQL metadata fixtures do not test real Storage byte transfer.
-4. Configure the API's restricted database connection, verified TLS and SUPABASE_PUBLISHABLE_KEY for its project; match the app's public configuration/issuer. No service-role key is required for inventory. Keep credentials local.
-5. Configure a reverse-proxy photo JSON body limit around 8 MiB and normal request timeouts. Establish orphan retention: after confirming no in-flight upload (for example, older than one hour), finalize abandoned authorization rows and retry deleting unreferenced objects through Storage API. Retain referenced archived photos; do not remove authorization rows before objects.
+4. Configure the API's restricted database connection, verified TLS and SUPABASE_PUBLISHABLE_KEY for its project; match the app's public configuration/issuer. No service-role key is required for inventory or tasks. Keep credentials local.
+5. The API now bounds inventory/task photo JSON bodies to 8 MiB before parsing, including chunked input. Also configure the reverse-proxy body limit/timeouts. Establish orphan retention: after confirming no in-flight upload (for example, older than one hour), finalize abandoned authorization rows and retry deleting unreferenced objects through Storage API. Retain referenced archived photos; do not remove authorization rows before objects.
 6. Close M1 real-email verification/recovery, callback allowlist, session restart and signed-in two-user household acceptance. Missing role/removal UI does not confer admin permissions, but real auth/household security acceptance remains a gate.
 7. Run the configured Android app with real test users to verify picker, responsive UI, photo operations and offline transitions. Debug compilation passes; device acceptance, iOS and release signing are unverified. The machine-specific Java trust-store workaround is in docs/setup.md.
 
-## Next milestone
+## Milestone 3 implementation and acceptance
 
-M2 remains Partially Implemented until hosted migrations, RLS/concurrency, Auth and
-Storage acceptance pass in the separate disposable project. M1 live authentication
-and household acceptance remains a prerequisite. M3 has not started in this snapshot.
-Do not start shopping, chat/realtime, notifications or dashboard features automatically.
+The [M3 implementation report](milestone-3-report.md) records the task model, full
+API table, UI design references/adaptations, security boundaries, files changed,
+test evidence and manual gates. Implemented:
+
+- Repair, Chore and General CRUD, archive/restore, assignment/unassignment and atomic claims.
+- Low/Normal/High/Urgent priorities; Open/In Progress/Blocked/Completed/Cancelled; explicit reopen, dates/overdue, search/filter/sort/pagination and real summary counts.
+- Author/admin comments, task/comment private photos, actor names and activity. Photo requests use user JWTs, normalized JPEG and 60-second no-store signed URLs kept only in memory. Already issued URLs remain usable until expiration after revocation.
+- Same-household inventory links and related repairs in inventory details. Completion never changes inventory automatically. A separate explicit confirmation may mark a durable item Working; failure leaves the repair completed.
+- User/household-scoped cached pages/details/discussions and local drafts, original edit revisions, no automatic offline write synchronization, stale-response/scope rejection and no cache fallback on authorization errors.
+- Flutter task screens adapt the supplied Stitch exports: summary cards, request tiles, member initials, priority pills, information grid, section cards, discussion bubbles and fixed save controls. Shared theme/navigation are retained. Demo data, unavailable shopping and future notification promises are excluded. Exact pixel fidelity and device/text-scaling acceptance are not claimed.
+
+Important new files: backend/app/api/v1/tasks.py, backend/app/repositories/tasks.py,
+backend/app/schemas/task.py, backend/app/services/{tasks,task_photos}.py,
+backend/app/core/photo_body_limit.py, backend/tests/test_tasks{,_integration}.py,
+mobile/lib/features/tasks/ and mobile/test/tasks_test.dart. Router/runtime/provider,
+localization, inventory related repairs, Storage transport and deployment diagnostic
+integration were extended. README, architecture, security and milestones are updated.
+No M3 dependency upgrades were introduced.
+
+Security evidence: isolated tests cover typed input/actor rejection, revision conflicts,
+claim serialization, rollback, comment authorization, photo lifecycle and scoped client
+state. Nine new task SQL integration cases are skipped, including ordinary-member RLS,
+cross-household references, actual concurrent claims/edits, member removal, rollback
+and private Storage metadata. Actual PostgreSQL policy/concurrency behavior and real
+Storage bytes therefore remain unverified. The catalog diagnostic returned
+`connection_unavailable`; no production/database deployment changes were made.
+
+Next: configure the disposable test project and apply migrations there, run all 29
+guarded SQL cases, then exercise real users and photo transfer/expiry/cleanup in the
+configured app. Close M1 email/deep-link/session/multi-user household acceptance and
+M2 hosted inventory RLS/quantity/photo gates. Review Android picker/offline/switching
+and text scaling; iOS needs macOS/Xcode. Do not treat skipped tests or the debug APK
+as live acceptance. Retention cleanup remains operational work; no worker is shipped.
+
+M2 and M3 remain **Partially Implemented — hosted acceptance pending**.
+Milestone 4 is **Not Started** and is not ready for full acceptance handoff until
+these prerequisites pass. Shopping stays M4, chat/realtime M5 and FCM/product
+dashboard/activity M6; none was started automatically.
+
+Retain approved decisions: multiple households/account, email/password, member
+inventory/task writes, admin-only sensitive management, scoped cached reading/drafts
+without offline synchronization, English then Urdu, Android then iOS, hosted Supabase
+plus a separate FastAPI service.
 
 At resume, read this file and git status --short before editing. Preexisting untracked inventory backend/migrations and modified router/mobile dependency files were preserved. Git commit 4819101's message is not acceptance evidence; older reports contain historical results and do not override this file.

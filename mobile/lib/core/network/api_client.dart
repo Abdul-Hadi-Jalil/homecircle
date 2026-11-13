@@ -59,7 +59,7 @@ class ApiClient {
         return http.Response.fromStream(streamed);
       })().timeout(timeout);
       networkStatus.record(reachable: true);
-      if ({400, 409, 422, 429}.contains(response.statusCode)) {
+      if ({400, 409, 413, 422, 429}.contains(response.statusCode)) {
         try {
           final error = jsonDecode(response.body) as Map<String, dynamic>;
           final code = (error['error'] as Map<String, dynamic>?)?['code'];
@@ -77,7 +77,7 @@ class ApiClient {
           throw const ForbiddenException();
         case 404:
           throw const NotFoundException();
-        case 400 || 409 || 422:
+        case 400 || 409 || 413 || 422:
           throw const ValidationException();
       }
       if (response.statusCode < 200 || response.statusCode >= 300) {

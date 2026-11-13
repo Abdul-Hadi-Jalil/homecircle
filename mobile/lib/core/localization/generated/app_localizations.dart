@@ -94,6 +94,894 @@ abstract class AppLocalizations {
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[Locale('en')];
 
+  /// No description provided for @taskAny.
+  ///
+  /// In en, this message translates to:
+  /// **'Any'**
+  String get taskAny;
+
+  /// No description provided for @taskActivityCreated.
+  ///
+  /// In en, this message translates to:
+  /// **'Request created'**
+  String get taskActivityCreated;
+
+  /// No description provided for @taskActivityUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Request updated'**
+  String get taskActivityUpdated;
+
+  /// No description provided for @taskActivityAssigned.
+  ///
+  /// In en, this message translates to:
+  /// **'Assignment changed'**
+  String get taskActivityAssigned;
+
+  /// No description provided for @taskActivityClaimed.
+  ///
+  /// In en, this message translates to:
+  /// **'Ownership taken'**
+  String get taskActivityClaimed;
+
+  /// No description provided for @taskActivityUnassigned.
+  ///
+  /// In en, this message translates to:
+  /// **'Task unassigned'**
+  String get taskActivityUnassigned;
+
+  /// No description provided for @taskActivityPriority.
+  ///
+  /// In en, this message translates to:
+  /// **'Priority changed'**
+  String get taskActivityPriority;
+
+  /// No description provided for @taskActivityStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Status changed'**
+  String get taskActivityStatus;
+
+  /// No description provided for @taskActivityCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Request completed'**
+  String get taskActivityCompleted;
+
+  /// No description provided for @taskActivityCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Request cancelled'**
+  String get taskActivityCancelled;
+
+  /// No description provided for @taskActivityReopened.
+  ///
+  /// In en, this message translates to:
+  /// **'Request reopened'**
+  String get taskActivityReopened;
+
+  /// No description provided for @taskActivityArchived.
+  ///
+  /// In en, this message translates to:
+  /// **'Request archived'**
+  String get taskActivityArchived;
+
+  /// No description provided for @taskActivityRestored.
+  ///
+  /// In en, this message translates to:
+  /// **'Request restored'**
+  String get taskActivityRestored;
+
+  /// No description provided for @taskActivityCommentAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'Comment added'**
+  String get taskActivityCommentAdded;
+
+  /// No description provided for @taskActivityCommentEdited.
+  ///
+  /// In en, this message translates to:
+  /// **'Comment edited'**
+  String get taskActivityCommentEdited;
+
+  /// No description provided for @taskActivityCommentDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Comment deleted'**
+  String get taskActivityCommentDeleted;
+
+  /// No description provided for @taskActivityPhotoAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'Photo added'**
+  String get taskActivityPhotoAdded;
+
+  /// No description provided for @taskActivityPhotoRemoved.
+  ///
+  /// In en, this message translates to:
+  /// **'Photo removed'**
+  String get taskActivityPhotoRemoved;
+
+  /// No description provided for @taskCommentPhotoPartial.
+  ///
+  /// In en, this message translates to:
+  /// **'Your comment was posted, but its photo could not be uploaded. Add it to the comment from the discussion.'**
+  String get taskCommentPhotoPartial;
+
+  /// No description provided for @taskNoSavedView.
+  ///
+  /// In en, this message translates to:
+  /// **'This view has not been saved on this device. Reconnect to load it.'**
+  String get taskNoSavedView;
+
+  /// No description provided for @taskScreenTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tasks & Requests'**
+  String get taskScreenTitle;
+
+  /// No description provided for @taskScreenSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep your family on track.'**
+  String get taskScreenSubtitle;
+
+  /// No description provided for @taskCreateRequest.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Request'**
+  String get taskCreateRequest;
+
+  /// No description provided for @taskEditRequest.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Request'**
+  String get taskEditRequest;
+
+  /// No description provided for @taskDetailsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Task details'**
+  String get taskDetailsTitle;
+
+  /// No description provided for @taskRepair.
+  ///
+  /// In en, this message translates to:
+  /// **'Repair'**
+  String get taskRepair;
+
+  /// No description provided for @taskChore.
+  ///
+  /// In en, this message translates to:
+  /// **'Chore'**
+  String get taskChore;
+
+  /// No description provided for @taskGeneral.
+  ///
+  /// In en, this message translates to:
+  /// **'General'**
+  String get taskGeneral;
+
+  /// No description provided for @taskShoppingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Shopping · Coming soon'**
+  String get taskShoppingSoon;
+
+  /// No description provided for @taskAllTypes.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get taskAllTypes;
+
+  /// No description provided for @taskLow.
+  ///
+  /// In en, this message translates to:
+  /// **'Low'**
+  String get taskLow;
+
+  /// No description provided for @taskNormal.
+  ///
+  /// In en, this message translates to:
+  /// **'Normal'**
+  String get taskNormal;
+
+  /// No description provided for @taskHigh.
+  ///
+  /// In en, this message translates to:
+  /// **'High'**
+  String get taskHigh;
+
+  /// No description provided for @taskUrgent.
+  ///
+  /// In en, this message translates to:
+  /// **'Urgent'**
+  String get taskUrgent;
+
+  /// No description provided for @taskOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'Open'**
+  String get taskOpen;
+
+  /// No description provided for @taskInProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'In Progress'**
+  String get taskInProgress;
+
+  /// No description provided for @taskBlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Blocked'**
+  String get taskBlocked;
+
+  /// No description provided for @taskCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed'**
+  String get taskCompleted;
+
+  /// No description provided for @taskCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancelled'**
+  String get taskCancelled;
+
+  /// No description provided for @taskSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Search tasks'**
+  String get taskSearch;
+
+  /// No description provided for @taskFilters.
+  ///
+  /// In en, this message translates to:
+  /// **'Filters'**
+  String get taskFilters;
+
+  /// No description provided for @taskAllTasks.
+  ///
+  /// In en, this message translates to:
+  /// **'All Tasks'**
+  String get taskAllTasks;
+
+  /// No description provided for @taskAssignedToMe.
+  ///
+  /// In en, this message translates to:
+  /// **'Assigned to Me'**
+  String get taskAssignedToMe;
+
+  /// No description provided for @taskUnassigned.
+  ///
+  /// In en, this message translates to:
+  /// **'Unassigned'**
+  String get taskUnassigned;
+
+  /// No description provided for @taskPriority.
+  ///
+  /// In en, this message translates to:
+  /// **'Priority'**
+  String get taskPriority;
+
+  /// No description provided for @taskStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get taskStatus;
+
+  /// No description provided for @taskDueDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Due date'**
+  String get taskDueDate;
+
+  /// No description provided for @taskOverdue.
+  ///
+  /// In en, this message translates to:
+  /// **'Overdue'**
+  String get taskOverdue;
+
+  /// No description provided for @taskDueBefore.
+  ///
+  /// In en, this message translates to:
+  /// **'Due on or before'**
+  String get taskDueBefore;
+
+  /// No description provided for @taskDueAfter.
+  ///
+  /// In en, this message translates to:
+  /// **'Due on or after'**
+  String get taskDueAfter;
+
+  /// No description provided for @taskSort.
+  ///
+  /// In en, this message translates to:
+  /// **'Sort'**
+  String get taskSort;
+
+  /// No description provided for @taskSortPriority.
+  ///
+  /// In en, this message translates to:
+  /// **'Priority first'**
+  String get taskSortPriority;
+
+  /// No description provided for @taskSortUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Recently updated'**
+  String get taskSortUpdated;
+
+  /// No description provided for @taskSortDue.
+  ///
+  /// In en, this message translates to:
+  /// **'Due date'**
+  String get taskSortDue;
+
+  /// No description provided for @taskArchived.
+  ///
+  /// In en, this message translates to:
+  /// **'Archived'**
+  String get taskArchived;
+
+  /// No description provided for @taskApplyFilters.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply'**
+  String get taskApplyFilters;
+
+  /// No description provided for @taskClearFilters.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear filters'**
+  String get taskClearFilters;
+
+  /// No description provided for @taskTitleField.
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get taskTitleField;
+
+  /// No description provided for @taskDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get taskDescription;
+
+  /// No description provided for @taskLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Room / location'**
+  String get taskLocation;
+
+  /// No description provided for @taskType.
+  ///
+  /// In en, this message translates to:
+  /// **'Request type'**
+  String get taskType;
+
+  /// No description provided for @taskAssignee.
+  ///
+  /// In en, this message translates to:
+  /// **'Assign to'**
+  String get taskAssignee;
+
+  /// No description provided for @taskLinkedItem.
+  ///
+  /// In en, this message translates to:
+  /// **'Linked inventory item'**
+  String get taskLinkedItem;
+
+  /// No description provided for @taskChooseItem.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose inventory item'**
+  String get taskChooseItem;
+
+  /// No description provided for @taskSearchItems.
+  ///
+  /// In en, this message translates to:
+  /// **'Search inventory'**
+  String get taskSearchItems;
+
+  /// No description provided for @taskClearLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove link'**
+  String get taskClearLink;
+
+  /// No description provided for @taskNoItems.
+  ///
+  /// In en, this message translates to:
+  /// **'No matching inventory items.'**
+  String get taskNoItems;
+
+  /// No description provided for @taskNoDueDate.
+  ///
+  /// In en, this message translates to:
+  /// **'No due date'**
+  String get taskNoDueDate;
+
+  /// No description provided for @taskClearDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear date'**
+  String get taskClearDate;
+
+  /// No description provided for @taskSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save request'**
+  String get taskSave;
+
+  /// No description provided for @taskSaving.
+  ///
+  /// In en, this message translates to:
+  /// **'Saving…'**
+  String get taskSaving;
+
+  /// No description provided for @taskDiscardDraft.
+  ///
+  /// In en, this message translates to:
+  /// **'Discard draft'**
+  String get taskDiscardDraft;
+
+  /// No description provided for @taskDraftNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Changes are saved as a draft on this device. They are sent only when you save. Photos are not saved in drafts.'**
+  String get taskDraftNote;
+
+  /// No description provided for @taskDraftRestored.
+  ///
+  /// In en, this message translates to:
+  /// **'Your saved draft has been restored.'**
+  String get taskDraftRestored;
+
+  /// No description provided for @taskAddPhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Attach photo'**
+  String get taskAddPhoto;
+
+  /// No description provided for @taskRemovePhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove photo'**
+  String get taskRemovePhoto;
+
+  /// No description provided for @taskPhotoSelected.
+  ///
+  /// In en, this message translates to:
+  /// **'Photo selected'**
+  String get taskPhotoSelected;
+
+  /// No description provided for @taskUploading.
+  ///
+  /// In en, this message translates to:
+  /// **'Uploading photo…'**
+  String get taskUploading;
+
+  /// No description provided for @taskPhotoLimit.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a JPEG, PNG or WebP up to 5 MiB and 16 MP.'**
+  String get taskPhotoLimit;
+
+  /// No description provided for @taskPhotoPartial.
+  ///
+  /// In en, this message translates to:
+  /// **'The request was saved, but its photo could not be uploaded. Add the photo from task details.'**
+  String get taskPhotoPartial;
+
+  /// No description provided for @taskTitleRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a title.'**
+  String get taskTitleRequired;
+
+  /// No description provided for @taskCommentRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Write a comment.'**
+  String get taskCommentRequired;
+
+  /// No description provided for @taskInvalidDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a valid date.'**
+  String get taskInvalidDate;
+
+  /// No description provided for @taskCreate.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Task'**
+  String get taskCreate;
+
+  /// No description provided for @taskEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get taskEdit;
+
+  /// No description provided for @taskRefresh.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh'**
+  String get taskRefresh;
+
+  /// No description provided for @taskLoadMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Load more'**
+  String get taskLoadMore;
+
+  /// No description provided for @taskEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No tasks yet. Create a request to get started.'**
+  String get taskEmpty;
+
+  /// No description provided for @taskNoResults.
+  ///
+  /// In en, this message translates to:
+  /// **'No tasks match these filters.'**
+  String get taskNoResults;
+
+  /// No description provided for @taskCached.
+  ///
+  /// In en, this message translates to:
+  /// **'Showing saved tasks. Reconnect and refresh before making changes.'**
+  String get taskCached;
+
+  /// No description provided for @taskError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load or save the request. Check your connection and try again.'**
+  String get taskError;
+
+  /// No description provided for @taskNetworkError.
+  ///
+  /// In en, this message translates to:
+  /// **'You are offline. Saved requests and local drafts remain available.'**
+  String get taskNetworkError;
+
+  /// No description provided for @taskConflict.
+  ///
+  /// In en, this message translates to:
+  /// **'This request changed. Refresh to review the latest version before saving again.'**
+  String get taskConflict;
+
+  /// No description provided for @taskForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You no longer have access, or this action is restricted to its author or an administrator.'**
+  String get taskForbidden;
+
+  /// No description provided for @taskInvalidReference.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a current household member and an inventory item from this household.'**
+  String get taskInvalidReference;
+
+  /// No description provided for @taskAlreadyClaimed.
+  ///
+  /// In en, this message translates to:
+  /// **'Someone has already taken ownership. Refresh to see the assignee.'**
+  String get taskAlreadyClaimed;
+
+  /// No description provided for @taskReopenRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Reopen this request explicitly before changing its status.'**
+  String get taskReopenRequired;
+
+  /// No description provided for @taskNotAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This request is no longer available.'**
+  String get taskNotAvailable;
+
+  /// No description provided for @taskTakeOwnership.
+  ///
+  /// In en, this message translates to:
+  /// **'Take Ownership'**
+  String get taskTakeOwnership;
+
+  /// No description provided for @taskChangePriority.
+  ///
+  /// In en, this message translates to:
+  /// **'Change Priority'**
+  String get taskChangePriority;
+
+  /// No description provided for @taskChangeStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Change Status'**
+  String get taskChangeStatus;
+
+  /// No description provided for @taskComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark Completed'**
+  String get taskComplete;
+
+  /// No description provided for @taskReopen.
+  ///
+  /// In en, this message translates to:
+  /// **'Reopen'**
+  String get taskReopen;
+
+  /// No description provided for @taskCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel Request'**
+  String get taskCancel;
+
+  /// No description provided for @taskArchive.
+  ///
+  /// In en, this message translates to:
+  /// **'Archive'**
+  String get taskArchive;
+
+  /// No description provided for @taskRestore.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore'**
+  String get taskRestore;
+
+  /// No description provided for @taskArchiveQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Archive this request?'**
+  String get taskArchiveQuestion;
+
+  /// No description provided for @taskArchiveHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'It will remain available under the Archived filter.'**
+  String get taskArchiveHelp;
+
+  /// No description provided for @taskRestoreQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore this request?'**
+  String get taskRestoreQuestion;
+
+  /// No description provided for @taskConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get taskConfirm;
+
+  /// No description provided for @taskDismiss.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get taskDismiss;
+
+  /// No description provided for @taskKeepCondition.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep Current Condition'**
+  String get taskKeepCondition;
+
+  /// No description provided for @taskMarkWorking.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark as Working'**
+  String get taskMarkWorking;
+
+  /// No description provided for @taskConditionQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Would you also like to update this item\'s condition?'**
+  String get taskConditionQuestion;
+
+  /// No description provided for @taskConditionHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'The repair is completed. Updating the linked inventory item is a separate action.'**
+  String get taskConditionHelp;
+
+  /// No description provided for @taskConditionFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'The repair remains completed. The inventory condition update failed; refresh the item and try again from inventory.'**
+  String get taskConditionFailed;
+
+  /// No description provided for @taskCompletionNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Completion note (optional)'**
+  String get taskCompletionNote;
+
+  /// No description provided for @taskCompletionHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Completion note'**
+  String get taskCompletionHistory;
+
+  /// No description provided for @taskComments.
+  ///
+  /// In en, this message translates to:
+  /// **'Discussion'**
+  String get taskComments;
+
+  /// No description provided for @taskAddComment.
+  ///
+  /// In en, this message translates to:
+  /// **'Write a comment…'**
+  String get taskAddComment;
+
+  /// No description provided for @taskSendComment.
+  ///
+  /// In en, this message translates to:
+  /// **'Send'**
+  String get taskSendComment;
+
+  /// No description provided for @taskEditComment.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit comment'**
+  String get taskEditComment;
+
+  /// No description provided for @taskDeleteComment.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete comment'**
+  String get taskDeleteComment;
+
+  /// No description provided for @taskDeleteCommentQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this comment?'**
+  String get taskDeleteCommentQuestion;
+
+  /// No description provided for @taskNoComments.
+  ///
+  /// In en, this message translates to:
+  /// **'No comments yet.'**
+  String get taskNoComments;
+
+  /// No description provided for @taskActivity.
+  ///
+  /// In en, this message translates to:
+  /// **'Activity'**
+  String get taskActivity;
+
+  /// No description provided for @taskNoActivity.
+  ///
+  /// In en, this message translates to:
+  /// **'No activity available.'**
+  String get taskNoActivity;
+
+  /// No description provided for @taskAttachments.
+  ///
+  /// In en, this message translates to:
+  /// **'Photos'**
+  String get taskAttachments;
+
+  /// No description provided for @taskNoAttachments.
+  ///
+  /// In en, this message translates to:
+  /// **'No photos attached.'**
+  String get taskNoAttachments;
+
+  /// No description provided for @taskViewPhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'View photo'**
+  String get taskViewPhoto;
+
+  /// No description provided for @taskRefreshPhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh photo'**
+  String get taskRefreshPhoto;
+
+  /// No description provided for @taskPhotoError.
+  ///
+  /// In en, this message translates to:
+  /// **'Photo unavailable. Refresh for a new authorized link.'**
+  String get taskPhotoError;
+
+  /// No description provided for @taskRemovePhotoQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove this photo?'**
+  String get taskRemovePhotoQuestion;
+
+  /// No description provided for @taskFormerMember.
+  ///
+  /// In en, this message translates to:
+  /// **'Former household member'**
+  String get taskFormerMember;
+
+  /// No description provided for @taskSystem.
+  ///
+  /// In en, this message translates to:
+  /// **'System'**
+  String get taskSystem;
+
+  /// No description provided for @taskCreatedBy.
+  ///
+  /// In en, this message translates to:
+  /// **'Created by'**
+  String get taskCreatedBy;
+
+  /// No description provided for @taskAssignedTo.
+  ///
+  /// In en, this message translates to:
+  /// **'Assigned to'**
+  String get taskAssignedTo;
+
+  /// No description provided for @taskUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Updated'**
+  String get taskUpdated;
+
+  /// No description provided for @taskRelatedRepairs.
+  ///
+  /// In en, this message translates to:
+  /// **'Related repair requests'**
+  String get taskRelatedRepairs;
+
+  /// No description provided for @taskReportRepair.
+  ///
+  /// In en, this message translates to:
+  /// **'Report a repair'**
+  String get taskReportRepair;
+
+  /// No description provided for @taskAllRelated.
+  ///
+  /// In en, this message translates to:
+  /// **'View all related repairs'**
+  String get taskAllRelated;
+
+  /// No description provided for @taskNoRelated.
+  ///
+  /// In en, this message translates to:
+  /// **'No related repairs.'**
+  String get taskNoRelated;
+
+  /// No description provided for @taskReassign.
+  ///
+  /// In en, this message translates to:
+  /// **'Assign / Reassign'**
+  String get taskReassign;
+
+  /// No description provided for @taskUnassign.
+  ///
+  /// In en, this message translates to:
+  /// **'Unassign'**
+  String get taskUnassign;
+
+  /// No description provided for @taskReopenedHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Reopening keeps previous completion events in Activity.'**
+  String get taskReopenedHelp;
+
+  /// No description provided for @taskCommentPhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Add photo to comment'**
+  String get taskCommentPhoto;
+
+  /// No description provided for @taskSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Request saved.'**
+  String get taskSaved;
+
+  /// No description provided for @taskDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get taskDone;
+
   /// No description provided for @appName.
   ///
   /// In en, this message translates to:

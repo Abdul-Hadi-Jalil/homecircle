@@ -14,6 +14,9 @@ import '../../features/household/viewmodels/session_view_model.dart';
 import '../../features/inventory/services/inventory_api.dart';
 import '../../features/inventory/repositories/inventory_repository.dart';
 import '../../features/inventory/viewmodels/inventory_view_model.dart';
+import '../../features/tasks/services/task_api_service.dart';
+import '../../features/tasks/repositories/task_repository.dart';
+import '../../features/tasks/viewmodels/tasks_view_model.dart';
 import '../network/api_client.dart';
 import '../network/network_status.dart';
 import '../storage/local_store.dart';
@@ -40,6 +43,11 @@ class AppRuntime {
   late final InventoryViewModel inventory = InventoryViewModel(
     InventoryRepository(InventoryApi(households.service.api), store),
     session,
+  );
+  late final TasksViewModel tasks = TasksViewModel(
+    TaskRepository(TaskApiService(households.service.api), store),
+    session,
+    inventory,
   );
 
   static Future<AppRuntime> initialize(AppConfig config) async {
@@ -91,6 +99,7 @@ class AppRuntime {
   }
 
   void dispose() {
+    tasks.dispose();
     inventory.dispose();
     session.dispose();
     diagnostics.dispose();

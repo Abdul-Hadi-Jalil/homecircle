@@ -8,6 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.api.router import router
 from app.core.config import Settings, get_settings
 from app.core.exceptions import install_error_handlers
+from app.core.photo_body_limit import PhotoBodyLimit
 from app.core.security import TokenVerifier
 from app.db.pool import create_pool, verify_database_role
 
@@ -45,6 +46,7 @@ def create_app(settings: Settings | None = None, *, pool_factory=create_pool) ->
         allow_headers=["Authorization", "Content-Type"],
     )
     install_error_handlers(app)
+    app.add_middleware(PhotoBodyLimit)
     app.include_router(router)
 
     @app.get("/health", tags=["health"])

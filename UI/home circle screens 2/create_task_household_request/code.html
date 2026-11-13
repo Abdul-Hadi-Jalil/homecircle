@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-secondary-fixed": "#002113", "secondary-container": "#7ff6bf", "tertiary-fixed-dim": "#ffb956", "surface-container-lowest": "#ffffff", "on-tertiary-fixed": "#2a1800", "on-primary": "#ffffff", "surface-container": "#e8edff", "on-tertiary-fixed-variant": "#633f00", "error": "#ba1a1a", "on-primary-container": "#f5f3ff", "primary": "#2248d1", "secondary-fixed-dim": "#64dca6", "surface-tint": "#2c50d9", "surface-container-highest": "#dbe2f8", "tertiary-fixed": "#ffddb5", "primary-fixed": "#dde1ff", "tertiary-container": "#9a6400", "inverse-on-surface": "#edf0ff", "tertiary": "#794e00", "on-secondary-container": "#00714d", "on-tertiary": "#ffffff", "on-surface": "#131c2b", "inverse-surface": "#283041", "secondary-fixed": "#82f9c1", "on-error-container": "#93000a", "on-surface-variant": "#444654", "on-error": "#ffffff", "background": "#f9f9ff", "secondary": "#006c49", "error-container": "#ffdad6", "outline": "#747686", "on-secondary-fixed-variant": "#005236", "surface-bright": "#f9f9ff", "surface-container-high": "#e0e8fe", "surface-variant": "#dbe2f8", "inverse-primary": "#b9c3ff", "surface-dim": "#d2daf0", "surface-container-low": "#f1f3ff", "on-secondary": "#ffffff", "outline-variant": "#c4c5d7", "on-tertiary-container": "#fff2e6", "on-primary-fixed-variant": "#0035be", "on-background": "#131c2b", "primary-fixed-dim": "#b9c3ff", "primary-container": "#4263eb", "on-primary-fixed": "#001356", "surface": "#f9f9ff" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-lg": "1.25rem", "gutter": "1rem", "margin-tablet": "1.5rem", "space-xl": "1.5rem", "space-sm": "0.5rem", "margin": "1rem", "space-2xl": "2rem", "space-md": "1rem", "space-xs": "0.25rem" }, fontFamily: { "display-lg": ["Inter"], "body-md": ["Inter"], "body-lg": ["Inter"], "headline-md": ["Inter"], "title-md": ["Inter"], "body-sm": ["Inter"], "label-lg": ["Inter"], "label-sm": ["Inter"], "headline-sm": ["Inter"], "headline-lg": ["Inter"], "label-md": ["Inter"] }, fontSize: { "display-lg": ["32px", { lineHeight: "40px", letterSpacing: "-0.02em", fontWeight: "700" }], "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }], "body-lg": ["16px", { lineHeight: "24px", fontWeight: "400" }], "headline-md": ["20px", { lineHeight: "28px", letterSpacing: "-0.01em", fontWeight: "600" }], "title-md": ["16px", { lineHeight: "22px", fontWeight: "600" }], "body-sm": ["13px", { lineHeight: "18px", fontWeight: "400" }], "label-lg": ["14px", { lineHeight: "20px", fontWeight: "600" }], "label-sm": ["11px", { lineHeight: "14px", letterSpacing: "0.04em", fontWeight: "700" }], "headline-sm": ["18px", { lineHeight: "24px", fontWeight: "600" }], "headline-lg": ["26px", { lineHeight: "34px", letterSpacing: "-0.015em", fontWeight: "700" }], "label-md": ["12px", { lineHeight: "16px", letterSpacing: "0.02em", fontWeight: "600" }] } } } };</script><style>@layer base { html, body { min-height: 100%; margin: 0; padding: 0; background-color: #f9f9ff; } body { overscroll-behavior-y: none; -webkit-tap-highlight-color: transparent; } .pb-safe { padding-bottom: env(safe-area-inset-bottom, 0px); } .pt-safe { padding-top: env(safe-area-inset-top, 0px); } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-on-surface min-h-screen flex flex-col antialiased selection:bg-primary-fixed selection:text-on-primary-fixed"><header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl pt-safe shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center min-w-[48px]"><button aria-label="Go back" class="min-w-[48px] min-h-[48px] -ml-2 rounded-full flex items-center justify-center text-on-surface hover:bg-surface-container active:bg-surface-container-high transition-colors" onclick="history.back()"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button></div><div class="flex-1 text-center truncate px-space-xs"><h1 class="font-headline-sm text-headline-sm text-on-surface tracking-tight truncate">Create Task Household Request</h1></div><div class="flex items-center justify-end min-w-[48px] gap-space-xs"><button aria-label="More actions" class="min-w-[48px] min-h-[48px] rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container active:bg-surface-container-high transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">more_vert</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center ml-1 shadow-[0_2px_8px_-1px_rgba(34,72,209,0.25)]"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-safe bg-surface px-margin"><div class="flex flex-col w-full pb-24">
+<!-- Friendly intro / context banner -->
+<div class="mb-space-md bg-surface-container-low rounded-xl p-space-md shadow-sm">
+<div class="flex items-center gap-space-sm mb-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px]">home_pin</span>
+<span class="font-label-md text-label-md text-primary tracking-wide uppercase">Our Family Home</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+      Let your family know what needs to be done. We'll alert the right household member right away!
+    </p>
+</div>
+<!-- Step 1: Request Type Grid (2x2) -->
+<div class="mb-space-lg">
+<div class="flex items-center justify-between mb-space-sm">
+<label class="font-title-md text-title-md text-on-surface">1. What kind of request?</label>
+<span class="font-label-sm text-label-sm text-primary uppercase bg-primary-fixed/50 px-2.5 py-0.5 rounded-full">Required</span>
+</div>
+<div class="grid grid-cols-2 gap-space-sm" id="type-selector-grid">
+<!-- Shopping -->
+<button class="type-btn text-left p-space-md rounded-xl bg-surface-container-lowest shadow-sm transition-all duration-200 active:scale-[0.98] flex flex-col justify-between h-28 group" onclick="selectType(this, 'shopping')" type="button">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-on-surface-variant group-hover:bg-primary-fixed">
+<span class="material-symbols-outlined text-[22px]">shopping_cart</span>
+</div>
+<div>
+<div class="font-title-md text-title-md text-on-surface leading-tight">Shopping</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant leading-tight mt-0.5">Need to buy</div>
+</div>
+</button>
+<!-- Repair (Selected Default) -->
+<button class="type-btn text-left p-space-md rounded-xl bg-surface-container shadow-sm transition-all duration-200 active:scale-[0.98] flex flex-col justify-between h-28 relative shadow-[0_0_0_2px_#4263eb]" onclick="selectType(this, 'repair')" type="button">
+<div class="flex justify-between items-start w-full">
+<div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-[22px]" style="font-variation-settings: 'FILL' 1;">build</span>
+</div>
+<span class="material-symbols-outlined text-primary text-[20px]">check_circle</span>
+</div>
+<div>
+<div class="font-title-md text-title-md text-primary leading-tight">Repair</div>
+<div class="font-body-sm text-body-sm text-primary leading-tight mt-0.5 font-medium">Needs fixing</div>
+</div>
+</button>
+<!-- Chore -->
+<button class="type-btn text-left p-space-md rounded-xl bg-surface-container-lowest shadow-sm transition-all duration-200 active:scale-[0.98] flex flex-col justify-between h-28 group" onclick="selectType(this, 'chore')" type="button">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-on-surface-variant group-hover:bg-primary-fixed">
+<span class="material-symbols-outlined text-[22px]">checklist</span>
+</div>
+<div>
+<div class="font-title-md text-title-md text-on-surface leading-tight">Chore</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant leading-tight mt-0.5">Routine tasks</div>
+</div>
+</button>
+<!-- General -->
+<button class="type-btn text-left p-space-md rounded-xl bg-surface-container-lowest shadow-sm transition-all duration-200 active:scale-[0.98] flex flex-col justify-between h-28 group" onclick="selectType(this, 'general')" type="button">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-on-surface-variant group-hover:bg-primary-fixed">
+<span class="material-symbols-outlined text-[22px]">forum</span>
+</div>
+<div>
+<div class="font-title-md text-title-md text-on-surface leading-tight">General</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant leading-tight mt-0.5">Other family note</div>
+</div>
+</button>
+</div>
+</div>
+<!-- Step 2: Request Title & Description -->
+<div class="mb-space-lg bg-surface-container-lowest p-space-md rounded-xl shadow-sm space-y-space-md">
+<div>
+<div class="flex items-center justify-between mb-space-xs">
+<label class="font-title-md text-title-md text-on-surface" for="request-title">
+          What needs to be done? <span class="text-error">*</span>
+</label>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Tap to edit</span>
+</div>
+<div class="relative flex items-center">
+<input class="w-full h-[50px] bg-surface-container-low rounded-xl px-space-md font-body-lg text-body-lg text-on-surface outline-none focus:bg-surface-container transition-all pr-10" id="request-title" placeholder="e.g. Bathroom tap leaking" type="text" value="Bathroom tap leaking"/>
+<button aria-label="Clear title" class="absolute right-3 text-on-surface-variant hover:text-on-surface" type="button">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+</div>
+<div>
+<label class="font-title-md text-title-md text-on-surface block mb-space-xs" for="request-desc">
+        Description &amp; Context
+      </label>
+<textarea class="w-full bg-surface-container-low rounded-xl p-space-md font-body-md text-body-md text-on-surface outline-none focus:bg-surface-container transition-all resize-none leading-relaxed" id="request-desc" placeholder="Add details (e.g. The master bathroom faucet is dripping continuously since yesterday)..." rows="3">The master bathroom faucet is dripping continuously since yesterday. Water pressure seems slightly off, might need washer replaced.</textarea>
+</div>
+</div>
+<!-- Step 3: Conditional Repair Section -->
+<div class="mb-space-lg bg-surface-container-low p-space-md rounded-xl shadow-sm space-y-space-md" id="repair-specific-fields">
+<div class="flex items-center gap-space-xs text-primary">
+<span class="material-symbols-outlined text-[20px]">precision_manufacturing</span>
+<h3 class="font-title-md text-title-md text-on-surface">Repair Diagnostics</h3>
+<span class="ml-auto font-label-sm text-label-sm bg-surface-container-highest px-2 py-0.5 rounded-full text-on-surface-variant">Repair Active</span>
+</div>
+<!-- Affected Item / Room Picker -->
+<div>
+<label class="font-label-md text-label-md text-on-surface block mb-space-xs">Affected Item / Room</label>
+<div class="flex items-center justify-between bg-surface-container-lowest p-space-md rounded-xl shadow-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-primary flex-shrink-0">
+<span class="material-symbols-outlined text-[20px]">bathtub</span>
+</div>
+<div class="truncate">
+<p class="font-title-md text-title-md text-on-surface truncate">Main Bathroom</p>
+<p class="font-body-sm text-body-sm text-secondary flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">link</span>
+              Inventory link: Bathroom Sink
+            </p>
+</div>
+</div>
+<button class="text-primary font-label-md text-label-md px-space-xs py-1 hover:bg-surface-container rounded-lg transition-colors flex-shrink-0" type="button">
+          Change
+        </button>
+</div>
+</div>
+<!-- Photo Attachment -->
+<div>
+<div class="flex justify-between items-center mb-space-xs">
+<label class="font-label-md text-label-md text-on-surface">Photo Evidence</label>
+<span class="font-body-sm text-body-sm text-on-surface-variant">1 of 3 uploaded</span>
+</div>
+<div class="grid grid-cols-2 gap-space-sm">
+<!-- Uploaded Photo Thumbnail -->
+<div class="relative h-28 rounded-xl overflow-hidden shadow-sm group">
+<img alt="Dripping faucet preview" class="w-full h-full object-cover" data-alt="Close up photograph of a modern sleek chrome bathroom sink faucet dripping water droplets into a clean white ceramic basin. Soft indoor morning window lighting, slight reflections on polished metal fixtures." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAR3DWyZVohPEKqeMM62vT9EuoxKpQqK8APf8GiTj-QNbAKzImomL9JIeJuvm8beKTUIAte4kkRyf7Q7iQWdnHYMdKoogNuwtV55aJrLxwmt_D3VMtK_LEps4_aWlpH35AhWxYOvB00XYeqId6UJUe3eYXA85X8JUL7C3hqLXvK8RLYaFEqA1jJNA9BrOVANFezFqKMdqn6dnQfIuzsI-eseKhvvjY2SBmftEaU4Df-Ant_bCQ96wqo"/>
+<div class="absolute inset-0 bg-on-surface/20"></div>
+<!-- Edit/Remove Floating Badge -->
+<div class="absolute top-2 right-2 flex gap-1">
+<button aria-label="Remove photo" class="w-7 h-7 rounded-full bg-surface-container-lowest/90 backdrop-blur-md text-error flex items-center justify-center shadow-sm hover:scale-105 active:scale-95 transition-transform" type="button">
+<span class="material-symbols-outlined text-[16px]">delete</span>
+</button>
+</div>
+<div class="absolute bottom-2 left-2 right-2 bg-on-surface/70 backdrop-blur-sm px-2 py-0.5 rounded text-surface-bright flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-secondary-fixed">check</span>
+<span class="font-label-sm text-label-sm truncate text-on-primary">faucet_leak.jpg</span>
+</div>
+</div>
+<!-- Add Another Photo Button -->
+<button class="h-28 rounded-xl bg-surface-container-lowest flex flex-col items-center justify-center gap-1 hover:bg-surface-container transition-colors shadow-sm active:scale-[0.98]" type="button">
+<div class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">add_a_photo</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Add photo</span>
+<span class="font-label-sm text-label-sm text-outline">Max 10MB</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Step 4: Priority Selector -->
+<div class="mb-space-lg bg-surface-container-lowest p-space-md rounded-xl shadow-sm">
+<div class="flex items-center justify-between mb-space-sm">
+<label class="font-title-md text-title-md text-on-surface">Priority Level</label>
+<span class="font-body-sm text-body-sm text-error font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">priority_high</span> Needs fast attention
+      </span>
+</div>
+<div class="grid grid-cols-4 gap-2" id="priority-pill-group">
+<!-- Low -->
+<button class="priority-chip h-11 rounded-xl bg-surface-container-low text-on-surface-variant flex items-center justify-center gap-1 font-label-md text-label-md transition-all active:scale-95" onclick="setPriority(this, 'low')" type="button">
+<span class="w-2 h-2 rounded-full bg-outline"></span>
+        Low
+      </button>
+<!-- Normal -->
+<button class="priority-chip h-11 rounded-xl bg-surface-container-low text-on-surface-variant flex items-center justify-center gap-1 font-label-md text-label-md transition-all active:scale-95" onclick="setPriority(this, 'normal')" type="button">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+        Normal
+      </button>
+<!-- High -->
+<button class="priority-chip h-11 rounded-xl bg-surface-container-low text-on-surface-variant flex items-center justify-center gap-1 font-label-md text-label-md transition-all active:scale-95" onclick="setPriority(this, 'high')" type="button">
+<span class="w-2 h-2 rounded-full bg-tertiary-fixed-dim"></span>
+        High
+      </button>
+<!-- Urgent (Selected) -->
+<button class="priority-chip h-11 rounded-xl bg-error-container text-on-error-container shadow-[0_0_0_2px_#ba1a1a] flex items-center justify-center gap-1 font-label-md text-label-md font-bold transition-all active:scale-95" onclick="setPriority(this, 'urgent')" type="button">
+<span class="material-symbols-outlined text-[16px] text-error" style="font-variation-settings: 'FILL' 1;">bolt</span>
+        Urgent
+      </button>
+</div>
+</div>
+<!-- Step 5: Assign To Family Member -->
+<div class="mb-space-lg bg-surface-container-lowest p-space-md rounded-xl shadow-sm">
+<div class="flex items-center justify-between mb-space-sm">
+<div>
+<label class="font-title-md text-title-md text-on-surface">Assign Responsibility</label>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Who will handle this fix?</p>
+</div>
+<span class="font-label-sm text-label-sm text-primary font-medium">1 Selected</span>
+</div>
+<!-- Horizontal scroll member row -->
+<div class="flex items-center gap-3 overflow-x-auto pb-1 pt-1 scrollbar-none" id="assignee-row">
+<!-- Unassigned -->
+<button class="member-chip flex flex-col items-center flex-shrink-0 group focus:outline-none" onclick="selectMember(this)" type="button">
+<div class="w-13 h-13 w-[52px] h-[52px] rounded-full bg-surface-container-low flex items-center justify-center text-outline group-hover:bg-surface-container transition-colors relative mb-1">
+<span class="material-symbols-outlined text-[24px]">group_off</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Anyone</span>
+</button>
+<!-- Arham -->
+<button class="member-chip flex flex-col items-center flex-shrink-0 group focus:outline-none" onclick="selectMember(this)" type="button">
+<div class="w-[52px] h-[52px] rounded-full overflow-hidden bg-surface-container-low relative mb-1">
+<img alt="Arham" class="w-full h-full object-cover" data-alt="Headshot avatar of a young teenage boy Arham with smiling expression, warm indoor ambient light, crisp casual t-shirt." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAz-kvB_CF9K2aZAKO1EuDGClFUQkD-AjJTQsj2vSMmCHf4Vg713KNVqQ6MISbH9ifYPaDu79-7ZgWGDuYADYUonoYMy-x1ipZE1cIy1vY3PABNejTjH89pANXbrEtHGzA3E6gKJwNq1-DiArUCbd-KxUmcULo3AniUAJSs7dEukZ0c4fVjX_onp-WwEzCVDgU85ISnw39n0a2CmqwiaTwkm2kynRqjjiTKDeV0oRnjkn63omAvK-pR"/>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Arham</span>
+</button>
+<!-- Father (Selected) -->
+<button class="member-chip flex flex-col items-center flex-shrink-0 group focus:outline-none" onclick="selectMember(this)" type="button">
+<div class="w-[52px] h-[52px] rounded-full overflow-hidden bg-primary-fixed relative mb-1 shadow-[0_0_0_3px_#2248d1]">
+<img alt="Father" class="w-full h-full object-cover" data-alt="Warm friendly middle aged father avatar, gentle smile, wearing blue sweater, bright home office background, clean portrait." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmLseXGnXc7o4yulmd1vSCHXEw88SU2UWuZq46-YOqBlS5hi5ONBiXKWQ_HNNl5OQGqhID0i03cwaR_fOCoKDKRyj8WjyZa9JZG7P-eY8iqbem0N43BNHG-Z8VRvCDLFz1y140z-Gn5oSiGUo33J6Q37jdJvb4RME9xytabn-r-wJHBxQ4PHzLvNeZUUuryeQcK8DCLAileAj-6ck41LE1bth7Ul3tl9NgN136EN1TEyuAQyPiSHBj"/>
+<div class="absolute inset-0 bg-primary/20 flex items-center justify-center">
+<div class="w-5 h-5 rounded-full bg-primary text-on-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px]">check</span>
+</div>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-primary font-bold">Father</span>
+</button>
+<!-- Mother -->
+<button class="member-chip flex flex-col items-center flex-shrink-0 group focus:outline-none" onclick="selectMember(this)" type="button">
+<div class="w-[52px] h-[52px] rounded-full overflow-hidden bg-surface-container-low relative mb-1">
+<img alt="Mother" class="w-full h-full object-cover" data-alt="Friendly mother avatar smiling warmly at camera, styled hair, soft kitchen natural lighting in the background, elegant portrait." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNIlQg1_J2ZWGqltWcLM_6foIRrPlsDoUrtoMH6ksiSHoVk4UBFRjFqh_i4fLDCw6qkeeWIrZocyqRbzd1SNQTmjD8V1lT08fjqGdDrXpMDzDp4nVh8EQssDAVYnJLiY9NctHclWABQMYiLFD_h6D44TGeRqV041doijNnDQEhkleK56UmCUAfv8mRFbm7g7_3EsY-E9DyrEFaVCaZ4Mo08bKaxfX6NMH4L1DFD7Ptng2S8oiBNap7"/>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Mother</span>
+</button>
+<!-- Ali -->
+<button class="member-chip flex flex-col items-center flex-shrink-0 group focus:outline-none" onclick="selectMember(this)" type="button">
+<div class="w-[52px] h-[52px] rounded-full overflow-hidden bg-surface-container-low relative mb-1">
+<img alt="Ali" class="w-full h-full object-cover" data-alt="Portrait avatar of a 10 year old boy Ali with joyful laughing expression, casual colorful hoodie, bright modern room." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAshcht8FtR_cNPt0k9QXtXxWKams8d_tnoSRX2E5TeqMwKDTCBMtzwrT61LzFzpvYVSgE1fXYk-J41Bcb0LfCzMsXLxz-QlqQWjyosmRQDdGGLw4ZrvbRtk5vQpXrLITvu1AhUULq4NfU7Q4AK_71f3l5do_drKp2Ocv90BhTL06DQKgPZfisVKdqRK24Q69lFSclDG8Jk3c8bF1pdtEAG1ea-xhWtQOElJhAFNmBOw3BYRjhlwEA0"/>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Ali</span>
+</button>
+<!-- Sarah -->
+<button class="member-chip flex flex-col items-center flex-shrink-0 group focus:outline-none" onclick="selectMember(this)" type="button">
+<div class="w-[52px] h-[52px] rounded-full overflow-hidden bg-surface-container-low relative mb-1">
+<img alt="Sarah" class="w-full h-full object-cover" data-alt="Portrait avatar of a teenage daughter Sarah with glasses smiling brightly, artistic cozy bedroom backdrop, warm cheerful tone." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmStqngGgqDtGcYydchgyXmnPRZK3krhCO-irWffI1LQY01Ae1qtmUDfb5NjGSIuDaetQ1nHI61Z7F2FYZOrI9DoePxxaY5w4HFAWw8WyhDf4pwZtMi_0Dzxjy06G5xSD1Z7aLBMTInOVmbKE465e_34wvsUNSg5wGqftJ-9C67QQi46u7l2ViwJhs0CGlByiPFU9DOVrntUIQMeIJe8XEF2PBlOaT5fgFWmbyV3vNwGzlA-dwEkCM"/>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Sarah</span>
+</button>
+</div>
+</div>
+<!-- Step 6: Due Date & Reminder -->
+<div class="mb-space-lg bg-surface-container-lowest p-space-md rounded-xl shadow-sm space-y-space-md">
+<div class="flex items-center justify-between">
+<label class="font-title-md text-title-md text-on-surface">Target Completion</label>
+<div class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-[18px]">alarm</span>
+<span class="font-label-sm text-label-sm">Push notification on</span>
+</div>
+</div>
+<!-- Active due date preview card -->
+<div class="flex items-center gap-space-sm bg-surface-container-low p-space-md rounded-xl">
+<div class="w-10 h-10 rounded-lg bg-primary text-on-primary flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[22px]">calendar_today</span>
+</div>
+<div class="min-w-0 flex-1">
+<p class="font-title-md text-title-md text-on-surface leading-tight">Today (Due by 6:00 PM)</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-tight mt-0.5">In about 4 hours • High urgency alert</p>
+</div>
+<button aria-label="Edit time" class="text-on-surface-variant hover:text-on-surface p-1" type="button">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+</div>
+<!-- Quick Pill Chips -->
+<div class="flex items-center gap-2 overflow-x-auto scrollbar-none pb-0.5">
+<button class="px-3.5 py-1.5 rounded-full bg-primary text-on-primary font-label-md text-label-md font-semibold shadow-sm flex-shrink-0" type="button">
+        Today
+      </button>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface-variant hover:bg-surface-container-high font-label-md text-label-md font-medium flex-shrink-0 transition-colors" type="button">
+        Tomorrow
+      </button>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface-variant hover:bg-surface-container-high font-label-md text-label-md font-medium flex-shrink-0 transition-colors" type="button">
+        This Weekend
+      </button>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface-variant hover:bg-surface-container-high font-label-md text-label-md font-medium flex-shrink-0 transition-colors flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-[16px]">edit_calendar</span>
+        Custom Date
+      </button>
+</div>
+</div>
+<!-- Step 7: Sticky / Persistent Bottom Actions -->
+<div class="fixed bottom-0 left-0 right-0 p-space-md bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_-4px_20px_rgba(28,36,52,0.06)] z-40">
+<div class="max-w-md mx-auto flex items-center gap-space-sm">
+<button class="h-12 px-space-md rounded-xl bg-surface-container hover:bg-surface-container-high active:bg-surface-container-highest text-on-surface-variant font-label-lg text-label-lg transition-colors flex-1" onclick="history.back()" type="button">
+        Cancel
+      </button>
+<button class="h-12 px-space-lg rounded-xl bg-primary hover:bg-primary-container active:bg-surface-tint text-on-primary font-label-lg text-label-lg font-bold shadow-md hover:shadow-lg transition-all flex-[2] flex items-center justify-center gap-2 active:scale-[0.99]" onclick="submitHouseholdRequest()" type="button">
+<span class="material-symbols-outlined text-[20px]">send</span>
+<span>Create Request</span>
+</button>
+</div>
+</div>
+</div>
+<script>
+  function selectType(button, typeName) {
+    const grid = document.getElementById('type-selector-grid');
+    const buttons = grid.querySelectorAll('.type-btn');
+    const repairFields = document.getElementById('repair-specific-fields');
+
+    buttons.forEach(btn => {
+      btn.className = "type-btn text-left p-space-md rounded-xl bg-surface-container-lowest shadow-sm transition-all duration-200 active:scale-[0.98] flex flex-col justify-between h-28 group";
+      const iconWrap = btn.querySelector('div:first-child');
+      if (iconWrap) {
+        iconWrap.className = "w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-on-surface-variant group-hover:bg-primary-fixed";
+      }
+      const title = btn.querySelector('.font-title-md');
+      if (title) title.className = "font-title-md text-title-md text-on-surface leading-tight";
+      const desc = btn.querySelector('.font-body-sm');
+      if (desc) desc.className = "font-body-sm text-body-sm text-on-surface-variant leading-tight mt-0.5";
+      
+      const badge = btn.querySelector('.material-symbols-outlined.text-primary');
+      if (badge && badge.textContent === 'check_circle') badge.remove();
+    });
+
+    button.className = "type-btn text-left p-space-md rounded-xl bg-surface-container shadow-sm transition-all duration-200 active:scale-[0.98] flex flex-col justify-between h-28 relative shadow-[0_0_0_2px_#4263eb]";
+    const activeIcon = button.querySelector('div:first-child');
+    if (activeIcon) {
+      activeIcon.className = "w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center text-on-primary";
+    }
+    const activeTitle = button.querySelector('.font-title-md');
+    if (activeTitle) activeTitle.className = "font-title-md text-title-md text-primary leading-tight";
+    const activeDesc = button.querySelector('.font-body-sm');
+    if (activeDesc) activeDesc.className = "font-body-sm text-body-sm text-primary leading-tight mt-0.5 font-medium";
+
+    if (repairFields) {
+      if (typeName === 'repair') {
+        repairFields.classList.remove('hidden');
+      } else {
+        repairFields.classList.add('hidden');
+      }
+    }
+  }
+
+  function setPriority(button, level) {
+    const group = document.getElementById('priority-pill-group');
+    const buttons = group.querySelectorAll('.priority-chip');
+
+    buttons.forEach(b => {
+      b.className = "priority-chip h-11 rounded-xl bg-surface-container-low text-on-surface-variant flex items-center justify-center gap-1 font-label-md text-label-md transition-all active:scale-95";
+    });
+
+    if (level === 'urgent') {
+      button.className = "priority-chip h-11 rounded-xl bg-error-container text-on-error-container shadow-[0_0_0_2px_#ba1a1a] flex items-center justify-center gap-1 font-label-md text-label-md font-bold transition-all active:scale-95";
+    } else if (level === 'high') {
+      button.className = "priority-chip h-11 rounded-xl bg-tertiary-fixed text-on-tertiary-fixed shadow-[0_0_0_2px_#9a6400] flex items-center justify-center gap-1 font-label-md text-label-md font-bold transition-all active:scale-95";
+    } else if (level === 'normal') {
+      button.className = "priority-chip h-11 rounded-xl bg-primary-fixed text-on-primary-fixed shadow-[0_0_0_2px_#2248d1] flex items-center justify-center gap-1 font-label-md text-label-md font-bold transition-all active:scale-95";
+    } else {
+      button.className = "priority-chip h-11 rounded-xl bg-surface-container-highest text-on-surface shadow-[0_0_0_2px_#747686] flex items-center justify-center gap-1 font-label-md text-label-md font-bold transition-all active:scale-95";
+    }
+  }
+
+  function selectMember(button) {
+    const row = document.getElementById('assignee-row');
+    const chips = row.querySelectorAll('.member-chip');
+
+    chips.forEach(c => {
+      const imgContainer = c.querySelector('div:first-child');
+      if (imgContainer) {
+        imgContainer.className = imgContainer.className.replace(/shadow-\[0_0_0_3px_#2248d1\]/g, '').replace('bg-primary-fixed', 'bg-surface-container-low');
+        const overlay = imgContainer.querySelector('.absolute');
+        if (overlay) overlay.remove();
+      }
+      const label = c.querySelector('span:last-child');
+      if (label) {
+        label.className = "font-label-sm text-label-sm text-on-surface-variant";
+      }
+    });
+
+    const activeContainer = button.querySelector('div:first-child');
+    if (activeContainer) {
+      activeContainer.classList.add('shadow-[0_0_0_3px_#2248d1]');
+      const checkOverlay = document.createElement('div');
+      checkOverlay.className = "absolute inset-0 bg-primary/20 flex items-center justify-center";
+      checkOverlay.innerHTML = '<div class="w-5 h-5 rounded-full bg-primary text-on-primary flex items-center justify-center"><span class="material-symbols-outlined text-[14px]">check</span></div>';
+      activeContainer.appendChild(checkOverlay);
+    }
+    const activeLabel = button.querySelector('span:last-child');
+    if (activeLabel) {
+      activeLabel.className = "font-label-sm text-label-sm text-primary font-bold";
+    }
+  }
+
+  function submitHouseholdRequest() {
+    const title = document.getElementById('request-title').value.trim();
+    if (!title) {
+      alert('Please provide a title for the household request.');
+      return;
+    }
+    // Subtle visual feedback
+    const btn = event.currentTarget;
+    btn.innerHTML = '<span class="material-symbols-outlined animate-spin text-[20px]">sync</span><span>Broadcasting...</span>';
+    setTimeout(() => {
+      history.back();
+    }, 700);
+  }
+</script></main></body></html>

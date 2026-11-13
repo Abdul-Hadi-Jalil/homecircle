@@ -1,6 +1,17 @@
-# Milestone 1 current status
+# Current milestone status
 
-Implementation is complete. See [the Milestone 1 report](milestone-1-report.md) for current validation and pending external acceptance. The record below describes the earlier Milestone 0 snapshot.
+The authoritative current record is [PROJECT_STATUS.md](PROJECT_STATUS.md).
+M0 is complete. M1 still needs live authentication/household acceptance. M2 and M3
+are **Partially Implemented — hosted acceptance pending**. M3 implements the
+Tasks/Requests/Repairs module and adapts the Stitch files in `UI/`; see the
+[M3 report](milestone-3-report.md) for functionality, API, tests and outstanding gates.
+Latest isolated checks: backend **146 passed / 29 skipped**, Flutter **58 passed /
+2 skipped**, Ruff and analysis clean. Skipped SQL tests are not acceptance evidence.
+M4 Shopping and M5 Chat/Realtime are not started. Do not start them automatically.
+
+# Historical Milestone 1 implementation snapshot
+
+Implementation was reported complete. See [the Milestone 1 report](milestone-1-report.md) for historical validation and pending external acceptance. Full acceptance remains unverified. The record below describes the earlier Milestone 0 snapshot.
 
 # Milestone status
 

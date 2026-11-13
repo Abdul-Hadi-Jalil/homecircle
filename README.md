@@ -2,7 +2,7 @@
 
 Everything your home needs, in one place.
 
-HomeCircle is an Android-first household management application built with Flutter, FastAPI, and hosted Supabase. The implemented Milestone 1 covers authentication, profile editing, household creation/joining/switching, member administration, and invitation management. Inventory, tasks, shopping, and chat are future feature areas with placeholder routes.
+HomeCircle is an Android-first Flutter app with a FastAPI API and Supabase SQL foundation. Authentication/households, inventory, and tasks/requests/repairs are implemented; hosted acceptance remains pending for M1–3. Shopping and chat remain future milestones. See [the current project status](docs/PROJECT_STATUS.md) before continuing development.
 
 ## Project highlights
 
@@ -50,7 +50,7 @@ supabase/
 docs/                       Setup, architecture, environment, security, milestones
 ```
 
-Flutter uses feature-first MVVM, Provider, ChangeNotifier, `http`, GoRouter, the Supabase Flutter SDK and official Flutter localization. The API uses Pydantic v2, FastAPI, Psycopg 3 async connections and `psycopg_pool`. No ORM or additional use-case layer is used. Future inventory, tasks, shopping, chat, notification and profile implementations get feature folders when they contain code; their named placeholder routes already exist.
+Flutter uses feature-first MVVM, Provider, ChangeNotifier, `http`, GoRouter, the Supabase Flutter SDK and official Flutter localization. The API uses Pydantic v2, FastAPI, Psycopg 3 async connections and `psycopg_pool`. Inventory and tasks have their own feature folders; shopping/chat/notifications remain future work. No ORM or additional use-case layer is used.
 
 ## Prerequisites
 
@@ -111,7 +111,7 @@ flutter build apk --debug
 
 With the API running, include the two read-only live client checks with `flutter test --dart-define=LIVE_API_BASE_URL=http://127.0.0.1:8000` from `mobile/`. Without that define they are skipped, so normal unit tests require no running service.
 
-The thirteen real-database tests are optional and require a separate hosted Supabase test project with migrations applied. They check the declared project identity, refuse the app project's database and isolate test data. Most roll back; concurrency cases commit generated fixture IDs and clean up only those IDs:
+The guarded real-database tests require a separate hosted Supabase test project with all migrations applied. They check the declared project identity, refuse the app project's database and isolate test data. Most roll back; concurrency cases commit generated fixture IDs and clean up only those IDs:
 
 ```powershell
 # Configure the test connection securely in your environment.
@@ -144,7 +144,7 @@ See the [verification report](docs/verification.md) for actual dependency versio
 
 ## Milestone 1
 
-Authentication, verification/recovery, profile editing, household create/join/switching, members, admin settings and secure invitation management are implemented. Hosted migrations are applied. See the [implementation and verification report](docs/milestone-1-report.md) for API permissions, exact test results and the remaining real-email/separate-test-project acceptance checks. Milestone 2 has not started.
+Authentication, verification/recovery, profile editing, household create/join/switching, members, admin settings and secure invitation management are implemented. See the [historical implementation report](docs/milestone-1-report.md) for prior checks and remaining real-email acceptance.
 
 ## Milestone 2
 
@@ -154,3 +154,19 @@ archive/restore, with scoped cached reading and local form drafts. Hosted migrat
 RLS/concurrency and real Storage acceptance remain pending a separate test project.
 See [PROJECT_STATUS.md](docs/PROJECT_STATUS.md) for current results, deployment
 requirements and the authoritative completion status.
+
+## Milestone 3
+
+Tasks, requests and repairs now have a real API-connected Flutter module: create/edit,
+assignment/claim, priority/status/reopen, date/search/filter/archive controls, discussions,
+private photos, activity, inventory links, scoped cached reading and local drafts.
+Repair completion changes inventory only after a separate explicit confirmation.
+The screens adapt the supplied Stitch exports in `UI/` to the shared HomeCircle theme.
+
+Isolated verification: backend **146 passed / 29 skipped**; Flutter **58 passed / 2 skipped**;
+Ruff and Flutter analysis clean. The new task migration and live SQL/RLS/Storage
+acceptance remain unverified because the separate disposable test project is not configured.
+M3 is **Partially Implemented**, and M4 has not started. See the
+[M3 implementation report](docs/milestone-3-report.md) for models, endpoints, files,
+design adaptations, test evidence and setup gates, and
+[PROJECT_STATUS.md](docs/PROJECT_STATUS.md) for authoritative status.

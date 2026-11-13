@@ -71,7 +71,48 @@ Expiring upload authorizations, attachment revisions and finalized-orphan cleanu
 policies govern the lifecycle. Download returns authenticated, no-store bytes in
 JSON; no signed URL is issued. Referenced archived photos are retained for restore.
 Failed cleanup requires an operational retention retry through Storage API, not
-direct deletion of Storage metadata. Other feature buckets remain reserved.
+direct deletion of Storage metadata. The task implementation below activates the
+repair bucket; household and chat buckets remain reserved.
 
 See [PROJECT_STATUS.md](PROJECT_STATUS.md) for current test results, unverified
 hosted migrations/RLS/Storage acceptance and required disposable-project setup.
+
+## Milestone 3 tasks, requests and repairs
+
+`features/tasks` follows the same service → repository → ChangeNotifier → view
+structure, using the shared `ApiClient`, `LocalStore`, session scope and Provider
+runtime. GoRouter mounts overview, create, detail and edit routes. Inventory details
+reuse the tasks view-model for related repairs and prelinked creation. Views do not
+make HTTP calls directly. The task-specific widgets adapt the supplied Stitch
+exports in `UI/`, retaining the shared HomeCircle theme and navigation.
+
+FastAPI task routes delegate to Pydantic inputs, `TaskService`/`TaskPhotos` and the
+Psycopg `TaskRepository`. Household parent membership locks precede task row locks;
+optimistic revisions and activity changes share transactions. Comment writes also
+check their own revision. Explicit terminal-state reopening preserves old state in
+activity. Task completion never updates inventory within its transaction; an optional
+confirmed inventory operation happens separately and cannot undo completion.
+
+Tasks, comments, attachment metadata and activity use composite household foreign
+keys and RLS. Ordinary members can write through the API. The assignee must remain a
+member; membership deletion clears the assignment, increments revision and records
+the system change. A repair's inventory link must belong to its household.
+
+Task/comment photos use private `repair-attachments` with paths
+`<household_uuid>/<task_uuid>/<attachment_uuid>.jpg`. The shared image normalizer
+accepts valid JPEG/PNG/WebP input up to 5 MiB/16 MP, strips metadata and stores JPEG.
+The photo middleware bounds base64 JSON requests to 8 MiB before parsing. Expiring
+user-bound upload permits and finalization control lifecycle/cleanup. Authorized
+downloads use 60-second signed URLs; the URL stays only in memory. Archived task
+objects remain for restore. Deleted-comment objects lose active read access and
+need retention cleanup. Signed URLs already issued remain usable until expiration.
+
+Fetched task pages/details, comments, activity and attachment metadata are cached
+by user and household. Only fetched views are available offline. Drafts preserve
+original revisions; explicit failed saves do not claim success and reconnect never
+replays writes. Late responses and old-scope actions are rejected. Auth errors clear
+caches rather than invoking network fallback. Photos are not persisted locally.
+
+See [the M3 report](milestone-3-report.md) for the complete API/model, status rules,
+design sources, tests and remaining live acceptance gates. No shopping, chat/realtime,
+FCM or family dashboard implementation was added.

@@ -1,5 +1,9 @@
 # Security boundaries
 
+Current acceptance status is in [PROJECT_STATUS.md](PROJECT_STATUS.md). The M2/M3
+security properties below have isolated tests; actual hosted RLS, transactions and
+Storage behavior still require the separate disposable project.
+
 ## Identity and database roles
 
 | Principal | Authority |
@@ -39,3 +43,41 @@ Primary references: [Supabase JWT signing keys](https://supabase.com/docs/guides
 ## Milestone 1 invitations
 
 Codes contain 80 random bits and use server-peppered HMAC-SHA256 hashes. The API role has metadata-only column grants, not hash reads. Fixed definer RPCs enforce verified transaction identity, administrator management, member-only redemption, parent-first row locks and usage quotas. A separate committed per-user attempt transaction limits preview/redeem to twenty attempts per five-minute bucket. Plaintext codes live only in the issuance response and current UI, with user-requested clipboard/share export. Keep the pepper in server secrets. Private.current_actor exposes only the transaction actor UUID so profile RLS works without Auth schema grants or broad role inheritance. See the Milestone 1 report for external SQL verification still required.
+
+## Inventory and task boundaries
+
+The M2 member lock helper validates transaction identity and locks the household
+without requiring household settings UPDATE permission. Task writes lock the task,
+compare the expected revision and record activity atomically. Concurrent claims
+must have a single winner; actual PostgreSQL behavior is covered by guarded tests
+that have not run. Composite foreign keys constrain assignees, linked inventory,
+comments and photos to their household/task. Member removal unassigns tasks through
+a trusted trigger. Actor fields, timestamps and revisions cannot be supplied by API
+callers. Direct authenticated task mutations are denied. Author/admin comment and
+uploader/admin photo rules are checked both by services and RLS. No service-role
+credential or privileged runtime database connection is introduced.
+
+Inventory and task photos use validated, normalized metadata-free JPEG, generated
+object names, user-JWT Storage calls and expiring upload permits. Task photos use
+the private repair bucket with 60-second signed URLs; inventory photos retain their
+authenticated no-store byte endpoint. URL responses are no-store and URLs are not
+persisted in task caches. An issued URL can outlive membership revocation for its
+remaining lifetime. Task/comment archival/deletion blocks new active-photo signing;
+archived referenced objects remain available for restoration.
+
+Finalization and reference checks prevent cleanup from deleting in-flight/referenced
+objects. Task cleanup additionally requires uploader/admin authority. Failed cleanup
+needs an operational retention retry via Storage API; do not delete Storage metadata
+directly in SQL. Photo request bodies are bounded to 8 MiB before JSON parsing,
+including chunked requests; retain a reverse-proxy limit and normal request timeouts.
+
+Task caches/drafts are keyed by user and household, cleared on authorization failure,
+and never used as authorization. Scope generations reject late responses and old
+actions. Cached reads remain available offline but cannot learn about remote
+revocation until connectivity returns; preferences are not an encrypted vault. No
+offline mutation replay is implemented. A completed repair cannot silently mark
+inventory Working; the optional inventory write requires explicit user confirmation
+and its own current inventory revision.
+
+See [the M3 report](milestone-3-report.md) for policy/lifecycle details and remaining
+SQL, real-user and Storage acceptance. No production mutations were made for tests.

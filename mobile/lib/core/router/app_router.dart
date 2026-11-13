@@ -11,6 +11,9 @@ import '../../features/household/viewmodels/session_view_model.dart';
 import '../../features/household/views/household_view.dart';
 import '../../shared/widgets/route_placeholder.dart';
 import '../../features/inventory/views/inventory_views.dart';
+import '../../features/tasks/views/tasks_screen.dart';
+import '../../features/tasks/views/task_form_screen.dart';
+import '../../features/tasks/views/task_details_screen.dart';
 import '../localization/generated/app_localizations.dart';
 import '../widgets/app_widgets.dart';
 import 'route_guard.dart';
@@ -132,8 +135,12 @@ GoRouter createRouter(SessionViewModel session) => GoRouter(
             GoRoute(
               path: '/tasks',
               name: 'tasks',
-              builder: (context, state) =>
-                  RoutePlaceholder(title: AppLocalizations.of(context)!.tasks),
+              builder: (context, state) => TasksScreen(
+                key: ValueKey(
+                  'tasks-${session.scopeRevision}-${state.uri.queryParameters['item']}',
+                ),
+                linkedItemId: state.uri.queryParameters['item'],
+              ),
             ),
           ],
         ),
@@ -163,8 +170,6 @@ GoRouter createRouter(SessionViewModel session) => GoRouter(
     ),
     for (final entry in <(String, String, String Function(AppLocalizations))>[
       ('shopping', '/shopping', (l) => l.shopping),
-      ('createTask', '/create-task', (l) => l.createTask),
-      ('taskDetails', '/tasks/:id', (l) => l.taskDetails),
       ('notifications', '/notifications', (l) => l.notifications),
       ('familyActivity', '/family-activity', (l) => l.familyActivity),
     ])
@@ -179,6 +184,36 @@ GoRouter createRouter(SessionViewModel session) => GoRouter(
       name: 'inventoryDetails',
       builder: (context, state) => InventoryDetails(
         key: ValueKey('${session.scopeRevision}-${state.pathParameters['id']}'),
+        id: state.pathParameters['id']!,
+      ),
+    ),
+    GoRoute(
+      path: '/create-task',
+      name: 'createTask',
+      builder: (context, state) => TaskFormScreen(
+        key: ValueKey('task-new-${session.scopeRevision}'),
+        initialItemId: state.uri.queryParameters['item'],
+        initialItemName: state.uri.queryParameters['itemName'],
+        initialType: state.uri.queryParameters['type'],
+      ),
+    ),
+    GoRoute(
+      path: '/tasks/:id',
+      name: 'taskDetails',
+      builder: (context, state) => TaskDetailsScreen(
+        key: ValueKey(
+          'task-${session.scopeRevision}-${state.pathParameters['id']}',
+        ),
+        id: state.pathParameters['id']!,
+      ),
+    ),
+    GoRoute(
+      path: '/tasks/:id/edit',
+      name: 'editTask',
+      builder: (context, state) => TaskFormScreen(
+        key: ValueKey(
+          'task-edit-${session.scopeRevision}-${state.pathParameters['id']}',
+        ),
         id: state.pathParameters['id']!,
       ),
     ),
