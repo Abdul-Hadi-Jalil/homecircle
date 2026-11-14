@@ -16,7 +16,7 @@ def check_revision(old, expected):
 def editable(old):
     if old["task_type"] == "shopping":
         raise AppError(
-            409, "shopping_reserved", "Shopping tasks are reserved for a future milestone."
+            409, "shopping_route_required", "Use the shopping endpoints to manage this request."
         )
 
 
@@ -127,6 +127,34 @@ class TaskService:
     async def status(self, user, household, task_id, data):
         async with self.repository.transaction(user.id, household) as c:
             old = await self.repository.task(c, household, task_id, lock=True)
+            if old["task_type"] == "shopping":
+                from app.services.shopping import shopping_service
+
+                service = shopping_service(self.repository.pool)
+                shopping = await service.repository.item(c, household, task_id, lock=True)
+                check_revision(shopping, data.expected_revision)
+                if (data.reopen and data.status != "open") or (
+                    data.completion_note is not None and data.status != "completed"
+                ):
+                    raise AppError(422, "invalid_transition", "Invalid shopping status metadata.")
+                if data.status == "open" and not data.reopen:
+                    raise AppError(409, "explicit_reopen_required", "Reopen shopping explicitly.")
+                from app.schemas.shopping import Purchase
+
+                return await service.transition_locked(
+                    c,
+                    user,
+                    household,
+                    task_id,
+                    shopping,
+                    data.status,
+                    purchase=Purchase(
+                        expected_revision=data.expected_revision,
+                        completion_note=data.completion_note,
+                    )
+                    if data.status == "completed"
+                    else None,
+                )
             editable(old)
             check_revision(old, data.expected_revision)
             terminal = old["status"] in ("completed", "cancelled")

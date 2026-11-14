@@ -12,6 +12,9 @@ import '../../features/household/views/household_view.dart';
 import '../../shared/widgets/route_placeholder.dart';
 import '../../features/inventory/views/inventory_views.dart';
 import '../../features/tasks/views/tasks_screen.dart';
+import '../../features/shopping/views/shopping_list_screen.dart';
+import '../../features/shopping/views/shopping_item_form.dart';
+import '../../features/shopping/views/shopping_details_screen.dart';
 import '../../features/tasks/views/task_form_screen.dart';
 import '../../features/tasks/views/task_details_screen.dart';
 import '../localization/generated/app_localizations.dart';
@@ -169,7 +172,6 @@ GoRouter createRouter(SessionViewModel session) => GoRouter(
       ],
     ),
     for (final entry in <(String, String, String Function(AppLocalizations))>[
-      ('shopping', '/shopping', (l) => l.shopping),
       ('notifications', '/notifications', (l) => l.notifications),
       ('familyActivity', '/family-activity', (l) => l.familyActivity),
     ])
@@ -179,6 +181,57 @@ GoRouter createRouter(SessionViewModel session) => GoRouter(
         builder: (context, state) =>
             RoutePlaceholder(title: entry.$3(AppLocalizations.of(context)!)),
       ),
+    GoRoute(
+      path: '/shopping',
+      name: 'shopping',
+      builder: (context, state) => ShoppingListScreen(
+        key: ValueKey('shopping-${session.scopeRevision}'),
+      ),
+    ),
+    GoRoute(
+      path: '/shopping/history',
+      name: 'shoppingHistory',
+      builder: (context, state) => ShoppingHistoryScreen(
+        key: ValueKey('shopping-history-${session.scopeRevision}'),
+      ),
+    ),
+    GoRoute(
+      path: '/add-shopping',
+      name: 'addShopping',
+      builder: (context, state) => ShoppingItemForm(
+        key: ValueKey('shopping-new-${session.scopeRevision}'),
+        prefill: {
+          if (state.uri.queryParameters['item'] != null)
+            'linked_inventory_item_id': state.uri.queryParameters['item'],
+          if (state.uri.queryParameters['name'] != null)
+            'title': state.uri.queryParameters['name'],
+          if (state.uri.queryParameters['name'] != null)
+            'linked_inventory_name': state.uri.queryParameters['name'],
+          if (state.uri.queryParameters['unit']?.isNotEmpty == true)
+            'unit': state.uri.queryParameters['unit'],
+        },
+      ),
+    ),
+    GoRoute(
+      path: '/shopping/:id/edit',
+      name: 'editShopping',
+      builder: (context, state) => ShoppingItemForm(
+        key: ValueKey(
+          'shopping-edit-${session.scopeRevision}-${state.pathParameters['id']}',
+        ),
+        id: state.pathParameters['id']!,
+      ),
+    ),
+    GoRoute(
+      path: '/shopping/:id',
+      name: 'shoppingDetails',
+      builder: (context, state) => ShoppingDetailsScreen(
+        state.pathParameters['id']!,
+        key: ValueKey(
+          'shopping-${session.scopeRevision}-${state.pathParameters['id']}',
+        ),
+      ),
+    ),
     GoRoute(
       path: '/inventory/:id',
       name: 'inventoryDetails',

@@ -17,6 +17,9 @@ import '../../features/inventory/viewmodels/inventory_view_model.dart';
 import '../../features/tasks/services/task_api_service.dart';
 import '../../features/tasks/repositories/task_repository.dart';
 import '../../features/tasks/viewmodels/tasks_view_model.dart';
+import '../../features/shopping/services/shopping_api_service.dart';
+import '../../features/shopping/repositories/shopping_repository.dart';
+import '../../features/shopping/viewmodels/shopping_list_viewmodel.dart';
 import '../network/api_client.dart';
 import '../network/network_status.dart';
 import '../storage/local_store.dart';
@@ -47,6 +50,13 @@ class AppRuntime {
   late final TasksViewModel tasks = TasksViewModel(
     TaskRepository(TaskApiService(households.service.api), store),
     session,
+    inventory,
+  );
+
+  late final ShoppingListViewModel shopping = ShoppingListViewModel(
+    ShoppingRepository(ShoppingApiService(households.service.api), store),
+    session,
+    tasks,
     inventory,
   );
 
@@ -99,6 +109,7 @@ class AppRuntime {
   }
 
   void dispose() {
+    shopping.dispose();
     tasks.dispose();
     inventory.dispose();
     session.dispose();

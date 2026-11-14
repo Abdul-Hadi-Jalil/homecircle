@@ -16,10 +16,10 @@ The implementation retains Feature-First MVVM, Provider, ChangeNotifier, Dart `h
 
 The supplied exports were located in the `UI` folder after the user's correction. The initial default file search missed them. Reference files inspected:
 
-- `UI/home circle screens 1/tasks_requests_overview/{screen.png,code.html}`
-- `UI/home circle screens 2/create_task_household_request/{screen.png,code.html}`
-- `UI/home circle screens 2/task_repair_details/{screen.png,code.html}`
-- Supporting empty/selection/confirmation states and the Warm Household Modern design system under `UI/home circle screens 4/`.
+- `UI/tasks_requests_overview/{screen.png,code.html}`
+- `UI/create_task_household_request/{screen.png,code.html}`
+- `UI/task_repair_details/{screen.png,code.html}`
+- Supporting states under `UI/task_empty_state/`, `UI/selection_bottom_sheet/` and `UI/modal_confirmation_dialog/`; the shared design system is `UI/warm_household_modern/DESIGN.md`.
 
 Overview uses three count cards, horizontal request-type choices, search/filters and task cards with type icons, priority/status pills, assignee and due date. Create/edit uses a two-column request-type selector, white section cards, priority choices, horizontal member initials, a tinted repair section with the real inventory picker, photos and fixed save/discard controls. Details uses a header card, a two-column information grid, grouped actions, private attachment controls, discussion bubbles/composer and a collapsible activity log. Shared five-tab navigation is retained.
 
@@ -113,4 +113,7 @@ Before marking M3 Completed:
 4. Close M1 email confirmation/recovery/deep-link/session and two-household acceptance; complete M2 hosted RLS/quantity/photo acceptance. A missing management UI is recorded separately from the database permissions boundary.
 5. Run configured Android device/picker/offline/household-switching acceptance and review text scaling; iOS requires macOS/Xcode. Debug compilation is not signed release or live acceptance.
 
-Milestone 3 therefore remains **Partially Implemented — hosted acceptance pending**. Milestone 4 is **Not Started** and is not ready for a full acceptance handoff until these prerequisite gates pass. No shopping, chat/realtime, push or family dashboard features were started.
+Milestone 3 remains **Partially Implemented — hosted acceptance pending**. This report
+records the M3 handoff. M4 was subsequently implemented at the user's request and is
+covered in [the M4 report](milestone-4-report.md). Current acceptance status is in
+[PROJECT_STATUS.md](PROJECT_STATUS.md).

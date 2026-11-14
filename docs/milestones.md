@@ -5,9 +5,10 @@ M0 is complete. M1 still needs live authentication/household acceptance. M2 and 
 are **Partially Implemented — hosted acceptance pending**. M3 implements the
 Tasks/Requests/Repairs module and adapts the Stitch files in `UI/`; see the
 [M3 report](milestone-3-report.md) for functionality, API, tests and outstanding gates.
-Latest isolated checks: backend **146 passed / 29 skipped**, Flutter **58 passed /
+Latest isolated checks: backend **173 passed / 36 skipped**, Flutter **73 passed /
 2 skipped**, Ruff and analysis clean. Skipped SQL tests are not acceptance evidence.
-M4 Shopping and M5 Chat/Realtime are not started. Do not start them automatically.
+M4 Shopping is Partially Implemented with hosted acceptance pending. See the
+[M4 report](milestone-4-report.md). M5 Chat/Realtime has not started.
 
 # Historical Milestone 1 implementation snapshot
 

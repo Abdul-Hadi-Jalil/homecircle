@@ -11,6 +11,7 @@ import '../../../core/widgets/app_widgets.dart';
 import '../models/inventory_item.dart';
 import '../viewmodels/inventory_view_model.dart';
 import '../../tasks/widgets/related_repairs.dart';
+import '../../tasks/widgets/task_widgets.dart';
 
 const inventoryUnits = [
   'piece',
@@ -582,6 +583,21 @@ class _InventoryDetailsState extends State<InventoryDetails> {
               TextButton(
                 onPressed: vm.loadActivity,
                 child: const Text('More activity'),
+              ),
+            if (!item.archived)
+              Card(
+                child: ListTile(
+                  leading: const Icon(Icons.add_shopping_cart),
+                  title: Text(context.taskCopy.shoppingAddToList),
+                  onTap: () => context.pushNamed(
+                    'addShopping',
+                    queryParameters: {
+                      'item': item.id,
+                      'name': item.name,
+                      if (item.consumable) 'unit': item.unit,
+                    },
+                  ),
+                ),
               ),
             RelatedRepairs(
               key: ValueKey('repairs-${item.id}'),

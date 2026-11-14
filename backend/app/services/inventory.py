@@ -23,6 +23,15 @@ def revision(old, expected):
         )
 
 
+def adjusted_quantity(current, operation, amount):
+    quantity = (
+        amount if operation == "set" else current + (amount if operation == "increase" else -amount)
+    )
+    if quantity < 0 or quantity > Decimal("999999999999.999"):
+        raise AppError(422, "invalid_quantity", "Final quantity is outside the allowed range.")
+    return quantity
+
+
 class InventoryService:
     def __init__(self, repository):
         self.repository = repository
@@ -86,16 +95,7 @@ class InventoryService:
                 revision(old, data.expected_revision)
             if old["item_type"] != "consumable":
                 raise AppError(422, "wrong_item_type", "Quantity applies only to consumables.")
-            quantity = (
-                data.amount
-                if data.operation == "set"
-                else old["quantity"]
-                + (data.amount if data.operation == "increase" else -data.amount)
-            )
-            if quantity < 0 or quantity > Decimal("999999999999.999"):
-                raise AppError(
-                    422, "invalid_quantity", "Final quantity is outside the allowed range."
-                )
+            quantity = adjusted_quantity(old["quantity"], data.operation, data.amount)
             if quantity == old["quantity"]:
                 return old
             return await self.repository.write(

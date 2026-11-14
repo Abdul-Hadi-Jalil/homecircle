@@ -81,3 +81,31 @@ and its own current inventory revision.
 
 See [the M3 report](milestone-3-report.md) for policy/lifecycle details and remaining
 SQL, real-user and Storage acceptance. No production mutations were made for tests.
+
+## Shopping purchase and stock boundaries
+
+Shopping details and inventory applications use member-scoped RLS and restricted
+API writes. Composite household keys bind parent, detail and inventory. Deferred
+triggers require a Shopping parent/detail pair and matching completion metadata.
+The verified transaction actor supplies purchaser/application identity. Current
+purchase metadata is immutable until reopened. Inputs reject client purchaser IDs.
+
+Task/detail locks and revisions serialize edits, claims, purchases and undo. The
+stock operation additionally locks current inventory and checks active consumable
+type, exact unit and final quantity bounds. The purchase ledger has a unique UUID,
+so stock, ledger and both activity records commit together at most once per purchase.
+Retry checks the same purchase UUID before treating an old revision as a conflict.
+A reopened or later purchase cannot be affected by an earlier UUID. Undo preserves
+stock and audit history, requiring explicit inventory correction when appropriate.
+
+Creation and updates use typed inputs, parameterized SQL, bounded pagination and
+allowlisted filters/sorts. Quantities/prices use exact decimals and string responses.
+Task cache guards are reused with a shopping namespace. Scope changes and auth
+failures clear visible/private state, and offline reads never authorize writes.
+
+Seven guarded SQL shopping cases remain skipped without the disposable project.
+Actual triggers/RLS/concurrency and real-user acceptance remain unverified. The
+forward migration preserves outstanding/cancelled legacy Shopping parents with empty
+details. Completed legacy parents require reviewed purchase attribution before
+deployment. Manual/pull/resume refresh is implemented. Secure private realtime
+publication and subscription acceptance remain pending.

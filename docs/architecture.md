@@ -116,3 +116,33 @@ caches rather than invoking network fallback. Photos are not persisted locally.
 See [the M3 report](milestone-3-report.md) for the complete API/model, status rules,
 design sources, tests and remaining live acceptance gates. No shopping, chat/realtime,
 FCM or family dashboard implementation was added.
+
+## Milestone 4 shared shopping
+
+`household_tasks` remains the authoritative task parent. One-to-one
+`shopping_item_details` contains quantities/units, an optional inventory link and
+current purchase metadata. Each completion has a new UUID. Deferred consistency
+triggers enforce parent/detail type and completion agreement. Existing generic task
+status operations delegate shopping transitions to `ShoppingService`.
+
+`ShoppingRepository` extends the task repository transaction boundary. Parent/detail
+locks, expected revisions and task events govern writes. A separate explicit
+`apply-inventory` transaction locks current inventory, reuses inventory adjustment
+logic and writes stock/activity plus `shopping_inventory_applications`. Its unique
+purchase UUID makes successful retries idempotent. Undo clears active purchase
+metadata and retains the ledger, stock and historical purchase events.
+
+The Flutter shopping feature reuses task priority/status/member/inventory widgets,
+the session scope and the existing cache repository with a distinct namespace.
+Views cover list/progress/filter/search, compact create/edit, purchase sheet,
+responsibility/details, explicit stock update and purchase history. The secondary
+shopping route is reached from Home, task creation/listing and inventory details.
+
+Cached list/details/summary/history and original-revision drafts are partitioned by
+user and household. Scope generations reject late responses. Offline saves retain
+drafts, and reconnect never replays writes. Collaboration currently refreshes on
+resume/manual/pull actions. Private realtime delivery remains unconfigured.
+
+All UI export folders now sit directly under `UI/`; the shared design reference is
+`UI/warm_household_modern/DESIGN.md`. See [the M4 report](milestone-4-report.md)
+for API contracts, quantity/currency strategy, consistency rules and test limits.

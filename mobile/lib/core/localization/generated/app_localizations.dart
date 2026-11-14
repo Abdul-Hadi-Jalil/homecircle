@@ -265,7 +265,7 @@ abstract class AppLocalizations {
   /// No description provided for @taskShoppingSoon.
   ///
   /// In en, this message translates to:
-  /// **'Shopping · Coming soon'**
+  /// **'Shopping'**
   String get taskShoppingSoon;
 
   /// No description provided for @taskAllTypes.
@@ -1743,6 +1743,312 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'e.g. Our Family Home'**
   String get householdNameHint;
+
+  /// No description provided for @shoppingSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Everything your family needs.'**
+  String get shoppingSubtitle;
+
+  /// No description provided for @shoppingAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Item'**
+  String get shoppingAdd;
+
+  /// No description provided for @shoppingAddToList.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to List'**
+  String get shoppingAddToList;
+
+  /// No description provided for @shoppingToBuy.
+  ///
+  /// In en, this message translates to:
+  /// **'To Buy'**
+  String get shoppingToBuy;
+
+  /// No description provided for @shoppingPurchased.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchased'**
+  String get shoppingPurchased;
+
+  /// No description provided for @shoppingCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancelled'**
+  String get shoppingCancelled;
+
+  /// No description provided for @shoppingQuickAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Add something to buy'**
+  String get shoppingQuickAdd;
+
+  /// No description provided for @shoppingName.
+  ///
+  /// In en, this message translates to:
+  /// **'Item name'**
+  String get shoppingName;
+
+  /// No description provided for @shoppingQuantity.
+  ///
+  /// In en, this message translates to:
+  /// **'Quantity'**
+  String get shoppingQuantity;
+
+  /// No description provided for @shoppingUnit.
+  ///
+  /// In en, this message translates to:
+  /// **'Unit'**
+  String get shoppingUnit;
+
+  /// No description provided for @shoppingNoUnit.
+  ///
+  /// In en, this message translates to:
+  /// **'No unit'**
+  String get shoppingNoUnit;
+
+  /// No description provided for @shoppingNotes.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes & preferences'**
+  String get shoppingNotes;
+
+  /// No description provided for @shoppingMarkPurchased.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark Purchased'**
+  String get shoppingMarkPurchased;
+
+  /// No description provided for @shoppingUndo.
+  ///
+  /// In en, this message translates to:
+  /// **'Undo Purchase'**
+  String get shoppingUndo;
+
+  /// No description provided for @shoppingClaim.
+  ///
+  /// In en, this message translates to:
+  /// **'I’ll Buy This'**
+  String get shoppingClaim;
+
+  /// No description provided for @shoppingActualQuantity.
+  ///
+  /// In en, this message translates to:
+  /// **'Actual quantity (optional)'**
+  String get shoppingActualQuantity;
+
+  /// No description provided for @shoppingPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase price (optional)'**
+  String get shoppingPrice;
+
+  /// No description provided for @shoppingCurrency.
+  ///
+  /// In en, this message translates to:
+  /// **'Currency'**
+  String get shoppingCurrency;
+
+  /// No description provided for @shoppingNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Completion note (optional)'**
+  String get shoppingNote;
+
+  /// No description provided for @shoppingInventoryQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Update household inventory?'**
+  String get shoppingInventoryQuestion;
+
+  /// No description provided for @shoppingInventoryHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Add this purchased quantity to your linked inventory? This action applies this purchase at most once.'**
+  String get shoppingInventoryHelp;
+
+  /// No description provided for @shoppingNotNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Not Now'**
+  String get shoppingNotNow;
+
+  /// No description provided for @shoppingUpdateInventory.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Inventory'**
+  String get shoppingUpdateInventory;
+
+  /// No description provided for @shoppingInventorySuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Inventory update confirmed.'**
+  String get shoppingInventorySuccess;
+
+  /// No description provided for @shoppingInventoryFailure.
+  ///
+  /// In en, this message translates to:
+  /// **'The purchase remains saved. Inventory was not confirmed updated. You can retry safely from this item.'**
+  String get shoppingInventoryFailure;
+
+  /// No description provided for @shoppingInventoryApplied.
+  ///
+  /// In en, this message translates to:
+  /// **'This purchase has already been applied to inventory.'**
+  String get shoppingInventoryApplied;
+
+  /// No description provided for @shoppingUndoHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Reopen this purchase? Any stock already added will remain unchanged. Review inventory separately if it needs correction.'**
+  String get shoppingUndoHelp;
+
+  /// No description provided for @shoppingUndoSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase reopened. Review inventory separately if stock was already added.'**
+  String get shoppingUndoSuccess;
+
+  /// No description provided for @shoppingPurchaseSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase saved.'**
+  String get shoppingPurchaseSuccess;
+
+  /// No description provided for @shoppingUnitError.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose the linked consumable’s exact unit and a quantity before purchasing. Unit conversion is not supported.'**
+  String get shoppingUnitError;
+
+  /// No description provided for @shoppingChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'This purchase changed or is closed. Refresh and reopen it before editing.'**
+  String get shoppingChanged;
+
+  /// No description provided for @shoppingDuplicate.
+  ///
+  /// In en, this message translates to:
+  /// **'This inventory item is already on your shopping list.'**
+  String get shoppingDuplicate;
+
+  /// No description provided for @shoppingViewExisting.
+  ///
+  /// In en, this message translates to:
+  /// **'View Existing Request'**
+  String get shoppingViewExisting;
+
+  /// No description provided for @shoppingAddAnother.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Another Request'**
+  String get shoppingAddAnother;
+
+  /// No description provided for @shoppingHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase history'**
+  String get shoppingHistory;
+
+  /// No description provided for @shoppingNoHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'No saved purchase history yet.'**
+  String get shoppingNoHistory;
+
+  /// No description provided for @shoppingEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Your shopping list is empty. Add something your household needs.'**
+  String get shoppingEmpty;
+
+  /// No description provided for @shoppingAllPurchased.
+  ///
+  /// In en, this message translates to:
+  /// **'Everything in this list has been purchased.'**
+  String get shoppingAllPurchased;
+
+  /// No description provided for @shoppingRefreshNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Pull to refresh. The list also refreshes when you return to the app.'**
+  String get shoppingRefreshNote;
+
+  /// No description provided for @shoppingNumberError.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a positive amount with up to 12 whole digits and 3 decimal places.'**
+  String get shoppingNumberError;
+
+  /// No description provided for @shoppingPriceError.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a nonnegative amount with up to 13 whole digits and 2 decimal places, and select a supported currency.'**
+  String get shoppingPriceError;
+
+  /// No description provided for @shoppingRequestedBy.
+  ///
+  /// In en, this message translates to:
+  /// **'Requested by'**
+  String get shoppingRequestedBy;
+
+  /// No description provided for @shoppingPurchasedBy.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchased by'**
+  String get shoppingPurchasedBy;
+
+  /// No description provided for @shoppingProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'{purchased} of {total} items purchased'**
+  String shoppingProgress(int purchased, int total);
+
+  /// No description provided for @shoppingOutstanding.
+  ///
+  /// In en, this message translates to:
+  /// **'{active} to buy · {high} high priority · {mine} assigned to you'**
+  String shoppingOutstanding(int active, int high, int mine);
+
+  /// No description provided for @shoppingNewest.
+  ///
+  /// In en, this message translates to:
+  /// **'Newest first'**
+  String get shoppingNewest;
+
+  /// No description provided for @shoppingListTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Shopping List'**
+  String get shoppingListTitle;
+
+  /// No description provided for @shoppingSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Search shopping items'**
+  String get shoppingSearch;
+
+  /// No description provided for @shoppingDraftNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Your draft is saved on this device. Changes reach your household only when you save.'**
+  String get shoppingDraftNote;
+
+  /// No description provided for @shoppingNoResults.
+  ///
+  /// In en, this message translates to:
+  /// **'No shopping items match these filters.'**
+  String get shoppingNoResults;
+
+  /// No description provided for @shoppingBeingHandled.
+  ///
+  /// In en, this message translates to:
+  /// **'Being Handled'**
+  String get shoppingBeingHandled;
 }
 
 class _AppLocalizationsDelegate

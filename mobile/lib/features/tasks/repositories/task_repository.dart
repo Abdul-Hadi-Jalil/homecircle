@@ -9,7 +9,8 @@ class TaskRead {
 }
 
 class TaskRepository {
-  TaskRepository(this.service, this.store);
+  TaskRepository(this.service, this.store, {this.namespace = 'tasks'});
+  final String namespace;
   final TaskApiService service;
   final LocalStore store;
   Future<TaskRead> read(
@@ -31,11 +32,13 @@ class TaskRepository {
           throw const InvalidResponseException();
         }
       }
-      if (current()) await store.cache(user, household, 'tasks.$key', data);
+      if (current()) {
+        await store.cache(user, household, '$namespace.$key', data);
+      }
       return TaskRead(data);
     } on NetworkException {
       if (!current()) rethrow;
-      final data = store.readCache(user, household, 'tasks.$key');
+      final data = store.readCache(user, household, '$namespace.$key');
       if (data == null) rethrow;
       return TaskRead(data, cached: true);
     } on ForbiddenException {
@@ -48,7 +51,8 @@ class TaskRepository {
   }
 
   Future<void> invalidate(String user, String household) async {
-    final prefix = 'homecircle.user.$user.household.$household.cache.tasks.';
+    final prefix =
+        'homecircle.user.$user.household.$household.cache.$namespace.';
     for (final key
         in store.preferences
             .getKeys()

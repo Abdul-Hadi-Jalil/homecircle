@@ -2,7 +2,7 @@
 
 Everything your home needs, in one place.
 
-HomeCircle is an Android-first Flutter app with a FastAPI API and Supabase SQL foundation. Authentication/households, inventory, and tasks/requests/repairs are implemented; hosted acceptance remains pending for M1–3. Shopping and chat remain future milestones. See [the current project status](docs/PROJECT_STATUS.md) before continuing development.
+HomeCircle is an Android-first Flutter app with a FastAPI API and Supabase SQL foundation. Authentication/households, inventory, tasks/requests/repairs, and shared shopping are implemented. Hosted acceptance remains pending for M1–4. Chat remains a future milestone. See [the current project status](docs/PROJECT_STATUS.md) before continuing development.
 
 ## Project highlights
 
@@ -50,7 +50,7 @@ supabase/
 docs/                       Setup, architecture, environment, security, milestones
 ```
 
-Flutter uses feature-first MVVM, Provider, ChangeNotifier, `http`, GoRouter, the Supabase Flutter SDK and official Flutter localization. The API uses Pydantic v2, FastAPI, Psycopg 3 async connections and `psycopg_pool`. Inventory and tasks have their own feature folders; shopping/chat/notifications remain future work. No ORM or additional use-case layer is used.
+Flutter uses feature-first MVVM, Provider, ChangeNotifier, `http`, GoRouter, the Supabase Flutter SDK and official Flutter localization. The API uses Pydantic v2, FastAPI, Psycopg 3 async connections and `psycopg_pool`. Inventory, tasks and shopping have their own feature folders. Chat and notifications remain future work. No ORM or additional use-case layer is used.
 
 ## Prerequisites
 
@@ -166,7 +166,24 @@ The screens adapt the supplied Stitch exports in `UI/` to the shared HomeCircle 
 Isolated verification: backend **146 passed / 29 skipped**; Flutter **58 passed / 2 skipped**;
 Ruff and Flutter analysis clean. The new task migration and live SQL/RLS/Storage
 acceptance remain unverified because the separate disposable test project is not configured.
-M3 is **Partially Implemented**, and M4 has not started. See the
+M3 is **Partially Implemented**. M4 is recorded below. See the
 [M3 implementation report](docs/milestone-3-report.md) for models, endpoints, files,
 design adaptations, test evidence and setup gates, and
 [PROJECT_STATUS.md](docs/PROJECT_STATUS.md) for authoritative status.
+
+## Milestone 4
+
+Shared shopping reuses household tasks with one-to-one details and trusted purchase
+history. Members can add/edit/claim/assign, purchase, undo and cancel requests,
+with exact quantities/prices, inventory links, duplicate awareness and offline
+cached reading/local drafts. Stock changes require explicit confirmation and use a
+persistent purchase ledger to prevent duplicate quantity increases.
+
+The supplied screen exports now sit directly under `UI/`. Shopping screens adapt
+`shared_shopping_list` and `add_shopping_item` to real API data and the shared theme.
+Manual/pull refresh and refresh on resume work. Realtime acceptance is pending.
+Backend checks report **173 passed / 36 skipped**. Flutter results and Android build
+evidence are maintained in [PROJECT_STATUS.md](docs/PROJECT_STATUS.md).
+M4 remains **Partially Implemented — hosted acceptance pending**. See the
+[M4 report](docs/milestone-4-report.md) for endpoints, constraints, files and setup.
+M5 has not started.

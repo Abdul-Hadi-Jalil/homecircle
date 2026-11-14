@@ -38,6 +38,8 @@ def main():
                 "public.task_activity",
                 "public.task_attachments",
                 "private.task_uploads",
+                "public.shopping_item_details",
+                "public.shopping_inventory_applications",
             ]
             for name in names:
                 row = connection.execute("SELECT to_regclass(%s)::text", (name,)).fetchone()

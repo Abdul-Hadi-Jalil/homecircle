@@ -163,7 +163,14 @@ class _TasksScreenState extends State<TasksScreen> {
                         vm.load();
                       },
                     ),
-                  Chip(label: Text(l.taskShoppingSoon)),
+                  ChoiceChip(
+                    label: Text(l.taskShoppingSoon),
+                    selected: vm.filters['task_type'] == 'shopping',
+                    onSelected: (_) {
+                      vm.filters = {...vm.filters, 'task_type': 'shopping'};
+                      vm.load();
+                    },
+                  ),
                 ],
               ),
             ),
@@ -252,7 +259,9 @@ class _TasksScreenState extends State<TasksScreen> {
                 task: task,
                 onTap: () async {
                   await context.pushNamed(
-                    'taskDetails',
+                    task.kind == TaskKind.shopping
+                        ? 'shoppingDetails'
+                        : 'taskDetails',
                     pathParameters: {'id': task.id},
                   );
                   if (mounted) await vm.load();

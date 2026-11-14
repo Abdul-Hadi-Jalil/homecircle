@@ -31,6 +31,14 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
           vm.draft('comment.${widget.id}')?['body'] as String? ?? '';
       vm.loadMembers();
       await vm.open(widget.id);
+      if (mounted &&
+          scope == vm.scopeKey &&
+          vm.task?.kind == TaskKind.shopping) {
+        context.pushReplacementNamed(
+          'shoppingDetails',
+          pathParameters: {'id': widget.id},
+        );
+      }
     });
   }
 

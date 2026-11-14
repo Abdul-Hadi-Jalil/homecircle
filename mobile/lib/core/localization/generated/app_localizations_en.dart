@@ -96,7 +96,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get taskGeneral => 'General';
 
   @override
-  String get taskShoppingSoon => 'Shopping · Coming soon';
+  String get taskShoppingSoon => 'Shopping';
 
   @override
   String get taskAllTypes => 'All';
@@ -890,4 +890,175 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get householdNameHint => 'e.g. Our Family Home';
+
+  @override
+  String get shoppingSubtitle => 'Everything your family needs.';
+
+  @override
+  String get shoppingAdd => 'Add Item';
+
+  @override
+  String get shoppingAddToList => 'Add to List';
+
+  @override
+  String get shoppingToBuy => 'To Buy';
+
+  @override
+  String get shoppingPurchased => 'Purchased';
+
+  @override
+  String get shoppingCancelled => 'Cancelled';
+
+  @override
+  String get shoppingQuickAdd => 'Add something to buy';
+
+  @override
+  String get shoppingName => 'Item name';
+
+  @override
+  String get shoppingQuantity => 'Quantity';
+
+  @override
+  String get shoppingUnit => 'Unit';
+
+  @override
+  String get shoppingNoUnit => 'No unit';
+
+  @override
+  String get shoppingNotes => 'Notes & preferences';
+
+  @override
+  String get shoppingMarkPurchased => 'Mark Purchased';
+
+  @override
+  String get shoppingUndo => 'Undo Purchase';
+
+  @override
+  String get shoppingClaim => 'I’ll Buy This';
+
+  @override
+  String get shoppingActualQuantity => 'Actual quantity (optional)';
+
+  @override
+  String get shoppingPrice => 'Purchase price (optional)';
+
+  @override
+  String get shoppingCurrency => 'Currency';
+
+  @override
+  String get shoppingNote => 'Completion note (optional)';
+
+  @override
+  String get shoppingInventoryQuestion => 'Update household inventory?';
+
+  @override
+  String get shoppingInventoryHelp =>
+      'Add this purchased quantity to your linked inventory? This action applies this purchase at most once.';
+
+  @override
+  String get shoppingNotNow => 'Not Now';
+
+  @override
+  String get shoppingUpdateInventory => 'Update Inventory';
+
+  @override
+  String get shoppingInventorySuccess => 'Inventory update confirmed.';
+
+  @override
+  String get shoppingInventoryFailure =>
+      'The purchase remains saved. Inventory was not confirmed updated. You can retry safely from this item.';
+
+  @override
+  String get shoppingInventoryApplied =>
+      'This purchase has already been applied to inventory.';
+
+  @override
+  String get shoppingUndoHelp =>
+      'Reopen this purchase? Any stock already added will remain unchanged. Review inventory separately if it needs correction.';
+
+  @override
+  String get shoppingUndoSuccess =>
+      'Purchase reopened. Review inventory separately if stock was already added.';
+
+  @override
+  String get shoppingPurchaseSuccess => 'Purchase saved.';
+
+  @override
+  String get shoppingUnitError =>
+      'Choose the linked consumable’s exact unit and a quantity before purchasing. Unit conversion is not supported.';
+
+  @override
+  String get shoppingChanged =>
+      'This purchase changed or is closed. Refresh and reopen it before editing.';
+
+  @override
+  String get shoppingDuplicate =>
+      'This inventory item is already on your shopping list.';
+
+  @override
+  String get shoppingViewExisting => 'View Existing Request';
+
+  @override
+  String get shoppingAddAnother => 'Add Another Request';
+
+  @override
+  String get shoppingHistory => 'Purchase history';
+
+  @override
+  String get shoppingNoHistory => 'No saved purchase history yet.';
+
+  @override
+  String get shoppingEmpty =>
+      'Your shopping list is empty. Add something your household needs.';
+
+  @override
+  String get shoppingAllPurchased =>
+      'Everything in this list has been purchased.';
+
+  @override
+  String get shoppingRefreshNote =>
+      'Pull to refresh. The list also refreshes when you return to the app.';
+
+  @override
+  String get shoppingNumberError =>
+      'Enter a positive amount with up to 12 whole digits and 3 decimal places.';
+
+  @override
+  String get shoppingPriceError =>
+      'Enter a nonnegative amount with up to 13 whole digits and 2 decimal places, and select a supported currency.';
+
+  @override
+  String get shoppingRequestedBy => 'Requested by';
+
+  @override
+  String get shoppingPurchasedBy => 'Purchased by';
+
+  @override
+  String shoppingProgress(int purchased, int total) {
+    return '$purchased of $total items purchased';
+  }
+
+  @override
+  String shoppingOutstanding(int active, int high, int mine) {
+    return '$active to buy · $high high priority · $mine assigned to you';
+  }
+
+  @override
+  String get shoppingNewest => 'Newest first';
+
+  @override
+  String get shoppingListTitle => 'Shopping List';
+
+  @override
+  String get shoppingSearch => 'Search shopping items';
+
+  @override
+  String get shoppingDraftNote =>
+      'Your draft is saved on this device. Changes reach your household only when you save.';
+
+  @override
+  String get shoppingNoResults => 'No shopping items match these filters.';
+
+  @override
+  String get shoppingBeingHandled => 'Being Handled';
 }

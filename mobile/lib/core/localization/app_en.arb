@@ -28,7 +28,7 @@
   "taskRepair": "Repair",
   "taskChore": "Chore",
   "taskGeneral": "General",
-  "taskShoppingSoon": "Shopping · Coming soon",
+  "taskShoppingSoon": "Shopping",
   "taskAllTypes": "All",
   "taskLow": "Low",
   "taskNormal": "Normal",
@@ -294,5 +294,79 @@
   "selectHome": "Choose your household",
   "sendResetLink": "Send reset link",
   "fullName": "Full name",
-  "householdNameHint": "e.g. Our Family Home"
+  "householdNameHint": "e.g. Our Family Home",
+  "shoppingSubtitle": "Everything your family needs.",
+  "shoppingAdd": "Add Item",
+  "shoppingAddToList": "Add to List",
+  "shoppingToBuy": "To Buy",
+  "shoppingPurchased": "Purchased",
+  "shoppingCancelled": "Cancelled",
+  "shoppingQuickAdd": "Add something to buy",
+  "shoppingName": "Item name",
+  "shoppingQuantity": "Quantity",
+  "shoppingUnit": "Unit",
+  "shoppingNoUnit": "No unit",
+  "shoppingNotes": "Notes & preferences",
+  "shoppingMarkPurchased": "Mark Purchased",
+  "shoppingUndo": "Undo Purchase",
+  "shoppingClaim": "I’ll Buy This",
+  "shoppingActualQuantity": "Actual quantity (optional)",
+  "shoppingPrice": "Purchase price (optional)",
+  "shoppingCurrency": "Currency",
+  "shoppingNote": "Completion note (optional)",
+  "shoppingInventoryQuestion": "Update household inventory?",
+  "shoppingInventoryHelp": "Add this purchased quantity to your linked inventory? This action applies this purchase at most once.",
+  "shoppingNotNow": "Not Now",
+  "shoppingUpdateInventory": "Update Inventory",
+  "shoppingInventorySuccess": "Inventory update confirmed.",
+  "shoppingInventoryFailure": "The purchase remains saved. Inventory was not confirmed updated. You can retry safely from this item.",
+  "shoppingInventoryApplied": "This purchase has already been applied to inventory.",
+  "shoppingUndoHelp": "Reopen this purchase? Any stock already added will remain unchanged. Review inventory separately if it needs correction.",
+  "shoppingUndoSuccess": "Purchase reopened. Review inventory separately if stock was already added.",
+  "shoppingPurchaseSuccess": "Purchase saved.",
+  "shoppingUnitError": "Choose the linked consumable’s exact unit and a quantity before purchasing. Unit conversion is not supported.",
+  "shoppingChanged": "This purchase changed or is closed. Refresh and reopen it before editing.",
+  "shoppingDuplicate": "This inventory item is already on your shopping list.",
+  "shoppingViewExisting": "View Existing Request",
+  "shoppingAddAnother": "Add Another Request",
+  "shoppingHistory": "Purchase history",
+  "shoppingNoHistory": "No saved purchase history yet.",
+  "shoppingEmpty": "Your shopping list is empty. Add something your household needs.",
+  "shoppingAllPurchased": "Everything in this list has been purchased.",
+  "shoppingRefreshNote": "Pull to refresh. The list also refreshes when you return to the app.",
+  "shoppingNumberError": "Enter a positive amount with up to 12 whole digits and 3 decimal places.",
+  "shoppingPriceError": "Enter a nonnegative amount with up to 13 whole digits and 2 decimal places, and select a supported currency.",
+  "shoppingRequestedBy": "Requested by",
+  "shoppingPurchasedBy": "Purchased by",
+  "shoppingProgress": "{purchased} of {total} items purchased",
+  "@shoppingProgress": {
+    "placeholders": {
+      "purchased": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "shoppingOutstanding": "{active} to buy · {high} high priority · {mine} assigned to you",
+  "@shoppingOutstanding": {
+    "placeholders": {
+      "active": {
+        "type": "int"
+      },
+      "high": {
+        "type": "int"
+      },
+      "mine": {
+        "type": "int"
+      }
+    }
+  },
+  "shoppingNewest": "Newest first",
+  "shoppingListTitle": "Shopping List",
+  "shoppingSearch": "Search shopping items",
+  "shoppingDraftNote": "Your draft is saved on this device. Changes reach your household only when you save.",
+  "shoppingNoResults": "No shopping items match these filters.",
+  "shoppingBeingHandled": "Being Handled"
 }

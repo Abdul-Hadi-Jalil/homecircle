@@ -185,9 +185,15 @@ class _TaskFormScreenState extends State<TaskFormScreen> {
                             child: _RequestTypeTile(
                               kind: kind,
                               selected: m.fields['task_type'] == kind.name,
-                              onTap: m.busy || kind == TaskKind.shopping
+                              onTap: m.busy
                                   ? null
-                                  : () => m.update('task_type', kind.name),
+                                  : () {
+                                      if (kind == TaskKind.shopping) {
+                                        context.pushNamed('addShopping');
+                                      } else {
+                                        m.update('task_type', kind.name);
+                                      }
+                                    },
                             ),
                           ),
                       ],

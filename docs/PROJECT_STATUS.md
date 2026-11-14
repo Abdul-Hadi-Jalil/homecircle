@@ -1,8 +1,15 @@
 # HomeCircle — current project status
 
-Updated: 14 November 2026 (Asia/Karachi). Milestone 3 implementation and isolated verification are finished; hosted acceptance is pending. Milestone 2's hosted acceptance remains pending; no hosted migration or production data changes have been made.
+Updated 14 November 2026 (Asia/Karachi). Milestone 4 implementation and isolated
+verification are finished. Hosted acceptance for M1–4 remains pending. The Android
+debug build passed. No hosted migration or production data changes were made.
 
 ## Milestones
+
+UI reference organization (14 November 2026): all 25 screen export folders now sit
+directly under `UI/`. The four identical design-system copies were consolidated at
+`UI/warm_household_modern/DESIGN.md`; original content hashes were verified. The
+numbered `home circle screens` wrapper folders were removed and report links updated.
 
 | Milestone | Status | Evidence / limits |
 | --- | --- | --- |
@@ -10,7 +17,7 @@ Updated: 14 November 2026 (Asia/Karachi). Milestone 3 implementation and isolate
 | 1 — Authentication & Households | Partially Implemented | Auth, households, invitations, member listing, switching and admin settings exist. Real email/device callbacks, signed-in multi-user and hosted SQL acceptance remain unverified. Role/removal RPCs have no management UI. |
 | 2 — Inventory | Partially Implemented — hosted acceptance pending | Backend, Flutter screens, photos, caches/drafts and isolated tests implemented. Analysis, tests and Android debug build pass. Actual migration deployment, RLS/concurrency and real Storage transfers remain unverified. Do not mark Completed yet. |
 | 3 — Tasks & Repairs | Partially Implemented — hosted acceptance pending | Repair/Chore/General requests, assignment/claims, status/reopen, discussions/photos/activity, inventory links and offline caches/drafts implemented. Stitch exports in UI/ reviewed and adapted. Backend 146 passed/29 skipped; Flutter 58 passed/2 skipped; analysis and debug build pass. SQL migration and real Auth/API/Storage acceptance unverified. |
-| 4 — Shopping | Not Started | Placeholder only. |
+| 4 — Shopping | Partially Implemented — hosted acceptance pending | Shared shopping uses household_tasks plus one-to-one details, purchase history and an idempotent inventory ledger. API, localized Flutter UI, offline drafts and isolated tests implemented. Realtime and hosted SQL acceptance remain pending. |
 | 5 — Chat & Realtime | Not Started | Placeholder and channel lifecycle scaffold only; no feature subscriptions. |
 | 6 — Dashboard/Notifications/Activity | Partially Implemented | Navigation and diagnostics exist; product dashboard, FCM and family activity absent. Inventory has separate activity history. |
 | 7 — Testing/Polish/Release | Partially Implemented | Regression tests and debug APK pass; production signing/distribution and full hosted/device acceptance pending. |
@@ -47,11 +54,11 @@ These are implementation/isolated-test findings. Actual PostgreSQL RLS, locking 
 | --- | --- |
 | Python virtualenv | Repaired in place using installed Python 3.13 and venv --upgrade; existing packages retained. |
 | flutter pub get --enforce-lockfile | Passed; regenerated old-user SDK/Pub paths without upgrading locked mobile versions. |
-| Backend pytest -q (from backend/) | 146 passed, 29 skipped; one existing Starlette/httpx deprecation warning. |
-| Ruff check / format | Passed, 49 files formatted, no findings; original E402/E501 errors resolved. |
+| Backend pytest -q (from backend/) | 173 passed, 36 skipped; one existing Starlette/httpx deprecation warning. |
+| Ruff check / format | Passed, 55 files formatted, no findings; original E402/E501 errors resolved. |
 | pip check | Passed, no broken requirements. |
 | flutter analyze | Passed, no issues. |
-| Full flutter test --no-pub --dart-define=CAPTURE_TASKS=true | 58 passed, 2 skipped (optional live health/invalid-token checks). |
+| Full flutter test --no-pub --dart-define=CAPTURE_TASKS=true | 73 passed, 2 skipped (optional live health/invalid-token checks). |
 | Dart formatting | Passed, current source formatted. |
 | Android debug build | Passed with flutter build apk --debug --no-pub and the existing task-local Java trust store; TLS verification stayed enabled. No configured-user/device acceptance is implied. |
 | Hosted deployment diagnostic | Read-only connection attempt failed with OperationalError; catalog/history could not be established. No migrations applied. |
@@ -79,8 +86,9 @@ Preserved existing migration order:
 7. 20261105000004_inventory_photos.sql — existing expiring authorization/Storage policies.
 8. NEW 20261113000000_inventory_access.sql — ordinary-member parent lock, actor names, upload finalization and orphan cleanup policies.
 9. NEW 20261114000000_tasks.sql — task/comment/attachment/activity tables, constraints, revisions, member-removal assignment, scoped actor names, RLS, upload permits and private repair-photo policies.
+10. NEW 20261114000001_shopping.sql — shopping details, per-purchase inventory application ledger, exact quantities/prices, deferred consistency/actor constraints and member-scoped RLS. No earlier migration was changed.
 
-Older reports claim deployment of 1–5; not reverified. Deployment of 6–9 is unknown; none was applied during this task. Do not assume local migrations ran or rewrite deployed history. Apply pending SQL to a disposable hosted test project first using Supabase CLI, then run guarded behavior tests before app-project deployment.
+Older reports claim deployment of 1–5; not reverified. Deployment of 6–10 is unknown; none was applied during this task. Do not assume local migrations ran or rewrite deployed history. Apply pending SQL to a disposable hosted test project first using Supabase CLI, then run guarded behavior tests before app-project deployment.
 
 Implementation changes:
 
@@ -130,21 +138,65 @@ and private Storage metadata. Actual PostgreSQL policy/concurrency behavior and 
 Storage bytes therefore remain unverified. The catalog diagnostic returned
 `connection_unavailable`; no production/database deployment changes were made.
 
-Next: configure the disposable test project and apply migrations there, run all 29
-guarded SQL cases, then exercise real users and photo transfer/expiry/cleanup in the
+Next: configure the disposable test project and apply migrations there, run all guarded
+SQL cases, then exercise real users and photo transfer/expiry/cleanup in the
 configured app. Close M1 email/deep-link/session/multi-user household acceptance and
 M2 hosted inventory RLS/quantity/photo gates. Review Android picker/offline/switching
 and text scaling; iOS needs macOS/Xcode. Do not treat skipped tests or the debug APK
 as live acceptance. Retention cleanup remains operational work; no worker is shipped.
 
 M2 and M3 remain **Partially Implemented — hosted acceptance pending**.
-Milestone 4 is **Not Started** and is not ready for full acceptance handoff until
-these prerequisites pass. Shopping stays M4, chat/realtime M5 and FCM/product
-dashboard/activity M6; none was started automatically.
+M4 was subsequently implemented at the user’s request, as recorded below.
+Chat/realtime remains M5 and FCM/product dashboard/activity remains M6.
 
 Retain approved decisions: multiple households/account, email/password, member
 inventory/task writes, admin-only sensitive management, scoped cached reading/drafts
 without offline synchronization, English then Urdu, Android then iOS, hosted Supabase
 plus a separate FastAPI service.
+
+## Milestone 4 implementation and acceptance
+
+See [the M4 report](milestone-4-report.md) for the model, API table, status rules,
+design adaptations, files changed and deployment requirements. Implemented and
+covered by isolated tests:
+
+- One Shopping household task per request with one shopping detail. Shared priorities,
+  assignment/claim, revision and task activity are reused. Optional exact quantities,
+  supported units, notes, links, prices and currency codes are validated.
+- List/search/filters/sort/pagination, consistent progress counts, combined details,
+  edit, responsibility, purchase, explicit undo/reopen/cancel and purchase history.
+- Purchase records the verified user and a fresh purchase UUID. Generic task status
+  requests use shopping-aware transitions. Closed purchase fields require reopening.
+- Inventory entry opens a prefilled form. Duplicate awareness offers View Existing
+  or Add Another. Purchasing leaves stock for a separate explicit confirmation.
+- The stock operation locks current task/detail/inventory, reuses inventory quantity
+  logic, and commits stock/activity/ledger/application metadata atomically. Retrying
+  the same purchase UUID cannot add stock twice. Undo retains physical stock and
+  original purchase events. Failed application keeps the purchase saved and allows retry.
+- User/household-scoped cached list/details/summary/history and local form drafts,
+  retained original edit revisions, rejected late/foreign responses and no write replay.
+- Stitch-based list/form, purchase sheet, responsibility/details/history, localized
+  states and keyboard-safe save controls. Shopping remains a secondary route. Real-font
+  list/form/purchase captures were inspected. Device/text scaling/iOS remain unverified.
+
+M4 added 27 passing backend cases and 15 passing Flutter cases. Seven guarded SQL
+cases cover ordinary members/RLS/isolation, constraints, purchases/undo/history,
+actual rollback and concurrent claim/purchase/stock application. These seven are
+among the 36 skipped integration cases because the disposable project is still not
+configured. No SQL migration was validated or applied. Actual database triggers,
+RLS, locking and multi-user end-to-end behavior remain acceptance gaps.
+
+Realtime remains incomplete. Manual/pull refresh and refresh on app resume are
+implemented, and the UI makes no live-sync claim. Configure and test private channels
+before reporting realtime acceptance. M1 email/session/household and M2–3 hosted
+gates remain prerequisites for secure acceptance. Apply all migrations to the separate
+test project and run the guarded suite before app-project deployment. M4's migration
+backfills empty details for outstanding/cancelled legacy Shopping parents while
+preserving task IDs/revisions. Completed legacy Shopping parents require purchase
+attribution review. No production records were changed.
+
+M4 remains **Partially Implemented — hosted acceptance pending**. Milestone 5 is
+**Not Started** and awaits those acceptance gates. Full chat, notifications and
+dashboard modules were not started.
 
 At resume, read this file and git status --short before editing. Preexisting untracked inventory backend/migrations and modified router/mobile dependency files were preserved. Git commit 4819101's message is not acceptance evidence; older reports contain historical results and do not override this file.
