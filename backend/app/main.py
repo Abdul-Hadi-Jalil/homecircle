@@ -4,6 +4,7 @@ from contextlib import asynccontextmanager
 import httpx
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.responses import JSONResponse
 
 from app.api.router import router
 from app.core.config import Settings, get_settings
@@ -36,6 +37,7 @@ def create_app(settings: Settings | None = None, *, pool_factory=create_pool) ->
         version="0.1.0",
         lifespan=lifespan,
         docs_url="/docs" if settings.app_env != "production" else None,
+        openapi_url="/openapi.json" if settings.app_env != "production" else None,
         redoc_url=None,
     )
     app.add_middleware(
@@ -52,5 +54,18 @@ def create_app(settings: Settings | None = None, *, pool_factory=create_pool) ->
     @app.get("/health", tags=["health"])
     async def health():
         return {"status": "ok"}
+
+    @app.get("/ready", tags=["health"])
+    async def ready():
+        try:
+            async with app.state.pool.connection() as connection:
+                await connection.execute("SELECT 1")
+        except Exception:
+            return JSONResponse(
+                {"status": "unavailable"},
+                status_code=503,
+                headers={"Cache-Control": "no-store"},
+            )
+        return JSONResponse({"status": "ready"}, headers={"Cache-Control": "no-store"})
 
     return app

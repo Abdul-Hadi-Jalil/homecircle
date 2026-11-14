@@ -13,6 +13,38 @@ void main() {
   const identity = AuthIdentity(id: 'user-a');
 
   test(
+    'logout clears identity even when device revocation throws immediately',
+    () async {
+      final fixture = await createTestRuntime(identity: identity);
+      final session = fixture.runtime.session;
+      await session.start();
+      session.beforeLogout = () =>
+          throw StateError('Device service unavailable');
+      await session.logout();
+      expect(session.user, null);
+      expect(session.activeHousehold, null);
+      expect(fixture.auth.identity, null);
+      await fixture.dispose();
+    },
+  );
+
+  test('starting a session twice restores identity once', () async {
+    var requests = 0;
+    final fixture = await createTestRuntime(
+      identity: identity,
+      respond: (request) async {
+        requests++;
+        return householdResponse(request, [membership('a')]);
+      },
+    );
+    await fixture.runtime.session.start();
+    final initial = requests;
+    await fixture.runtime.session.start();
+    expect(requests, initial);
+    await fixture.dispose();
+  });
+
+  test(
     'restores validated household preference among multiple memberships',
     () async {
       final fixture = await createTestRuntime(

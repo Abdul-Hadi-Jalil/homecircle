@@ -22,6 +22,9 @@ class Settings(BaseSettings):
     database_pool_max: int = Field(default=5, ge=1)
     database_pool_timeout: float = Field(default=10, gt=0)
     database_connect_timeout: int = Field(default=10, ge=1)
+    database_statement_timeout_ms: int = Field(default=15000, ge=100, le=300000)
+    database_lock_timeout_ms: int = Field(default=5000, ge=100, le=300000)
+    database_idle_transaction_timeout_ms: int = Field(default=30000, ge=1000, le=300000)
     supabase_url: str
     supabase_publishable_key: SecretStr | None = None
     supabase_jwt_issuer: str | None = None

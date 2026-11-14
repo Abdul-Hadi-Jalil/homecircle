@@ -334,6 +334,44 @@ Future<void> closeHub(WidgetTester tester, TestRuntime f) async {
 }
 
 void main() {
+  for (final width in [320.0, 390.0, 480.0]) {
+    testWidgets('major tabs fit $width logical pixels at large text', (
+      tester,
+    ) async {
+      tester.view.physicalSize = Size(width, 900);
+      tester.view.devicePixelRatio = 1;
+      tester.platformDispatcher.textScaleFactorTestValue = 2;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+      addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
+      final f = await hubFixture(HubServer());
+      await startHub(tester, f);
+      expect(tester.takeException(), null);
+      for (final tab in ['Inventory', 'Tasks', 'Chat', 'Profile']) {
+        await tester.tap(find.text(tab).last);
+        await tester.pumpAndSettle();
+        expect(tester.takeException(), null, reason: '$tab at $width');
+      }
+      await closeHub(tester, f);
+    });
+  }
+
+  testWidgets('active Profile route opens notification preferences', (
+    tester,
+  ) async {
+    final f = await hubFixture(HubServer());
+    await startHub(tester, f);
+    await tester.tap(find.text('Profile').last);
+    await tester.pumpAndSettle();
+    await tapVisible(tester, find.text('Notification Settings'));
+    expect(
+      find.textContaining('In-app notifications are saved'),
+      findsOneWidget,
+    );
+    expect(tester.takeException(), null);
+    await closeHub(tester, f);
+  });
+
   test(
     'dashboard reads one aggregate endpoint and rejects foreign household data',
     () async {

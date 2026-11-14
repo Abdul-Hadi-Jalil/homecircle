@@ -2,7 +2,7 @@ from starlette.responses import JSONResponse
 
 
 class PhotoBodyLimit:
-    """Bound photo JSON before FastAPI buffers/parses it, including chunked bodies."""
+    """Bound write bodies before FastAPI buffers them, including chunked bodies."""
 
     def __init__(self, app, max_bytes=8 * 1024 * 1024):
         self.app = app
@@ -14,14 +14,8 @@ class PhotoBodyLimit:
             scope.get("method") == "PUT" and "/inventory/" in path and path.endswith("/photo")
         ) or (scope.get("method") == "POST" and "/tasks/" in path and path.endswith("/attachments"))
         chat = "/chat/" in path and scope.get("method") in ("POST", "PATCH", "PUT")
-        hub = scope.get("method") in ("POST", "PATCH", "DELETE") and (
-            path.endswith("/devices/fcm-token")
-            or "/notifications/" in path
-            or path.endswith("/notification-preferences")
-            or path.endswith("/dashboard-settings")
-        )
         photo = photo or (chat and path.endswith("/attachments"))
-        if scope["type"] != "http" or not (photo or chat or hub):
+        if scope["type"] != "http" or scope.get("method") not in ("POST", "PATCH", "PUT", "DELETE"):
             return await self.app(scope, receive, send)
         limit = self.max_bytes if photo else 64 * 1024
         messages, size = [], 0

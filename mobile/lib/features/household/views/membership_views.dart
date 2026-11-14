@@ -406,9 +406,7 @@ class _MembershipContentState extends State<_MembershipContent> {
                                       ),
                                     ),
                                   );
-                                  if (widget.mode == 'settings') {
-                                    await session.refresh();
-                                  }
+                                  await session.refresh();
                                 }
                               },
                       ),
@@ -441,6 +439,12 @@ class _MembershipContentState extends State<_MembershipContent> {
               ],
               if (widget.mode == 'profile') ...[
                 const SizedBox(height: 24),
+                ListTile(
+                  leading: const Icon(Icons.notifications_outlined),
+                  title: Text(l.hubNotifySettings),
+                  trailing: const Icon(Icons.chevron_right),
+                  onTap: () => context.pushNamed('notificationSettings'),
+                ),
                 ListTile(
                   leading: const Icon(Icons.home_outlined),
                   title: Text(session.activeHousehold?.name ?? ''),

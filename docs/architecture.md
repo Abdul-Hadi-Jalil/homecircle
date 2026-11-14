@@ -1,5 +1,21 @@
 # Architecture
 
+## Milestone 7 release preparation
+
+The Feature-First Flutter MVVM/Provider/http and FastAPI/Pydantic/Psycopg architecture
+is retained. M7 adds global pre-parser write limits, bounded API database statements,
+lock waits and idle transactions, and a `/ready` database probe alongside liveness.
+Production OpenAPI/docs are disabled. Release mobile configuration requires HTTPS.
+Existing release keystores can be injected through ignored local properties or CI
+environment variables. Missing credentials produce unsigned artifacts.
+
+Session startup is idempotent. Logout clears visible identity immediately and still
+attempts Auth sign-out when device, Realtime or local-cache cleanup fails. Profile
+settings use the active membership screen. Narrow/large-text chat uses a separate
+composer toolbar. No offline mutation synchronization was added. M7 introduces no
+database migration. Hosted security and native FCM remain acceptance gates.
+[Final QA report](FINAL_QA_REPORT.md), [Deployment guide](DEPLOYMENT_GUIDE.md)
+
 ## Mobile
 
 Views render state and trigger actions. ChangeNotifier ViewModels handle loading, errors and user actions. Shared repositories return typed immutable models and coordinate data policies. Services wrap HTTP, Supabase Auth and local storage. Provider composes shared instances at the application root. No widget sends HTTP requests.
@@ -26,7 +42,12 @@ Profiles are created by a hardened `auth.users` insert trigger, including a back
 
 ## Offline and local storage
 
-SharedPreferences holds small preferences, JSON drafts and small cached snapshots. Cache/draft keys contain both user and household IDs. Household snapshots are cached on successful activation; in-memory validated data remains readable during a subsequent connection loss. `LocalStore.readCache` and draft APIs are ready for feature repositories. Feature-specific cache readers and form draft UIs are deferred until those forms/data exist. Large structured inventory/task caches should use SQLite via a maintained Flutter adapter in their feature milestone, after measuring query requirements.
+SharedPreferences holds small preferences, inventory/task/shopping drafts and bounded
+cached snapshots. Cache/draft keys contain both user and household IDs. Household
+snapshots are cached on successful activation. Feature readers and saved form drafts
+are implemented and tested. Chat and hub snapshots use the secure-storage cache.
+Fetched pages remain available after connectivity loss within a validated session.
+No automatic write replay or offline send synchronization is implemented.
 
 Startup never grants access from stale cached membership. When membership cannot be validated, the household selection screen asks the user to reconnect. Revoked household cache/drafts are removed after validation; logout or identity replacement clears all private preferences/cache/drafts for the previous user. Content is not encrypted by SharedPreferences, so store only nonsensitive lightweight drafts and snapshots, not passwords, tokens or attachments. Sensitive future caches require encrypted storage. Supabase session and PKCE data use `flutter_secure_storage`; Android backup is disabled. There is no offline sync engine, mutation queue, conflict resolution or offline chat delivery.
 

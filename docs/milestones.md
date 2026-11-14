@@ -9,7 +9,10 @@ M4 Shopping and M5 Chat/Realtime are **Partially Implemented — hosted acceptan
 pending**. See the [M4 report](milestone-4-report.md) and
 [M5 report](milestone-5-report.md) for actual checks and setup gates. Skipped SQL
 tests are not acceptance evidence. M5 must pass disposable-project SQL/RLS/Storage
-and two-user private Realtime acceptance before completion. M6 was not started.
+and two-user private Realtime acceptance before completion. M6 is now partially
+implemented with Firebase and hosted acceptance pending. M7 local hardening and
+unsigned release APK/AAB builds are implemented, with release readiness blocked by
+the documented external acceptance gates. [Final QA report](FINAL_QA_REPORT.md)
 
 # Historical Milestone 1 implementation snapshot
 

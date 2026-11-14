@@ -1,0 +1,6 @@
+# Copy to ignored key.properties. Use an existing approved private keystore.
+# Resolve relative paths from mobile/android, or use a forward-slash absolute path.
+storeFile=
+storePassword=
+keyAlias=
+keyPassword=

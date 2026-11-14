@@ -93,6 +93,7 @@ class SessionViewModel extends ChangeNotifier {
   }
 
   Future<void> start() async {
+    if (_subscription != null) return;
     _subscription = auth.changes.listen(
       (identity) {
         authCallbackError = false;
@@ -270,7 +271,9 @@ class SessionViewModel extends ChangeNotifier {
   }
 
   Future<void> logout() async {
-    final deviceRevocation = beforeLogout?.call();
+    final deviceRevocation = Future<void>.sync(() async {
+      await beforeLogout?.call();
+    }).catchError((Object _) {});
     // Clear private state locally even if the remote logout request fails offline.
     final previous = user;
     loggedOut = true;
@@ -287,11 +290,19 @@ class SessionViewModel extends ChangeNotifier {
     passwordRecovery = false;
     scopeRevision++;
     _notify();
-    await realtime.switchTo(null);
-    if (previous != null) await store.clearUser(previous.id);
+    try {
+      await realtime.switchTo(null);
+    } on Object {
+      errorCode = 'auth';
+    }
+    try {
+      if (previous != null) await store.clearUser(previous.id);
+    } on Object {
+      errorCode = 'auth';
+    }
     try {
       try {
-        await deviceRevocation?.timeout(const Duration(seconds: 5));
+        await deviceRevocation.timeout(const Duration(seconds: 5));
       } catch (_) {}
       await auth.logout();
     } on Object {

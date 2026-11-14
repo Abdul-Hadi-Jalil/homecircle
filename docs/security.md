@@ -1,5 +1,29 @@
 # Security boundaries
 
+## Milestone 7 verification scope
+
+Local checks pass for JWT validation, every protected API operation rejecting absent
+bearer identity, strict inputs, sanitized errors, restricted pool startup, actor
+transaction/rollback behavior and user/household cache isolation. All 85 protected
+operations are exercised by the route-wide authentication regression. Ordinary write
+bodies are limited to 64 KiB and photo JSON to 8 MiB before parsing. Production docs
+and OpenAPI are disabled. Readiness failures expose only a sanitized 503 status.
+API database connections bound statement, lock and idle transaction durations.
+
+Mobile release configuration requires HTTPS and clean API/Supabase URLs. Logout
+continues through Auth sign-out after cleanup failures. Failure to erase persistent
+local storage can still require platform recovery and device acceptance. Signing
+inputs and private runtime files remain ignored. The M7 limited tracked-file scan
+found no private-key blocks or service-role JWTs. History and other secret formats
+were outside that scan.
+
+Disposable database, hosted Storage/RLS and two-client Realtime tests remain skipped
+or unexecuted because configuration is absent. Five-actor inventory isolation and
+the exact oil stock retry scenario are added to the guarded suite. Real revocation,
+profile access, worker leases, recipient ownership and ordinary-member behavior must
+pass in that separate project before production acceptance. Firebase and release
+signing also remain unconfigured. [Final QA report](FINAL_QA_REPORT.md)
+
 Current acceptance status is in [PROJECT_STATUS.md](PROJECT_STATUS.md). The M2–6
 security properties below have isolated tests; actual hosted RLS, transactions and
 Storage behavior still require the separate disposable project.

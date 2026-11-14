@@ -117,3 +117,6 @@ def test_pool_is_lazy_and_disables_prepared_statements(settings):
     assert pool.closed
     assert pool.kwargs["prepare_threshold"] is None
     assert pool.kwargs["sslmode"] == "verify-full"
+    assert "statement_timeout=15000" in pool.kwargs["options"]
+    assert "lock_timeout=5000" in pool.kwargs["options"]
+    assert "idle_in_transaction_session_timeout=30000" in pool.kwargs["options"]

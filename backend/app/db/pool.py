@@ -16,6 +16,12 @@ def create_pool(settings: Settings) -> AsyncConnectionPool:
         "sslmode": settings.database_sslmode,
         "connect_timeout": settings.database_connect_timeout,
         "application_name": "homecircle-api",
+        "options": (
+            f"-c statement_timeout={settings.database_statement_timeout_ms} "
+            f"-c lock_timeout={settings.database_lock_timeout_ms} "
+            "-c idle_in_transaction_session_timeout="
+            f"{settings.database_idle_transaction_timeout_ms}"
+        ),
     }
     if settings.database_sslrootcert:
         kwargs["sslrootcert"] = settings.database_sslrootcert

@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
@@ -8,6 +10,26 @@ plugins {
 // The intended Firebase project's ignored config enables native/background FCM.
 if (file("google-services.json").exists()) {
     apply(plugin = "com.google.gms.google-services")
+}
+
+val releaseProperties = Properties()
+val releasePropertiesFile = rootProject.file("key.properties")
+if (releasePropertiesFile.exists()) {
+    releasePropertiesFile.inputStream().use { releaseProperties.load(it) }
+}
+val releaseKeys = mapOf(
+    "storeFile" to "HOMECIRCLE_KEYSTORE_FILE",
+    "storePassword" to "HOMECIRCLE_STORE_PASSWORD",
+    "keyAlias" to "HOMECIRCLE_KEY_ALIAS",
+    "keyPassword" to "HOMECIRCLE_KEY_PASSWORD",
+).mapValues { (property, environment) ->
+    System.getenv(environment)?.takeIf { it.isNotBlank() }
+        ?: releaseProperties.getProperty(property)?.takeIf { it.isNotBlank() }
+}
+val hasReleaseKeys = releaseKeys.values.all { it != null }
+if (releaseKeys.values.any { it != null } && !hasReleaseKeys &&
+    gradle.startParameter.taskNames.any { it.contains("release", ignoreCase = true) }) {
+    error("Release signing configuration is incomplete. Supply all four signing fields.")
 }
 
 android {
@@ -21,7 +43,6 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.homecircle.homecircle"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
@@ -35,9 +56,20 @@ android {
         versionName = flutter.versionName
     }
 
+    signingConfigs {
+        if (hasReleaseKeys) {
+            create("release") {
+                storeFile = rootProject.file(releaseKeys.getValue("storeFile")!!)
+                storePassword = releaseKeys.getValue("storePassword")
+                keyAlias = releaseKeys.getValue("keyAlias")
+                keyPassword = releaseKeys.getValue("keyPassword")
+            }
+        }
+    }
+
     buildTypes {
         release {
-            // Supply a private release signing configuration before distribution.
+            if (hasReleaseKeys) signingConfig = signingConfigs.getByName("release")
         }
     }
 }

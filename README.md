@@ -2,6 +2,14 @@
 
 Everything your home needs, in one place.
 
+Milestone 7 local hardening and unsigned Android release builds are available.
+**Not Release Ready** pending hosted security, Auth/Realtime/FCM, device workflow,
+branding and signing acceptance. Candidate version `1.0.0+2` retains
+`com.homecircle.homecircle` pending owner confirmation.
+[Final QA report](docs/FINAL_QA_REPORT.md),
+[Android release checklist](docs/ANDROID_RELEASE_CHECKLIST.md),
+[Deployment guide](docs/DEPLOYMENT_GUIDE.md), [Known issues](docs/KNOWN_ISSUES.md)
+
 HomeCircle is an Android-first Flutter app with FastAPI and Supabase. Household management, inventory, tasks, shopping, chat, the dashboard, family activity and persistent notifications are implemented. Firebase push integration and M1–6 hosted/device acceptance remain pending. Read the current project status before continuing development. [Project status](docs/PROJECT_STATUS.md)
 
 ## Project highlights

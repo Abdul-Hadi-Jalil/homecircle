@@ -115,16 +115,27 @@ async def test_shopping_cross_household_link_nonshopping_and_purchase_invariant(
     check_constraints(database)
 
 
-async def test_shopping_purchase_stock_idempotency_undo_history_and_summary(database):
+@pytest.mark.parametrize(
+    ("initial", "unit", "name", "expected"),
+    [("3", "kg", "Rice", "8"), ("0.5", "L", "Cooking Oil", "5.5")],
+)
+async def test_shopping_purchase_stock_idempotency_undo_history_and_summary(
+    database, initial, unit, name, expected
+):
     _, member, _, home = seed(database)
     as_actor(database, member, "homecircle_api")
     item = insert_item(database, home, member)
+    database.execute(
+        "UPDATE public.inventory_items SET name=%s,quantity=%s,unit=%s,minimum_quantity=2 "
+        "WHERE id=%s",
+        (name, Decimal(initial), unit, item),
+    )
     shopping = service(database)
     actor = AuthenticatedUser(member, None)
     row = await shopping.create(
         actor,
         home,
-        ShoppingCreate(title="Rice", quantity="5", unit="kg", linked_inventory_item_id=item),
+        ShoppingCreate(title=name, quantity="5", unit=unit, linked_inventory_item_id=item),
     )
     row = await shopping.transition(
         actor,
@@ -141,7 +152,7 @@ async def test_shopping_purchase_stock_idempotency_undo_history_and_summary(data
     check_constraints(database)
     assert database.execute(
         "SELECT quantity FROM public.inventory_items WHERE id=%s", (item,)
-    ).fetchone()["quantity"] == Decimal("8")
+    ).fetchone()["quantity"] == Decimal(expected)
     row = await shopping.transition(actor, home, row["id"], Revision(expected_revision=3), "open")
     check_constraints(database)
     assert row["purchased_at"] is None and row["purchase_id"] is None

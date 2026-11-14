@@ -1,5 +1,24 @@
 # Development setup with hosted Supabase
 
+## Milestone 7 release and verification
+
+Use the locked environment and commands in the deployment guide. API database
+timeouts are configurable through `DATABASE_STATEMENT_TIMEOUT_MS` (15000),
+`DATABASE_LOCK_TIMEOUT_MS` (5000) and
+`DATABASE_IDLE_TRANSACTION_TIMEOUT_MS` (30000). `/health` is liveness and `/ready`
+checks database availability. Production disables both interactive docs and OpenAPI.
+
+Mobile release builds require an HTTPS API endpoint and Supabase origin. Use an
+ignored `config.release.local.json` with only public configuration. Existing
+`config.local.json` remains suitable for local HTTP debug builds. Signing can use
+ignored `mobile/android/key.properties` based on the blank example or the four
+documented CI environment variables. Current release artifacts are unsigned and
+contain no runtime defines. Native Firebase configuration remains pending.
+
+[Deployment guide](DEPLOYMENT_GUIDE.md),
+[Android release checklist](ANDROID_RELEASE_CHECKLIST.md),
+[Final QA report](FINAL_QA_REPORT.md)
+
 ## Supabase
 
 Use a hosted Supabase project. PostgreSQL, Auth, Storage and Realtime run on Supabase; FastAPI runs as a Python service on your computer during development. No Docker or local database installation is needed. No hosted project has been modified by this implementation.

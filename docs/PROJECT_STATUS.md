@@ -1,9 +1,11 @@
 # HomeCircle — current project status
 
-Updated 14 November 2026 (Asia/Karachi). Milestone 6 implementation and verification
-are recorded below and in the M6 report. M1–6 hosted/device acceptance remains
-pending. Firebase and the disposable Supabase test project are unconfigured.
-Milestone 7 remains unstarted. [M6 report](milestone-6-report.md)
+Updated 14 November 2026 (Asia/Karachi). Milestone 7 local hardening, regression
+verification and unsigned Android release builds are implemented. **Not Release
+Ready. M7 remains partially implemented.** M1–6 hosted/device acceptance remains
+pending. Firebase, the disposable Supabase test project and release signing are
+unconfigured. [Final QA report](FINAL_QA_REPORT.md),
+[Known issues](KNOWN_ISSUES.md), [M6 report](milestone-6-report.md)
 
 ## Milestones
 
@@ -21,7 +23,29 @@ numbered `home circle screens` wrapper folders were removed and report links upd
 | 4 — Shopping | Partially Implemented — hosted acceptance pending | Shared shopping uses household_tasks plus one-to-one details, purchase history and an idempotent inventory ledger. API, localized Flutter UI, offline drafts and isolated tests implemented. Realtime and hosted SQL acceptance remain pending. |
 | 5 — Chat & Realtime | Partially Implemented — hosted acceptance pending | Backend-connected chat, private Realtime invalidation/outbox, images, replies/reactions, ownership, task sharing/conversion and secure offline reading/drafts implemented. Hosted SQL/RLS/Storage and two-client Realtime acceptance remain unverified. |
 | 6 — Dashboard/Notifications/Activity | Partially Implemented — external acceptance pending | Real-data dashboard, unified activity, persistent notifications, preferences, Android FCM transport and durable worker implemented. Hosted SQL/RLS, live FCM and device acceptance remain unverified. Dedicated dashboard/activity Realtime remains incomplete with refresh fallbacks. |
-| 7 — Testing/Polish/Release | Partially Implemented | Regression tests and debug APK pass; production signing/distribution and full hosted/device acceptance pending. |
+| 7 — Testing/Polish/Release | Partially Implemented — Not Release Ready | Backend 226 passed/58 skipped, Flutter 115 passed/2 skipped. Analysis/lint pass. Unsigned release APK/AAB build. Profile/settings, logout, large-text chat, contrast, configuration, request limits and API readiness hardened. Hosted security, real device workflows, Firebase, branding and signing remain open. |
+
+## Milestone 7 verification summary
+
+Final local backend checks pass with 226 tests and 58 guarded database skips. Flutter
+passes 115 tests with two optional live API skips. Analysis, Ruff, formatting and
+dependency checks pass. All 85 protected API operations reject absent bearer identity.
+All 12 migration files, containing 371 top-level statements, pass a parser-only check.
+The hosted migration history and actual RLS semantics remain unverified.
+
+Unsigned release APK/AAB and a locally configured development-signed debug APK build.
+The debug APK installed and reached onboarding on the API 37 emulator. Emulator
+System UI/launcher ANRs occurred during host memory pressure, so device/performance
+acceptance remains open. Current release artifacts omit runtime defines and display
+configuration feedback. Release signing, HTTPS runtime configuration, Firebase and
+approved Android branding remain required.
+
+M7 adds no database migration. Existing migrations remain pending verified deployment
+history and disposable-project acceptance. Candidate `1.0.0+2` retains the existing
+application ID pending owner confirmation. Detailed fixes, changed files, artifact
+hashes, test commands, five-user/flows A–F coverage and release blockers are recorded
+in the final QA report. [Final QA report](FINAL_QA_REPORT.md),
+[Release checklist](ANDROID_RELEASE_CHECKLIST.md), [Deployment guide](DEPLOYMENT_GUIDE.md)
 
 ## Implemented inventory functionality
 

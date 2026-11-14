@@ -315,6 +315,26 @@ class _FamilyChatScreenState extends State<FamilyChatScreen>
         l = context.taskCopy,
         home = vm.session.activeHousehold,
         rows = vm.messages;
+    final compactComposer =
+        MediaQuery.sizeOf(context).width < 360 ||
+        MediaQuery.textScalerOf(context).scale(14) > 21;
+    final composerActions = [
+      IconButton(
+        tooltip: l.chatAttach,
+        onPressed: vm.sending ? null : chooseImage,
+        icon: const Icon(Icons.photo_camera_outlined),
+      ),
+      IconButton(
+        tooltip: l.hubMention,
+        onPressed: vm.sending ? null : chooseMention,
+        icon: const Icon(Icons.alternate_email),
+      ),
+      IconButton(
+        tooltip: l.chatShareTask,
+        onPressed: vm.sending ? null : shareTask,
+        icon: const Icon(Icons.add_circle_outline),
+      ),
+    ];
     return AppScaffold(
       title: l.chatTitle,
       actions: [
@@ -482,24 +502,15 @@ class _FamilyChatScreenState extends State<FamilyChatScreen>
                           ),
                         ],
                       ),
+                    if (compactComposer)
+                      Align(
+                        alignment: AlignmentDirectional.centerStart,
+                        child: Wrap(children: composerActions),
+                      ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        IconButton(
-                          tooltip: l.chatAttach,
-                          onPressed: vm.sending ? null : chooseImage,
-                          icon: const Icon(Icons.photo_camera_outlined),
-                        ),
-                        IconButton(
-                          tooltip: l.hubMention,
-                          onPressed: vm.sending ? null : chooseMention,
-                          icon: const Icon(Icons.alternate_email),
-                        ),
-                        IconButton(
-                          tooltip: l.chatShareTask,
-                          onPressed: vm.sending ? null : shareTask,
-                          icon: const Icon(Icons.add_circle_outline),
-                        ),
+                        if (!compactComposer) ...composerActions,
                         Expanded(
                           child: TextField(
                             controller: composer,
