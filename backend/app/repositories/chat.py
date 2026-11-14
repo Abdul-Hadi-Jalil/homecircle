@@ -108,7 +108,13 @@ class ChatRepository(TaskRepository):
             "converted_tasks": [],
         }
         if row["deleted_at"]:
-            return {**result, "body": None, "linked_task_id": None, "reply_to_message_id": None}
+            return {
+                **result,
+                "body": None,
+                "linked_task_id": None,
+                "reply_to_message_id": None,
+                "mentioned_user_ids": [],
+            }
         if row["reply_to_message_id"]:
             parent = await self.raw(c, household, row["reply_to_message_id"])
             parent_name = (

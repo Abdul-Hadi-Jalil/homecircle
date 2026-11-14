@@ -9,7 +9,6 @@ import '../../features/household/views/membership_views.dart';
 import '../../features/dashboard/views/home_view.dart';
 import '../../features/household/viewmodels/session_view_model.dart';
 import '../../features/household/views/household_view.dart';
-import '../../shared/widgets/route_placeholder.dart';
 import '../../features/inventory/views/inventory_views.dart';
 import '../../features/tasks/views/tasks_screen.dart';
 import '../../features/shopping/views/shopping_list_screen.dart';
@@ -17,6 +16,9 @@ import '../../features/shopping/views/shopping_item_form.dart';
 import '../../features/shopping/views/shopping_details_screen.dart';
 import '../../features/chat/views/family_chat_screen.dart';
 import '../../features/chat/models/chat_task_source.dart';
+import '../../features/activity/views/family_activity_screen.dart';
+import '../../features/notifications/views/notifications_screen.dart';
+import '../../features/notifications/views/notification_settings_screen.dart';
 import '../../features/tasks/views/task_form_screen.dart';
 import '../../features/tasks/views/task_details_screen.dart';
 import '../localization/generated/app_localizations.dart';
@@ -130,8 +132,11 @@ GoRouter createRouter(SessionViewModel session) => GoRouter(
             GoRoute(
               path: '/inventory',
               name: 'inventory',
-              builder: (context, state) =>
-                  InventoryOverview(key: ValueKey(session.scopeRevision)),
+              builder: (context, state) => InventoryOverview(
+                key: ValueKey(
+                  '${session.scopeRevision}-${state.uri.queryParameters['stock']}',
+                ),
+              ),
             ),
           ],
         ),
@@ -142,9 +147,17 @@ GoRouter createRouter(SessionViewModel session) => GoRouter(
               name: 'tasks',
               builder: (context, state) => TasksScreen(
                 key: ValueKey(
-                  'tasks-${session.scopeRevision}-${state.uri.queryParameters['item']}',
+                  'tasks-${session.scopeRevision}-${state.uri.queryParameters['item']}-${state.uri.queryParameters['active']}-${state.uri.queryParameters['priority']}',
                 ),
                 linkedItemId: state.uri.queryParameters['item'],
+                initialFilters: state.uri.queryParameters['active'] == 'true'
+                    ? {
+                        'active_only': 'true',
+                        'exclude_shopping': 'true',
+                        if (state.uri.queryParameters['priority'] == 'urgent')
+                          'priority': 'urgent',
+                      }
+                    : null,
               ),
             ),
           ],
@@ -181,9 +194,21 @@ GoRouter createRouter(SessionViewModel session) => GoRouter(
       GoRoute(
         path: entry.$2,
         name: entry.$1,
-        builder: (context, state) =>
-            RoutePlaceholder(title: entry.$3(AppLocalizations.of(context)!)),
+        builder: (context, state) => entry.$1 == 'notifications'
+            ? NotificationsScreen(
+                key: ValueKey('notifications-${session.scopeRevision}'),
+              )
+            : FamilyActivityScreen(
+                key: ValueKey('activity-${session.scopeRevision}'),
+              ),
       ),
+    GoRoute(
+      path: '/notification-settings',
+      name: 'notificationSettings',
+      builder: (context, state) => NotificationSettingsScreen(
+        key: ValueKey('preferences-${session.scopeRevision}'),
+      ),
+    ),
     GoRoute(
       path: '/shopping',
       name: 'shopping',

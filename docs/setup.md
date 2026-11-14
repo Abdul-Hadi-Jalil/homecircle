@@ -81,3 +81,76 @@ Primary references: [Flutter Android setup](https://docs.flutter.dev/platform-in
 ## Milestone 1 setup
 
 The [Milestone 1 report](milestone-1-report.md#manual-setup-and-external-acceptance) covers Auth callbacks/email templates, the server invitation pepper, separate-project integration tests and device acceptance. Apply all migrations in order; the final profile actor helper supports hosted Auth schema ownership while retaining the API role’s NOINHERIT setting. No broad role inheritance is required.
+
+## Milestone 6 setup and acceptance
+
+The dashboard, activity and persistent notifications require migration
+`20261114000003_household_hub.sql` after all M0–5 migrations. Review/apply migrations
+first in the separate disposable hosted Supabase project. Existing write-capable test
+guards require `HOMECIRCLE_TEST_DB=hosted-test`, `HOMECIRCLE_TEST_PROJECT_REF` and
+`SUPABASE_TEST_DATABASE_URL`, with the test TLS certificate setting where needed.
+Run `python -m pytest -m integration -q` from `backend` against that test target.
+
+Household time zones default to UTC. An administrator can PATCH
+`/api/v1/households/{id}/dashboard-settings` with `{"time_zone":"Asia/Karachi"}` or
+another valid IANA zone using their verified user session. The dashboard displays the
+configured zone and uses it for overdue/upcoming dates.
+
+### Firebase Android
+
+1. Create/select the intended Firebase project and register the Android application
+   `com.homecircle.homecircle`. Enable the Cloud Messaging API for that project.
+2. Place its public Android configuration at `mobile/android/app/google-services.json`.
+   That environment-specific file is ignored. The Google Services Gradle plugin is
+   applied when the file exists. Firebase initialization failure leaves in-app features
+   available and displays push configuration status in Notification Settings.
+3. Run `flutter pub get` and rebuild the Android app. Use a Google Play-enabled test
+   device/emulator. Android notification permission, the default channel and a monochrome
+   notification icon are configured in the repository. Grant permission through
+   Profile → Notification Settings → Enable device notifications.
+4. Keep Supabase Auth configuration in place. The current Firebase SDK registers the
+   direct-send target through `onRegistered`, and the backend stores it under the
+   requested token API. OS permission and household preference switches are independent.
+
+Firebase documents native project configuration and Flutter app-state handling.
+[Android setup](https://firebase.google.com/docs/android/setup) ·
+[Flutter message handling](https://firebase.google.com/docs/cloud-messaging/flutter/receive-messages)
+
+### Firebase Admin worker
+
+1. Provision the migration-created `homecircle_worker` as a dedicated login with a
+   locally generated secret. Supply its verified-TLS connection through
+   `NOTIFICATION_WORKER_DATABASE_URL`. The web API continues using `homecircle_api`.
+2. Set `FIREBASE_PROJECT_ID` to the intended Android Firebase project. Configure
+   Application Default Credentials through workload identity or
+   `GOOGLE_APPLICATION_CREDENTIALS` pointing to a private service-account file outside
+   the repository. Give the worker the required Firebase Messaging send permission.
+3. Install the backend lock file dependencies. From `backend`, start
+   `python -m app.workers.notifications` under the deployment process supervisor.
+   `--once` processes one controlled batch. The worker polls every ten seconds.
+4. Monitor sanitized delivery outcomes, pending-job age, permanent failures and token
+   revocations through owner-reviewed diagnostics. Fix configuration errors before
+   explicitly requeueing selected permanent jobs. Review retention for terminal jobs
+   and revoked device rows while preserving source deduplication and installation
+   revocation identities.
+
+Supabase Cron is used by the separate M5 chat outbox. The M6 push worker runs as its
+own Python process. Private credentials belong in local/deployment secret storage.
+Firebase describes backend credentials in its Admin setup documentation.
+[Firebase Admin setup](https://firebase.google.com/docs/admin/setup)
+
+### Controlled acceptance
+
+Use two authenticated household members, multiple households and a configured Android
+test device. Verify assignments, completion, shopping, stock transitions and explicit
+chat mentions create the correct persistent records. Verify muted categories and
+push-disabled preferences. Exercise foreground, background and terminated taps,
+session restoration, household switching, revoked membership, deleted targets,
+permission denial, target rotation and logout. Confirm observed device delivery before
+marking FCM acceptance complete.
+
+Check worker retry/permanent/invalid-target behavior and recovery after a lost lease.
+Confirm actual database grants/RLS, transaction rollback and concurrent claims in the
+disposable project. M6 uses periodic/pull/resume reads plus foreground push invalidation.
+Dedicated dashboard/activity Supabase Realtime remains incomplete. Physical-device
+accessibility/secure-storage checks remain open. M7 remains unstarted.

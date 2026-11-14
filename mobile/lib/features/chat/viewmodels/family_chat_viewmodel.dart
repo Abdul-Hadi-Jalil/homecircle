@@ -44,6 +44,21 @@ class FamilyChatViewModel extends ChangeNotifier {
   final Map<String, (String, DateTime)> urls = {};
   final Map<String, Map<String, dynamic>> taskPreviews = {};
   Uint8List? selectedImage;
+  final Map<String, String> mentions = {};
+  void mention(String id, String name) {
+    if (!ready || mentions.length >= 20) return;
+    mentions[id] = name;
+    changeDraft('$draft@$name ');
+    emit();
+  }
+
+  void removeMention(String id) {
+    if (!ready) return;
+    mentions.remove(id);
+    unawaited(saveDraft());
+    emit();
+  }
+
   List<Map<String, dynamic>> taskCandidates = [];
   int taskSearchRequest = 0, taskPage = 1;
   bool taskSearchLoading = false, moreTasks = false;
@@ -78,6 +93,7 @@ class FamilyChatViewModel extends ChangeNotifier {
     urls.clear();
     taskPreviews.clear();
     seenEvents.clear();
+    mentions.clear();
     selectedImage = null;
     taskCandidates = [];
     taskSearchRequest++;
@@ -134,6 +150,9 @@ class FamilyChatViewModel extends ChangeNotifier {
       draft = form?['body'] as String? ?? '';
       draftId = form?['client_message_id'] as String? ?? chatUuid();
       replyId = form?['reply_to_message_id'] as String?;
+      mentions.addAll(
+        Map<String, String>.from(form?['mentions'] as Map? ?? {}),
+      );
       final unsent = await repository.cache.read(u, h, 'pending');
       if (!current(captured)) return;
       for (final row in unsent?['items'] as List? ?? []) {
@@ -144,6 +163,8 @@ class FamilyChatViewModel extends ChangeNotifier {
           attachmentId: row['attachment_id'] as String?,
           linkedTaskId: row['linked_task_id'] as String?,
           requiresImage: row['requires_image'] == true,
+          mentionedUsers: (row['mentioned_user_ids'] as List? ?? [])
+              .cast<String>(),
         );
         item.uploaded = row['uploaded'] == true;
         item.state = ChatSendState.failed;
@@ -245,6 +266,7 @@ class FamilyChatViewModel extends ChangeNotifier {
                 'requires_image': p.imageRequired,
                 'attachment_id': p.attachmentId,
                 'uploaded': p.uploaded,
+                'mentioned_user_ids': p.mentionedUsers,
               },
             )
             .toList(),
@@ -277,6 +299,7 @@ class FamilyChatViewModel extends ChangeNotifier {
         'body': draft,
         'client_message_id': draftId,
         'reply_to_message_id': replyId,
+        'mentions': Map<String, String>.of(mentions),
       });
     } catch (_) {
       if (current(captured)) {
@@ -323,6 +346,7 @@ class FamilyChatViewModel extends ChangeNotifier {
       replying = null;
       replyId = null;
       selectedImage = null;
+      mentions.clear();
       unawaited(realtime.disconnect());
       connected = false;
       if (u != null && h != null) {
@@ -438,9 +462,11 @@ class FamilyChatViewModel extends ChangeNotifier {
       replyId: replyId,
       image: selectedImage,
       linkedTaskId: linkedTask,
+      mentionedUsers: mentions.keys.toList(),
     );
     pending[item.clientId] = item;
     draft = '';
+    mentions.clear();
     draftId = chatUuid();
     selectedImage = null;
     replyId = null;

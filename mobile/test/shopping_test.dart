@@ -550,6 +550,11 @@ void main() {
       120,
       scrollable: find.byType(Scrollable).first,
     );
+    await Scrollable.ensureVisible(
+      tester.element(find.text('Shopping')),
+      alignment: 0.5,
+    );
+    await tester.pumpAndSettle();
     await tester.tap(find.text('Shopping'));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 100));

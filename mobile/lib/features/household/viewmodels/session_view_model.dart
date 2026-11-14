@@ -50,6 +50,7 @@ class SessionViewModel extends ChangeNotifier {
   bool authCallbackError = false;
   bool inviteAfterCreate = false;
   bool loggedOut = false;
+  Future<void> Function()? beforeLogout;
   bool get onboardingCompleted =>
       store.preferences.getBool('homecircle.onboardingComplete') ?? false;
   ApplicationStage get stage {
@@ -269,6 +270,7 @@ class SessionViewModel extends ChangeNotifier {
   }
 
   Future<void> logout() async {
+    final deviceRevocation = beforeLogout?.call();
     // Clear private state locally even if the remote logout request fails offline.
     final previous = user;
     loggedOut = true;
@@ -288,6 +290,9 @@ class SessionViewModel extends ChangeNotifier {
     await realtime.switchTo(null);
     if (previous != null) await store.clearUser(previous.id);
     try {
+      try {
+        await deviceRevocation?.timeout(const Duration(seconds: 5));
+      } catch (_) {}
       await auth.logout();
     } on Object {
       errorCode = 'auth';

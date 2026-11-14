@@ -6,6 +6,7 @@ import 'package:http/testing.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:homecircle/features/chat/repositories/chat_cache.dart';
 import 'package:homecircle/features/chat/services/chat_realtime_service.dart';
+import 'package:homecircle/features/notifications/services/push_service.dart';
 import 'package:homecircle/core/config/app_runtime.dart';
 import 'package:homecircle/core/network/api_client.dart';
 import 'package:homecircle/core/network/network_status.dart';
@@ -97,6 +98,7 @@ Future<TestRuntime> createTestRuntime({
   Map<String, Object> preferences = const {},
   ChatCache? chatCache,
   ChatRealtimeService? chatRealtime,
+  PushService? push,
 }) async {
   SharedPreferences.setMockInitialValues(preferences);
   final store = LocalStore(await SharedPreferences.getInstance());
@@ -115,6 +117,7 @@ Future<TestRuntime> createTestRuntime({
   final service = HouseholdApi(api);
   final repository = HouseholdRepository(service);
   final runtime = AppRuntime(
+    push: push,
     chatCache: chatCache ?? MemoryChatCache(),
     chatRealtime: chatRealtime,
     auth: auth,

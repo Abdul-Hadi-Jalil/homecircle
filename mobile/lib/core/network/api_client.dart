@@ -30,7 +30,8 @@ class ApiClient {
       _request('PATCH', path, body: body);
   Future<Object?> put(String path, {Object? body}) =>
       _request('PUT', path, body: body);
-  Future<Object?> delete(String path) => _request('DELETE', path);
+  Future<Object?> delete(String path, {Object? body}) =>
+      _request('DELETE', path, body: body);
 
   Future<Object?> _request(
     String method,

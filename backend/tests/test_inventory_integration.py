@@ -105,6 +105,10 @@ class AsyncCursor:
     def __init__(self, cursor):
         self.cursor = cursor
 
+    @property
+    def rowcount(self):
+        return self.cursor.rowcount
+
     async def fetchone(self):
         return self.cursor.fetchone()
 

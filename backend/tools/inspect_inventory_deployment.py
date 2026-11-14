@@ -47,6 +47,12 @@ def main():
                 "public.chat_task_conversions",
                 "private.chat_uploads",
                 "private.chat_rate_limits",
+                "public.household_activity_events",
+                "public.user_notifications",
+                "public.notification_preferences",
+                "public.user_device_tokens",
+                "private.notification_push_jobs",
+                "private.device_revocations",
             ]
             for name in names:
                 row = connection.execute("SELECT to_regclass(%s)::text", (name,)).fetchone()

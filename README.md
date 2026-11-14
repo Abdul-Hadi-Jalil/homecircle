@@ -2,7 +2,7 @@
 
 Everything your home needs, in one place.
 
-HomeCircle is an Android-first Flutter app with FastAPI and Supabase. Authentication/households, inventory, tasks/requests/repairs, shared shopping and family chat are implemented. Hosted acceptance remains pending for M1–5, including private Realtime. See [the current project status](docs/PROJECT_STATUS.md) before continuing development.
+HomeCircle is an Android-first Flutter app with FastAPI and Supabase. Household management, inventory, tasks, shopping, chat, the dashboard, family activity and persistent notifications are implemented. Firebase push integration and M1–6 hosted/device acceptance remain pending. Read the current project status before continuing development. [Project status](docs/PROJECT_STATUS.md)
 
 ## Project highlights
 
@@ -204,4 +204,23 @@ use secure storage, partitioned by user and household.
 
 See [the M5 report](docs/milestone-5-report.md) for all endpoints, changed files,
 security rules, test results and manual Supabase setup. M5 is **Partially Implemented —
-hosted acceptance pending**. No migration was applied. M6 was not started.
+hosted acceptance pending**. M6 implementation is recorded below.
+
+## Milestone 6
+
+The Home Dashboard aggregates actual household records through one backend endpoint.
+It provides summary filters, priority-ordered attention cards, upcoming tasks, recent
+activity and existing feature quick actions. Family Activity projects trusted inventory,
+task, shopping and membership events with category/date filters and cursor pagination.
+
+Persistent recipient notifications include read/dismiss state and household preferences.
+Android Firebase Messaging supports permission handling, target rotation, logout and
+authorized notification taps. A separate Firebase Admin worker processes leased,
+retryable PostgreSQL jobs with generic lock-screen copy. Sensitive caches use secure
+storage with user/household scope and visible offline timestamps.
+
+M6 is **Partially Implemented — external acceptance pending**. Firebase and the disposable
+test database are unconfigured. Dedicated dashboard/activity Realtime remains incomplete.
+Pull/resume/periodic refresh and foreground push invalidation are implemented. Setup,
+security details, actual checks and remaining work are recorded in the M6 report.
+[M6 report](docs/milestone-6-report.md) · [Setup](docs/setup.md)

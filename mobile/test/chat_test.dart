@@ -335,6 +335,34 @@ Future<void> closeChat(WidgetTester tester, TestRuntime f) async {
 }
 
 void main() {
+  test('explicit chat mentions stay with the original retry and clear on switching', () async {
+    final server = ChatServer(),
+        pair = await chatFixture(server),
+        f = pair.$1,
+        vm = f.runtime.chat;
+    await vm.open();
+    vm.mention('father', 'Father');
+    await vm.saveDraft();
+    expect(vm.draft, contains('@Father'));
+    server.offline = true;
+    await vm.send();
+    final pending = vm.pending.values.single;
+    expect(pending.payload['mentioned_user_ids'], ['father']);
+    server.offline = false;
+    await vm.retry(pending);
+    final sent = server.requests
+        .where(
+          (r) => r.method == 'POST' && r.url.path.endsWith('/chat/messages'),
+        )
+        .toList();
+    expect((jsonDecode(sent.last.body) as Map)['mentioned_user_ids'], [
+      'father',
+    ]);
+    vm.mention('father', 'Father');
+    await f.runtime.session.selectHousehold('b');
+    expect(vm.mentions, isEmpty);
+    await f.dispose();
+  });
   TestWidgetsFlutterBinding.ensureInitialized();
   test('secure cache isolates households and serializes writes before logout cleanup', () async {
     FlutterSecureStorage.setMockInitialValues({});

@@ -61,10 +61,12 @@ class PendingChatMessage {
     this.image,
     this.attachmentId,
     this.linkedTaskId,
+    this.mentionedUsers = const [],
     bool requiresImage = false,
   }) : imageRequired = requiresImage || image != null || attachmentId != null;
   final String clientId, body;
   final String? replyId, linkedTaskId;
+  final List<String> mentionedUsers;
   final bool imageRequired;
   List<int>? image;
   String? attachmentId;
@@ -82,5 +84,6 @@ class PendingChatMessage {
     'reply_to_message_id': replyId,
     'linked_task_id': linkedTaskId,
     'attachment_ids': [if (attachmentId != null) attachmentId],
+    if (mentionedUsers.isNotEmpty) 'mentioned_user_ids': mentionedUsers,
   };
 }

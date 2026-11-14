@@ -6,12 +6,14 @@ import '../../../core/localization/generated/app_localizations.dart';
 import '../../../core/widgets/app_widgets.dart';
 import '../../household/viewmodels/session_view_model.dart';
 import '../viewmodels/diagnostics_view_model.dart';
+import 'dashboard_screen.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({this.profile = false, super.key});
   final bool profile;
   @override
   Widget build(BuildContext context) {
+    if (!profile) return const DashboardScreen();
     final l = AppLocalizations.of(context)!;
     final session = context.watch<SessionViewModel>();
     final diagnostics = context.watch<DiagnosticsViewModel>();
@@ -33,6 +35,11 @@ class HomeView extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           if (profile) ...[
+            ListTile(
+              title: Text(l.hubNotifySettings),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => context.pushNamed('notificationSettings'),
+            ),
             Text(session.user?.email ?? ''),
             AppPrimaryButton(label: l.logout, onPressed: session.logout),
           ] else ...[

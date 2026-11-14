@@ -62,6 +62,10 @@ class TaskRepository:
             "t.deleted_at IS NOT NULL" if filters.get("archived") else "t.deleted_at IS NULL",
         ]
         args = [household]
+        if filters.get("active_only"):
+            clauses.append("t.status IN ('open','in_progress','blocked')")
+        if filters.get("exclude_shopping"):
+            clauses.append("t.task_type<>'shopping'")
         for key, column in [
             ("task_type", "task_type"),
             ("status", "status"),

@@ -1213,7 +1213,7 @@ abstract class AppLocalizations {
   /// No description provided for @familyActivity.
   ///
   /// In en, this message translates to:
-  /// **'Family activity'**
+  /// **'Family Activity'**
   String get familyActivity;
 
   /// No description provided for @placeholder.
@@ -2283,6 +2283,558 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Failed to send'**
   String get chatFailed;
+
+  /// No description provided for @hubMorning.
+  ///
+  /// In en, this message translates to:
+  /// **'Good morning, {name}!'**
+  String hubMorning(String name);
+
+  /// No description provided for @hubAfternoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Good afternoon, {name}!'**
+  String hubAfternoon(String name);
+
+  /// No description provided for @hubEvening.
+  ///
+  /// In en, this message translates to:
+  /// **'Good evening, {name}!'**
+  String hubEvening(String name);
+
+  /// No description provided for @hubMember.
+  ///
+  /// In en, this message translates to:
+  /// **'Family member'**
+  String get hubMember;
+
+  /// No description provided for @hubGlance.
+  ///
+  /// In en, this message translates to:
+  /// **'Your home at a glance'**
+  String get hubGlance;
+
+  /// No description provided for @hubQuick.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick Actions'**
+  String get hubQuick;
+
+  /// No description provided for @hubPending.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending Tasks'**
+  String get hubPending;
+
+  /// No description provided for @hubUrgent.
+  ///
+  /// In en, this message translates to:
+  /// **'Urgent Issues'**
+  String get hubUrgent;
+
+  /// No description provided for @hubShopping.
+  ///
+  /// In en, this message translates to:
+  /// **'Shopping Items'**
+  String get hubShopping;
+
+  /// No description provided for @hubLowStock.
+  ///
+  /// In en, this message translates to:
+  /// **'Low-Stock Items'**
+  String get hubLowStock;
+
+  /// No description provided for @hubOutStock.
+  ///
+  /// In en, this message translates to:
+  /// **'Out of Stock'**
+  String get hubOutStock;
+
+  /// No description provided for @hubOverdue.
+  ///
+  /// In en, this message translates to:
+  /// **'Overdue Tasks'**
+  String get hubOverdue;
+
+  /// No description provided for @hubMine.
+  ///
+  /// In en, this message translates to:
+  /// **'My Tasks'**
+  String get hubMine;
+
+  /// No description provided for @hubAddItem.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Item'**
+  String get hubAddItem;
+
+  /// No description provided for @hubRequest.
+  ///
+  /// In en, this message translates to:
+  /// **'Request Something'**
+  String get hubRequest;
+
+  /// No description provided for @hubReport.
+  ///
+  /// In en, this message translates to:
+  /// **'Report Issue'**
+  String get hubReport;
+
+  /// No description provided for @hubMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Send Message'**
+  String get hubMessage;
+
+  /// No description provided for @hubAttention.
+  ///
+  /// In en, this message translates to:
+  /// **'Needs Attention'**
+  String get hubAttention;
+
+  /// No description provided for @hubUpcoming.
+  ///
+  /// In en, this message translates to:
+  /// **'Upcoming Tasks'**
+  String get hubUpcoming;
+
+  /// No description provided for @hubRecent.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent Family Activity'**
+  String get hubRecent;
+
+  /// No description provided for @hubViewAll.
+  ///
+  /// In en, this message translates to:
+  /// **'View All'**
+  String get hubViewAll;
+
+  /// No description provided for @hubEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your home starts here!'**
+  String get hubEmptyTitle;
+
+  /// No description provided for @hubEmptyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Add your first item or task to start organizing your family.'**
+  String get hubEmptyBody;
+
+  /// No description provided for @hubFirstItem.
+  ///
+  /// In en, this message translates to:
+  /// **'Add First Item'**
+  String get hubFirstItem;
+
+  /// No description provided for @hubNoAttention.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing needs attention right now.'**
+  String get hubNoAttention;
+
+  /// No description provided for @hubNoUpcoming.
+  ///
+  /// In en, this message translates to:
+  /// **'No tasks due in the next seven days.'**
+  String get hubNoUpcoming;
+
+  /// No description provided for @hubCached.
+  ///
+  /// In en, this message translates to:
+  /// **'Offline cached view — reconnect for current information.'**
+  String get hubCached;
+
+  /// No description provided for @hubUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Last refreshed: {time}'**
+  String hubUpdated(String time);
+
+  /// No description provided for @hubZone.
+  ///
+  /// In en, this message translates to:
+  /// **'Household time zone: {zone}'**
+  String hubZone(String zone);
+
+  /// No description provided for @hubActivitySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'See what\'s been happening at home.'**
+  String get hubActivitySubtitle;
+
+  /// No description provided for @hubAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get hubAll;
+
+  /// No description provided for @hubInventory.
+  ///
+  /// In en, this message translates to:
+  /// **'Inventory'**
+  String get hubInventory;
+
+  /// No description provided for @hubTasks.
+  ///
+  /// In en, this message translates to:
+  /// **'Tasks'**
+  String get hubTasks;
+
+  /// No description provided for @hubRepairs.
+  ///
+  /// In en, this message translates to:
+  /// **'Repairs'**
+  String get hubRepairs;
+
+  /// No description provided for @hubMembers.
+  ///
+  /// In en, this message translates to:
+  /// **'Members'**
+  String get hubMembers;
+
+  /// No description provided for @hubNoActivity.
+  ///
+  /// In en, this message translates to:
+  /// **'No matching activity yet.'**
+  String get hubNoActivity;
+
+  /// No description provided for @hubDateRange.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter by date'**
+  String get hubDateRange;
+
+  /// No description provided for @hubClearDates.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear dates'**
+  String get hubClearDates;
+
+  /// No description provided for @hubToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get hubToday;
+
+  /// No description provided for @hubYesterday.
+  ///
+  /// In en, this message translates to:
+  /// **'Yesterday'**
+  String get hubYesterday;
+
+  /// No description provided for @hubEarlier.
+  ///
+  /// In en, this message translates to:
+  /// **'Earlier'**
+  String get hubEarlier;
+
+  /// No description provided for @hubFormer.
+  ///
+  /// In en, this message translates to:
+  /// **'Former member'**
+  String get hubFormer;
+
+  /// No description provided for @hubCreated.
+  ///
+  /// In en, this message translates to:
+  /// **'Added'**
+  String get hubCreated;
+
+  /// No description provided for @hubUpdatedAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Updated'**
+  String get hubUpdatedAction;
+
+  /// No description provided for @hubCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed'**
+  String get hubCompleted;
+
+  /// No description provided for @hubPurchased.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchased'**
+  String get hubPurchased;
+
+  /// No description provided for @hubArchived.
+  ///
+  /// In en, this message translates to:
+  /// **'Archived'**
+  String get hubArchived;
+
+  /// No description provided for @hubRestored.
+  ///
+  /// In en, this message translates to:
+  /// **'Restored'**
+  String get hubRestored;
+
+  /// No description provided for @hubAssigned.
+  ///
+  /// In en, this message translates to:
+  /// **'Assigned'**
+  String get hubAssigned;
+
+  /// No description provided for @hubReopened.
+  ///
+  /// In en, this message translates to:
+  /// **'Reopened'**
+  String get hubReopened;
+
+  /// No description provided for @hubCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancelled'**
+  String get hubCancelled;
+
+  /// No description provided for @hubJoined.
+  ///
+  /// In en, this message translates to:
+  /// **'Joined'**
+  String get hubJoined;
+
+  /// No description provided for @hubLeft.
+  ///
+  /// In en, this message translates to:
+  /// **'Left'**
+  String get hubLeft;
+
+  /// No description provided for @hubRole.
+  ///
+  /// In en, this message translates to:
+  /// **'Changed member role'**
+  String get hubRole;
+
+  /// No description provided for @hubComment.
+  ///
+  /// In en, this message translates to:
+  /// **'Updated a discussion'**
+  String get hubComment;
+
+  /// No description provided for @hubPhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Updated an attachment'**
+  String get hubPhoto;
+
+  /// No description provided for @hubStock.
+  ///
+  /// In en, this message translates to:
+  /// **'Updated stock'**
+  String get hubStock;
+
+  /// No description provided for @hubCondition.
+  ///
+  /// In en, this message translates to:
+  /// **'Updated condition'**
+  String get hubCondition;
+
+  /// No description provided for @hubActivityDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'{actor} · {action}'**
+  String hubActivityDetail(String actor, String action);
+
+  /// No description provided for @hubNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get hubNotifications;
+
+  /// No description provided for @hubReadAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark All as Read'**
+  String get hubReadAll;
+
+  /// No description provided for @hubUnread.
+  ///
+  /// In en, this message translates to:
+  /// **'Unread only'**
+  String get hubUnread;
+
+  /// No description provided for @hubRead.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark read'**
+  String get hubRead;
+
+  /// No description provided for @hubDismiss.
+  ///
+  /// In en, this message translates to:
+  /// **'Dismiss'**
+  String get hubDismiss;
+
+  /// No description provided for @hubCaughtUp.
+  ///
+  /// In en, this message translates to:
+  /// **'All caught up!'**
+  String get hubCaughtUp;
+
+  /// No description provided for @hubCaughtUpBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re up to date with everything happening at home.'**
+  String get hubCaughtUpBody;
+
+  /// No description provided for @hubNoUnread.
+  ///
+  /// In en, this message translates to:
+  /// **'No unread notifications.'**
+  String get hubNoUnread;
+
+  /// No description provided for @hubNotifySettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Notification Settings'**
+  String get hubNotifySettings;
+
+  /// No description provided for @hubSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings saved.'**
+  String get hubSaved;
+
+  /// No description provided for @hubTaskUpdates.
+  ///
+  /// In en, this message translates to:
+  /// **'Task updates'**
+  String get hubTaskUpdates;
+
+  /// No description provided for @hubShoppingUpdates.
+  ///
+  /// In en, this message translates to:
+  /// **'Shopping updates'**
+  String get hubShoppingUpdates;
+
+  /// No description provided for @hubInventoryAlerts.
+  ///
+  /// In en, this message translates to:
+  /// **'Inventory alerts'**
+  String get hubInventoryAlerts;
+
+  /// No description provided for @hubChatUpdates.
+  ///
+  /// In en, this message translates to:
+  /// **'Family chat'**
+  String get hubChatUpdates;
+
+  /// No description provided for @hubMentions.
+  ///
+  /// In en, this message translates to:
+  /// **'Mentions'**
+  String get hubMentions;
+
+  /// No description provided for @hubPush.
+  ///
+  /// In en, this message translates to:
+  /// **'Push notifications'**
+  String get hubPush;
+
+  /// No description provided for @hubPushExplanation.
+  ///
+  /// In en, this message translates to:
+  /// **'Push permission controls alerts on this device. In-app notifications are saved even when device permission is denied.'**
+  String get hubPushExplanation;
+
+  /// No description provided for @hubEnablePush.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable device notifications'**
+  String get hubEnablePush;
+
+  /// No description provided for @hubPushDenied.
+  ///
+  /// In en, this message translates to:
+  /// **'Device notifications are disabled. You can enable them in Android system settings.'**
+  String get hubPushDenied;
+
+  /// No description provided for @hubPushUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Push is not configured on this device. In-app notifications still work.'**
+  String get hubPushUnavailable;
+
+  /// No description provided for @hubPushAllowed.
+  ///
+  /// In en, this message translates to:
+  /// **'Device notifications are allowed.'**
+  String get hubPushAllowed;
+
+  /// No description provided for @hubPushRegistration.
+  ///
+  /// In en, this message translates to:
+  /// **'Push registration could not be confirmed. Reopen settings to retry.'**
+  String get hubPushRegistration;
+
+  /// No description provided for @hubForeground.
+  ///
+  /// In en, this message translates to:
+  /// **'A household update is available.'**
+  String get hubForeground;
+
+  /// No description provided for @hubOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'Open'**
+  String get hubOpen;
+
+  /// No description provided for @hubUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This record is unavailable or you no longer have access.'**
+  String get hubUnavailable;
+
+  /// No description provided for @hubLoadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load household updates. Refresh to try again.'**
+  String get hubLoadFailed;
+
+  /// No description provided for @hubMention.
+  ///
+  /// In en, this message translates to:
+  /// **'Mention a member'**
+  String get hubMention;
+
+  /// No description provided for @hubRemoveMention.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove mention'**
+  String get hubRemoveMention;
+
+  /// No description provided for @hubNeedsRepair.
+  ///
+  /// In en, this message translates to:
+  /// **'Needs Repair'**
+  String get hubNeedsRepair;
+
+  /// No description provided for @hubBroken.
+  ///
+  /// In en, this message translates to:
+  /// **'Broken'**
+  String get hubBroken;
+
+  /// No description provided for @hubMemberAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'Added member'**
+  String get hubMemberAdded;
+
+  /// No description provided for @hubMemberRemoved.
+  ///
+  /// In en, this message translates to:
+  /// **'Removed member'**
+  String get hubMemberRemoved;
+
+  /// No description provided for @hubUnreadCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{1 unread} other{{count} unread}}'**
+  String hubUnreadCount(int count);
 }
 
 class _AppLocalizationsDelegate

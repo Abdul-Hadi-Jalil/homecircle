@@ -63,3 +63,15 @@ Milestone 0 contains the implementation foundation. External integration and pla
 After configuring development services and passing the remaining integration checks, the project is ready for the first product UI milestone: apply approved Stitch designs to authentication and household onboarding, including reviewed invitation/join behavior. Reuse the theme, localized strings, repositories, session scope and route guards. Add real integration coverage for two users and multiple households before expanding shared records.
 
 Inventory, shopping, task CRUD, full chat/discussions, notifications/FCM, uploads, activity history, durable structured caches and sync are later milestones. Feature forms should use the scoped draft abstraction when implemented. No offline mutation synchronization is planned for version 1. Milestone 1 was subsequently implemented at the user’s request; see the current report above.
+
+## Milestone 6 implementation record
+
+Dashboard aggregation, normalized family activity, persistent recipient notifications,
+household preferences, Android Firebase Messaging and the standalone durable push worker
+are implemented. Dedicated dashboard/activity Realtime remains incomplete with refresh
+fallbacks. Firebase and the disposable database remain unconfigured.
+
+M6 is **Partially Implemented — external acceptance pending**. M7 remains unstarted.
+The report records files, schemas, endpoints, security, test evidence and configuration
+steps. The authoritative status carries the final check counts.
+[M6 report](milestone-6-report.md) · [Project status](PROJECT_STATUS.md)

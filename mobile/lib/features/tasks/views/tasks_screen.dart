@@ -12,8 +12,9 @@ import '../widgets/task_widgets.dart';
 import '../widgets/task_filter_sheet.dart';
 
 class TasksScreen extends StatefulWidget {
-  const TasksScreen({this.linkedItemId, super.key});
+  const TasksScreen({this.linkedItemId, this.initialFilters, super.key});
   final String? linkedItemId;
+  final Map<String, String>? initialFilters;
   @override
   State<TasksScreen> createState() => _TasksScreenState();
 }
@@ -27,6 +28,9 @@ class _TasksScreenState extends State<TasksScreen> {
     Future.microtask(() {
       if (!mounted) return;
       final vm = context.read<TasksViewModel>();
+      if (widget.initialFilters != null) {
+        vm.filters = {...widget.initialFilters!};
+      }
       if (widget.linkedItemId != null) {
         vm.filters = {
           'linked_inventory_item_id': widget.linkedItemId!,

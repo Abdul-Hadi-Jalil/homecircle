@@ -1,6 +1,6 @@
 # Security boundaries
 
-Current acceptance status is in [PROJECT_STATUS.md](PROJECT_STATUS.md). The M2–5
+Current acceptance status is in [PROJECT_STATUS.md](PROJECT_STATUS.md). The M2–6
 security properties below have isolated tests; actual hosted RLS, transactions and
 Storage behavior still require the separate disposable project.
 
@@ -149,3 +149,38 @@ preferences fallback, photo byte cache or automatic offline send exists. A task 
 after explicit review follows existing task cache rules. Secure storage and platform
 behavior still need physical-device acceptance. M1 real sign-in, renewal, logout,
 callbacks and member-removal acceptance remain prerequisites for secure operation.
+
+## Milestone 6 notification and activity boundaries
+
+Hub APIs verify bearer identity, household membership and recipient ownership. Typed
+inputs reject client-generated actors and notification recipients. Cursors bind the
+requested household, filters and applicable recipient. API responses disable HTTP
+caching. Body-size limits also cover device/preference/notification mutations.
+
+Activity projection and notification generation run in trusted database triggers/functions.
+Raw notification creation and token/job reads are denied to API clients. API-role RLS
+limits notification state changes to the current recipient and current membership.
+Membership removal deletes that user's household notifications/preferences, cascading
+pending jobs. Activity remains available to current members with retained historical names.
+
+Push delivery uses a separate restricted worker login with narrow execute permissions.
+Claim leases protect concurrent processing, and stale acknowledgements fail. Delivery
+reauthorizes membership, category/push preferences, token ownership/revocation and read/
+dismissed state. Invalid targets are revoked. Worker logs contain sanitized categories
+and aggregate outcomes. Generic lock-screen copy and opaque identifiers limit exposure.
+
+Current Firebase direct-send targets are protected account/device data. Registration
+supports rotation and authenticated handoff. Logout tombstones prevent late registration
+from reviving the old installation session. Native registration/unregistration is serialized.
+Offline logout may leave an in-flight generic alert while revocation reaches FCM/server.
+Firebase Admin private credentials are supplied outside source control through ADC.
+
+FCM household/entity claims are resolved through an authenticated notification lookup.
+Restored Auth and revalidated household membership precede target loading and navigation.
+Deleted, archived and inaccessible targets show unavailable. User/household secure caches
+reject stale responses and clear on logout or detected active-scope authorization failure.
+Other household caches remain isolated behind validated membership.
+
+Isolated tests and static parsing passed. Actual PostgreSQL/RLS/concurrency and Android
+push behavior remain pending the separate test project, Firebase configuration and device
+acceptance. Existing M1–5 hosted acceptance gaps also remain. [M6 report](milestone-6-report.md)

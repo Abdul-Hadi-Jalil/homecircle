@@ -17,6 +17,7 @@ dependencies = [
   "PyJWT[crypto]>=2.10,<3",
   "httpx>=0.28,<1",
   "Pillow>=12,<13",
+  "firebase-admin>=7,<9",
 ]
 
 [project.optional-dependencies]

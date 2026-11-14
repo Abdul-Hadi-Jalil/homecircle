@@ -592,7 +592,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get householdSettings => 'Household settings';
 
   @override
-  String get familyActivity => 'Family activity';
+  String get familyActivity => 'Family Activity';
 
   @override
   String get placeholder => 'This screen is ready for a future milestone.';
@@ -1202,4 +1202,309 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get chatFailed => 'Failed to send';
+
+  @override
+  String hubMorning(String name) {
+    return 'Good morning, $name!';
+  }
+
+  @override
+  String hubAfternoon(String name) {
+    return 'Good afternoon, $name!';
+  }
+
+  @override
+  String hubEvening(String name) {
+    return 'Good evening, $name!';
+  }
+
+  @override
+  String get hubMember => 'Family member';
+
+  @override
+  String get hubGlance => 'Your home at a glance';
+
+  @override
+  String get hubQuick => 'Quick Actions';
+
+  @override
+  String get hubPending => 'Pending Tasks';
+
+  @override
+  String get hubUrgent => 'Urgent Issues';
+
+  @override
+  String get hubShopping => 'Shopping Items';
+
+  @override
+  String get hubLowStock => 'Low-Stock Items';
+
+  @override
+  String get hubOutStock => 'Out of Stock';
+
+  @override
+  String get hubOverdue => 'Overdue Tasks';
+
+  @override
+  String get hubMine => 'My Tasks';
+
+  @override
+  String get hubAddItem => 'Add Item';
+
+  @override
+  String get hubRequest => 'Request Something';
+
+  @override
+  String get hubReport => 'Report Issue';
+
+  @override
+  String get hubMessage => 'Send Message';
+
+  @override
+  String get hubAttention => 'Needs Attention';
+
+  @override
+  String get hubUpcoming => 'Upcoming Tasks';
+
+  @override
+  String get hubRecent => 'Recent Family Activity';
+
+  @override
+  String get hubViewAll => 'View All';
+
+  @override
+  String get hubEmptyTitle => 'Your home starts here!';
+
+  @override
+  String get hubEmptyBody =>
+      'Add your first item or task to start organizing your family.';
+
+  @override
+  String get hubFirstItem => 'Add First Item';
+
+  @override
+  String get hubNoAttention => 'Nothing needs attention right now.';
+
+  @override
+  String get hubNoUpcoming => 'No tasks due in the next seven days.';
+
+  @override
+  String get hubCached =>
+      'Offline cached view — reconnect for current information.';
+
+  @override
+  String hubUpdated(String time) {
+    return 'Last refreshed: $time';
+  }
+
+  @override
+  String hubZone(String zone) {
+    return 'Household time zone: $zone';
+  }
+
+  @override
+  String get hubActivitySubtitle => 'See what\'s been happening at home.';
+
+  @override
+  String get hubAll => 'All';
+
+  @override
+  String get hubInventory => 'Inventory';
+
+  @override
+  String get hubTasks => 'Tasks';
+
+  @override
+  String get hubRepairs => 'Repairs';
+
+  @override
+  String get hubMembers => 'Members';
+
+  @override
+  String get hubNoActivity => 'No matching activity yet.';
+
+  @override
+  String get hubDateRange => 'Filter by date';
+
+  @override
+  String get hubClearDates => 'Clear dates';
+
+  @override
+  String get hubToday => 'Today';
+
+  @override
+  String get hubYesterday => 'Yesterday';
+
+  @override
+  String get hubEarlier => 'Earlier';
+
+  @override
+  String get hubFormer => 'Former member';
+
+  @override
+  String get hubCreated => 'Added';
+
+  @override
+  String get hubUpdatedAction => 'Updated';
+
+  @override
+  String get hubCompleted => 'Completed';
+
+  @override
+  String get hubPurchased => 'Purchased';
+
+  @override
+  String get hubArchived => 'Archived';
+
+  @override
+  String get hubRestored => 'Restored';
+
+  @override
+  String get hubAssigned => 'Assigned';
+
+  @override
+  String get hubReopened => 'Reopened';
+
+  @override
+  String get hubCancelled => 'Cancelled';
+
+  @override
+  String get hubJoined => 'Joined';
+
+  @override
+  String get hubLeft => 'Left';
+
+  @override
+  String get hubRole => 'Changed member role';
+
+  @override
+  String get hubComment => 'Updated a discussion';
+
+  @override
+  String get hubPhoto => 'Updated an attachment';
+
+  @override
+  String get hubStock => 'Updated stock';
+
+  @override
+  String get hubCondition => 'Updated condition';
+
+  @override
+  String hubActivityDetail(String actor, String action) {
+    return '$actor · $action';
+  }
+
+  @override
+  String get hubNotifications => 'Notifications';
+
+  @override
+  String get hubReadAll => 'Mark All as Read';
+
+  @override
+  String get hubUnread => 'Unread only';
+
+  @override
+  String get hubRead => 'Mark read';
+
+  @override
+  String get hubDismiss => 'Dismiss';
+
+  @override
+  String get hubCaughtUp => 'All caught up!';
+
+  @override
+  String get hubCaughtUpBody =>
+      'You\'re up to date with everything happening at home.';
+
+  @override
+  String get hubNoUnread => 'No unread notifications.';
+
+  @override
+  String get hubNotifySettings => 'Notification Settings';
+
+  @override
+  String get hubSaved => 'Settings saved.';
+
+  @override
+  String get hubTaskUpdates => 'Task updates';
+
+  @override
+  String get hubShoppingUpdates => 'Shopping updates';
+
+  @override
+  String get hubInventoryAlerts => 'Inventory alerts';
+
+  @override
+  String get hubChatUpdates => 'Family chat';
+
+  @override
+  String get hubMentions => 'Mentions';
+
+  @override
+  String get hubPush => 'Push notifications';
+
+  @override
+  String get hubPushExplanation =>
+      'Push permission controls alerts on this device. In-app notifications are saved even when device permission is denied.';
+
+  @override
+  String get hubEnablePush => 'Enable device notifications';
+
+  @override
+  String get hubPushDenied =>
+      'Device notifications are disabled. You can enable them in Android system settings.';
+
+  @override
+  String get hubPushUnavailable =>
+      'Push is not configured on this device. In-app notifications still work.';
+
+  @override
+  String get hubPushAllowed => 'Device notifications are allowed.';
+
+  @override
+  String get hubPushRegistration =>
+      'Push registration could not be confirmed. Reopen settings to retry.';
+
+  @override
+  String get hubForeground => 'A household update is available.';
+
+  @override
+  String get hubOpen => 'Open';
+
+  @override
+  String get hubUnavailable =>
+      'This record is unavailable or you no longer have access.';
+
+  @override
+  String get hubLoadFailed =>
+      'Could not load household updates. Refresh to try again.';
+
+  @override
+  String get hubMention => 'Mention a member';
+
+  @override
+  String get hubRemoveMention => 'Remove mention';
+
+  @override
+  String get hubNeedsRepair => 'Needs Repair';
+
+  @override
+  String get hubBroken => 'Broken';
+
+  @override
+  String get hubMemberAdded => 'Added member';
+
+  @override
+  String get hubMemberRemoved => 'Removed member';
+
+  @override
+  String hubUnreadCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count unread',
+      one: '1 unread',
+    );
+    return '$_temp0';
+  }
 }

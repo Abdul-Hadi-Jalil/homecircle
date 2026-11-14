@@ -42,7 +42,11 @@ class ChatService:
         self.repository, self.settings, self.photos = repository, settings, photos
 
     async def send(self, user, household, data, token=None):
-        fingerprint = digest(data.model_dump())
+        fingerprint = digest(
+            data.model_dump(
+                exclude={"mentioned_user_ids"} if not data.mentioned_user_ids else set()
+            )
+        )
         try:
             async with self.repository.transaction(user.id, household) as c:
                 prior = await self.repository.by_client(

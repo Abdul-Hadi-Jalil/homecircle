@@ -16,6 +16,7 @@ class MessageCreate(Input):
     reply_to_message_id: UUID | None = None
     linked_task_id: UUID | None = None
     attachment_ids: list[UUID] = Field(default_factory=list, max_length=1)
+    mentioned_user_ids: list[UUID] = Field(default_factory=list, max_length=20)
 
     @model_validator(mode="after")
     def content(self):

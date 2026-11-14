@@ -14,8 +14,14 @@ class PhotoBodyLimit:
             scope.get("method") == "PUT" and "/inventory/" in path and path.endswith("/photo")
         ) or (scope.get("method") == "POST" and "/tasks/" in path and path.endswith("/attachments"))
         chat = "/chat/" in path and scope.get("method") in ("POST", "PATCH", "PUT")
+        hub = scope.get("method") in ("POST", "PATCH", "DELETE") and (
+            path.endswith("/devices/fcm-token")
+            or "/notifications/" in path
+            or path.endswith("/notification-preferences")
+            or path.endswith("/dashboard-settings")
+        )
         photo = photo or (chat and path.endswith("/attachments"))
-        if scope["type"] != "http" or not (photo or chat):
+        if scope["type"] != "http" or not (photo or chat or hub):
             return await self.app(scope, receive, send)
         limit = self.max_bytes if photo else 64 * 1024
         messages, size = [], 0
@@ -31,7 +37,7 @@ class PhotoBodyLimit:
                             "code": "photo_too_large" if photo else "request_too_large",
                             "message": "Photo request is too large."
                             if photo
-                            else "Chat request is too large.",
+                            else "Request is too large.",
                         }
                     },
                     status_code=413,

@@ -186,7 +186,7 @@
   "taskDetails": "Task details",
   "notifications": "Notifications",
   "householdSettings": "Household settings",
-  "familyActivity": "Family activity",
+  "familyActivity": "Family Activity",
   "placeholder": "This screen is ready for a future milestone.",
   "offline": "Offline · cached information may be out of date. Writes are not queued.",
   "retry": "Retry",
@@ -421,5 +421,149 @@
     }
   },
   "chatSave": "Save",
-  "chatFailed": "Failed to send"
+  "chatFailed": "Failed to send",
+  "hubMorning": "Good morning, {name}!",
+  "@hubMorning": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hubAfternoon": "Good afternoon, {name}!",
+  "@hubAfternoon": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hubEvening": "Good evening, {name}!",
+  "@hubEvening": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hubMember": "Family member",
+  "hubGlance": "Your home at a glance",
+  "hubQuick": "Quick Actions",
+  "hubPending": "Pending Tasks",
+  "hubUrgent": "Urgent Issues",
+  "hubShopping": "Shopping Items",
+  "hubLowStock": "Low-Stock Items",
+  "hubOutStock": "Out of Stock",
+  "hubOverdue": "Overdue Tasks",
+  "hubMine": "My Tasks",
+  "hubAddItem": "Add Item",
+  "hubRequest": "Request Something",
+  "hubReport": "Report Issue",
+  "hubMessage": "Send Message",
+  "hubAttention": "Needs Attention",
+  "hubUpcoming": "Upcoming Tasks",
+  "hubRecent": "Recent Family Activity",
+  "hubViewAll": "View All",
+  "hubEmptyTitle": "Your home starts here!",
+  "hubEmptyBody": "Add your first item or task to start organizing your family.",
+  "hubFirstItem": "Add First Item",
+  "hubNoAttention": "Nothing needs attention right now.",
+  "hubNoUpcoming": "No tasks due in the next seven days.",
+  "hubCached": "Offline cached view — reconnect for current information.",
+  "hubUpdated": "Last refreshed: {time}",
+  "@hubUpdated": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hubZone": "Household time zone: {zone}",
+  "@hubZone": {
+    "placeholders": {
+      "zone": {
+        "type": "String"
+      }
+    }
+  },
+  "hubActivitySubtitle": "See what's been happening at home.",
+  "hubAll": "All",
+  "hubInventory": "Inventory",
+  "hubTasks": "Tasks",
+  "hubRepairs": "Repairs",
+  "hubMembers": "Members",
+  "hubNoActivity": "No matching activity yet.",
+  "hubDateRange": "Filter by date",
+  "hubClearDates": "Clear dates",
+  "hubToday": "Today",
+  "hubYesterday": "Yesterday",
+  "hubEarlier": "Earlier",
+  "hubFormer": "Former member",
+  "hubCreated": "Added",
+  "hubUpdatedAction": "Updated",
+  "hubCompleted": "Completed",
+  "hubPurchased": "Purchased",
+  "hubArchived": "Archived",
+  "hubRestored": "Restored",
+  "hubAssigned": "Assigned",
+  "hubReopened": "Reopened",
+  "hubCancelled": "Cancelled",
+  "hubJoined": "Joined",
+  "hubLeft": "Left",
+  "hubRole": "Changed member role",
+  "hubComment": "Updated a discussion",
+  "hubPhoto": "Updated an attachment",
+  "hubStock": "Updated stock",
+  "hubCondition": "Updated condition",
+  "hubActivityDetail": "{actor} · {action}",
+  "@hubActivityDetail": {
+    "placeholders": {
+      "actor": {
+        "type": "String"
+      },
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "hubNotifications": "Notifications",
+  "hubReadAll": "Mark All as Read",
+  "hubUnread": "Unread only",
+  "hubRead": "Mark read",
+  "hubDismiss": "Dismiss",
+  "hubCaughtUp": "All caught up!",
+  "hubCaughtUpBody": "You're up to date with everything happening at home.",
+  "hubNoUnread": "No unread notifications.",
+  "hubNotifySettings": "Notification Settings",
+  "hubSaved": "Settings saved.",
+  "hubTaskUpdates": "Task updates",
+  "hubShoppingUpdates": "Shopping updates",
+  "hubInventoryAlerts": "Inventory alerts",
+  "hubChatUpdates": "Family chat",
+  "hubMentions": "Mentions",
+  "hubPush": "Push notifications",
+  "hubPushExplanation": "Push permission controls alerts on this device. In-app notifications are saved even when device permission is denied.",
+  "hubEnablePush": "Enable device notifications",
+  "hubPushDenied": "Device notifications are disabled. You can enable them in Android system settings.",
+  "hubPushUnavailable": "Push is not configured on this device. In-app notifications still work.",
+  "hubPushAllowed": "Device notifications are allowed.",
+  "hubPushRegistration": "Push registration could not be confirmed. Reopen settings to retry.",
+  "hubForeground": "A household update is available.",
+  "hubOpen": "Open",
+  "hubUnavailable": "This record is unavailable or you no longer have access.",
+  "hubLoadFailed": "Could not load household updates. Refresh to try again.",
+  "hubMention": "Mention a member",
+  "hubRemoveMention": "Remove mention",
+  "hubNeedsRepair": "Needs Repair",
+  "hubBroken": "Broken",
+  "hubMemberAdded": "Added member",
+  "hubMemberRemoved": "Removed member",
+  "hubUnreadCount": "{count, plural, one{1 unread} other{{count} unread}}",
+  "@hubUnreadCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }

@@ -1,9 +1,9 @@
 # HomeCircle — current project status
 
-Updated 14 November 2026 (Asia/Karachi). Milestone 5 chat implementation and isolated
-verification are recorded below and in [the M5 report](milestone-5-report.md).
-M1–5 hosted acceptance remains pending. No hosted migration or production data
-changes were made. Milestone 6 product work was not started.
+Updated 14 November 2026 (Asia/Karachi). Milestone 6 implementation and verification
+are recorded below and in the M6 report. M1–6 hosted/device acceptance remains
+pending. Firebase and the disposable Supabase test project are unconfigured.
+Milestone 7 remains unstarted. [M6 report](milestone-6-report.md)
 
 ## Milestones
 
@@ -20,7 +20,7 @@ numbered `home circle screens` wrapper folders were removed and report links upd
 | 3 — Tasks & Repairs | Partially Implemented — hosted acceptance pending | Repair/Chore/General requests, assignment/claims, status/reopen, discussions/photos/activity, inventory links and offline caches/drafts implemented. Stitch exports in UI/ reviewed and adapted. Backend 146 passed/29 skipped; Flutter 58 passed/2 skipped; analysis and debug build pass. SQL migration and real Auth/API/Storage acceptance unverified. |
 | 4 — Shopping | Partially Implemented — hosted acceptance pending | Shared shopping uses household_tasks plus one-to-one details, purchase history and an idempotent inventory ledger. API, localized Flutter UI, offline drafts and isolated tests implemented. Realtime and hosted SQL acceptance remain pending. |
 | 5 — Chat & Realtime | Partially Implemented — hosted acceptance pending | Backend-connected chat, private Realtime invalidation/outbox, images, replies/reactions, ownership, task sharing/conversion and secure offline reading/drafts implemented. Hosted SQL/RLS/Storage and two-client Realtime acceptance remain unverified. |
-| 6 — Dashboard/Notifications/Activity | Partially Implemented | Navigation and diagnostics exist; product dashboard, FCM and family activity absent. Inventory has separate activity history. |
+| 6 — Dashboard/Notifications/Activity | Partially Implemented — external acceptance pending | Real-data dashboard, unified activity, persistent notifications, preferences, Android FCM transport and durable worker implemented. Hosted SQL/RLS, live FCM and device acceptance remain unverified. Dedicated dashboard/activity Realtime remains incomplete with refresh fallbacks. |
 | 7 — Testing/Polish/Release | Partially Implemented | Regression tests and debug APK pass; production signing/distribution and full hosted/device acceptance pending. |
 
 ## Implemented inventory functionality
@@ -256,7 +256,85 @@ is best effort. Signed URLs may remain usable for up to 60 seconds after revocat
 
 M1 real authentication/email/callback/session/member-removal acceptance and M2–4
 hosted SQL/Storage/transaction gates remain open. **M5 is Partially Implemented —
-hosted acceptance pending.** M6 product dashboard, notifications and family activity
-were not started. Do not declare M5 complete or production-ready until live gates pass.
+hosted acceptance pending.** M6 was subsequently implemented as recorded below.
+M5 completion still requires its live acceptance checks.
+
+## Milestone 6 implementation and acceptance
+
+Dashboard aggregation, unified family activity, persistent notifications, household
+preferences, Android Firebase Messaging and the standalone delivery worker are
+implemented. The report contains the requested 15-part implementation record with
+files, schemas, endpoints, metric definitions, delivery semantics and setup steps.
+[M6 report](milestone-6-report.md)
+
+- The dashboard uses one backend aggregation statement. Summary cards link to active
+  tasks, urgent requests, Shopping and low-stock inventory. Quick actions reuse existing
+  forms/chat. Attention includes overdue/priority requests, stock shortages and durable
+  condition issues. Upcoming and recent lists are bounded.
+- Family activity projects persisted inventory/task/shopping events and new membership
+  events. Source/revision identities collapse duplicate derived audit rows. Existing
+  histories continue to work. Chat text and invitation codes stay out of the feed.
+- Notifications persist recipient/read/dismiss state. Category preferences and own-action
+  suppression govern generation. Stock alerts follow meaningful transitions. Explicit
+  member mentions are supported in chat while preserving pre-M6 retry hashes.
+- Private delivery jobs use leases, retry limits, exponential backoff, authorization
+  checks and permanent/invalid-target outcomes. Worker credentials use a separately
+  restricted database login and backend-only Firebase Admin credentials.
+- Device target rotation, authenticated installation revocation, logout tombstones and
+  serialized native registration cleanup are implemented. Foreground banners appear
+  above nested navigators. Notification taps validate the recipient, restored session,
+  destination household and target before routing.
+- Secure caches partition dashboard, activity and notifications by user/household and
+  show offline/last-refresh state. Read/preference mutations require server confirmation.
+  Scope changes reject late responses and clear visible data. Logout clears private cache.
+
+Verified on 14 November 2026 in Asia/Karachi.
+
+| Check | Actual result |
+| --- | --- |
+| Backend baseline | 195 passed, 46 skipped |
+| Flutter baseline | 90 passed, 2 skipped |
+| Backend full suite | **219 passed, 56 skipped**, one upstream TestClient warning |
+| Flutter full suite | **107 passed, 2 skipped** |
+| Ruff format/check | Passed |
+| Flutter formatting/analysis | Passed |
+| Python dependency consistency | Passed |
+| Firebase dependency restoration | Passed with existing locked versions preserved |
+| Android debug build | Passed with Firebase packages and configuration-disabled runtime |
+| SQL static parser | 71 top-level statements, 12 PL/pgSQL bodies and dashboard query parsed |
+| Read-only deployment diagnostic | Test project unconfigured, connection unavailable |
+| Hosted migration/RLS and FCM/device acceptance | Unverified |
+
+The final Android build passed in 85.8 seconds. Flutter reports a nonblocking
+`firebase_core` Kotlin Gradle Plugin migration warning for future Flutter compatibility.
+
+Ten new guarded database cases contribute to the skipped total. They cover real metric
+calculations, local dates, activity projection/pagination, recipient RLS, preferences,
+stock alerts, mentions, device rotation/leases, logout replay, member removal and rollback.
+The two optional Flutter live API cases remain skipped. Static parsing used placeholder
+catalog row types and establishes syntax evidence. Database semantics require the
+separate disposable project. Migration deployment remains pending.
+
+The supplied Dashboard, Family Activity and Notifications designs were reviewed and
+adapted to the shared HomeCircle theme. Real-font captures use API test fixtures.
+Device visual fidelity, text scaling, secure storage and OS interaction remain open.
+[Dashboard capture](images/milestone-6-dashboard.png) ·
+[Activity capture](images/milestone-6-activity.png) ·
+[Notifications capture](images/milestone-6-notifications.png)
+
+The user confirmed that the intended Firebase project is unconfigured. Manual setup
+requires the Android app configuration for `com.homecircle.homecircle`, backend ADC,
+the restricted worker login/process and a Google Play-enabled test device. The setup
+guide provides those steps and the controlled acceptance scenarios.
+[Setup](setup.md)
+
+The household time zone defaults to UTC and supports administrator configuration
+through dashboard settings. Dedicated dashboard/activity Supabase Realtime remains
+incomplete. Periodic/pull/resume reads and foreground push invalidation are implemented.
+M1–5 hosted acceptance remains open. Production database records were untouched.
+
+**M6 is Partially Implemented — external acceptance pending.** Hosted SQL/RLS, configured
+push delivery, Android app-state navigation and operational acceptance remain required.
+Milestone 7 remains unstarted.
 
 At resume, read this file and git status --short before editing. Preexisting untracked inventory backend/migrations and modified router/mobile dependency files were preserved. Git commit 4819101's message is not acceptance evidence; older reports contain historical results and do not override this file.

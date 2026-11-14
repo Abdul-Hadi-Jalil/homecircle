@@ -195,3 +195,44 @@ cleanup. A reviewed operator retention workflow is still required for stranded o
 
 See [the M5 report](milestone-5-report.md) for API, migration, retry-job setup and
 explicit hosted acceptance gaps. No M6 implementation is included.
+
+## Milestone 6 dashboard, activity and notifications
+
+The dashboard uses one parameterized SQL aggregation statement behind typed FastAPI
+schemas and Router → Service → Repository. Existing task status/type definitions drive
+counts. Household-local today uses the validated `households.time_zone` value, defaulting
+to UTC. Administrators configure it through dashboard settings. The report defines every
+metric and attention rank. Attention/upcoming/recent lists are bounded.
+
+`household_activity_events` is an immutable projection of existing inventory/task
+activity inserts and membership triggers. Existing histories retain their records.
+Source uniqueness handles replay and revision uniqueness collapses derived task audit
+rows. Historical actions are backfilled before notification triggers are installed.
+Source-time names are retained in new events. Backfilled entity labels use current
+names with explicit metadata. General activity excludes chat message content.
+
+Notification generation runs transactionally from trusted events. Recipient resolution
+checks current membership, category preferences and own-action suppression. A unique
+source/recipient identity protects persistent records. Push jobs are created per active
+device and reauthorized before sending. The restricted standalone worker claims jobs
+with expiring leases, calls Firebase Admin outside the claim transaction, and records
+sent/retry/permanent outcomes. Eight attempts and bounded exponential backoff limit
+retries. FCM data is an opaque notification reference with generic OS copy.
+
+Flutter keeps Feature-First MVVM, Provider, HTTP and GoRouter. Dashboard/activity models
+share scope and encrypted-cache coordination. Notifications own read/preferences,
+push registration and destination resolution. SDK 17 registration targets arrive through
+`onRegistered` and Admin sends use `Message.fid`. User/device token table and endpoint
+names retain the requested API contract. Firebase credentials belong to the worker.
+
+Foreground notifications invalidate data with a debounce and offer a banner above the
+nested navigators. Taps use an authorized notification lookup, restored Auth and a fresh
+household selection before fetching the target and navigating. Scope generations reject
+late responses. Logout revokes the installation session and serializes native registration
+cleanup. Server tombstones prevent stale registration from reviving a revoked session.
+
+Secure cached dashboard/activity/notification data includes last-refresh timestamps.
+Mutations require server confirmation. Cached membership stays behind existing session
+validation. Periodic reads, pull refresh and resume restoration provide eventual updates.
+Dedicated Supabase Realtime subscriptions for M6 remain incomplete. The implementation
+report records configuration and acceptance gaps. [M6 report](milestone-6-report.md)

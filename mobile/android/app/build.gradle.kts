@@ -4,6 +4,12 @@ plugins {
     id("dev.flutter.flutter-gradle-plugin")
 }
 
+// Unconfigured development builds still support all in-app features.
+// The intended Firebase project's ignored config enables native/background FCM.
+if (file("google-services.json").exists()) {
+    apply(plugin = "com.google.gms.google-services")
+}
+
 android {
     namespace = "com.homecircle.homecircle"
     compileSdk = flutter.compileSdkVersion

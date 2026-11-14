@@ -26,6 +26,12 @@ import '../../features/chat/services/chat_api_service.dart';
 import '../../features/chat/services/chat_realtime_service.dart';
 import '../../features/chat/viewmodels/family_chat_viewmodel.dart';
 import '../network/api_client.dart';
+import '../../features/dashboard/services/household_hub_api.dart';
+import '../../features/dashboard/repositories/hub_repository.dart';
+import '../../features/dashboard/viewmodels/dashboard_viewmodel.dart';
+import '../../features/activity/viewmodels/activity_viewmodel.dart';
+import '../../features/notifications/viewmodels/notifications_viewmodel.dart';
+import '../../features/notifications/services/push_service.dart';
 import '../network/network_status.dart';
 import '../storage/local_store.dart';
 import '../storage/secure_auth_storage.dart';
@@ -42,6 +48,7 @@ class AppRuntime {
     required this.store,
     this.chatCache,
     this.chatRealtime,
+    this.push,
   });
   final AuthRepository auth;
   final HouseholdRepository households;
@@ -52,6 +59,24 @@ class AppRuntime {
   final LocalStore store;
   final ChatCache? chatCache;
   final ChatRealtimeService? chatRealtime;
+  final PushService? push;
+  late final HubRepository hubRepository = HubRepository(
+    HouseholdHubApi(households.service.api),
+    chat.repository.cache,
+  );
+  late final DashboardViewModel dashboard = DashboardViewModel(
+    hubRepository,
+    session,
+  );
+  late final ActivityViewModel activity = ActivityViewModel(
+    hubRepository,
+    session,
+  );
+  late final NotificationsViewModel notifications =
+      NotificationsViewModel(hubRepository, session, push ?? NoPushService())
+        ..changed = () {
+          if (dashboard.opened && dashboard.ready) dashboard.load();
+        };
   late final FamilyChatViewModel chat = FamilyChatViewModel(
     ChatRepository(
       ChatApiService(households.service.api),
@@ -107,6 +132,7 @@ class AppRuntime {
     final householdApi = HouseholdApi(api);
     final households = HouseholdRepository(householdApi);
     return AppRuntime(
+      push: await FirebasePushService.initialize(),
       auth: auth,
       households: households,
       store: store,
@@ -126,6 +152,9 @@ class AppRuntime {
   }
 
   void dispose() {
+    notifications.dispose();
+    activity.dispose();
+    dashboard.dispose();
     chat.dispose();
     shopping.dispose();
     tasks.dispose();

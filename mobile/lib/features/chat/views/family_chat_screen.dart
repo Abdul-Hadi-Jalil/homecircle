@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/widgets/app_widgets.dart';
 import '../../tasks/models/household_task.dart';
+import '../../tasks/viewmodels/tasks_view_model.dart';
 import '../../tasks/widgets/task_widgets.dart';
 import '../../tasks/widgets/task_photo_picker.dart';
 import '../models/chat_message.dart';
@@ -115,6 +116,42 @@ class _FamilyChatScreenState extends State<FamilyChatScreen>
           SnackBar(content: Text(context.taskCopy.taskPhotoLimit)),
         );
       }
+    }
+  }
+
+  Future<void> chooseMention() async {
+    final vm = model!,
+        captured = model!.scope,
+        tasks = context.read<TasksViewModel>();
+    await tasks.loadMembers();
+    if (!mounted || !vm.current(captured)) return;
+    final member = await showModalBottomSheet<Map<String, dynamic>>(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) => SafeArea(
+        child: SizedBox(
+          height: MediaQuery.sizeOf(context).height * .6,
+          child: ListView(
+            children: [
+              ListTile(title: Text(context.taskCopy.hubMention)),
+              for (final row in tasks.members)
+                ListTile(
+                  title: Text(
+                    row['display_name'] as String? ??
+                        context.taskCopy.hubMember,
+                  ),
+                  onTap: () => Navigator.pop(context, row),
+                ),
+            ],
+          ),
+        ),
+      ),
+    );
+    if (member != null && mounted && vm.current(captured)) {
+      vm.mention(
+        member['user_id'] as String,
+        member['display_name'] as String? ?? context.taskCopy.hubMember,
+      );
     }
   }
 
@@ -400,6 +437,17 @@ class _FamilyChatScreenState extends State<FamilyChatScreen>
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
+                    if (vm.mentions.isNotEmpty)
+                      Wrap(
+                        spacing: 6,
+                        children: [
+                          for (final entry in vm.mentions.entries)
+                            InputChip(
+                              label: Text('@${entry.value}'),
+                              onDeleted: () => vm.removeMention(entry.key),
+                            ),
+                        ],
+                      ),
                     if (vm.replyId != null)
                       ListTile(
                         dense: true,
@@ -441,6 +489,11 @@ class _FamilyChatScreenState extends State<FamilyChatScreen>
                           tooltip: l.chatAttach,
                           onPressed: vm.sending ? null : chooseImage,
                           icon: const Icon(Icons.photo_camera_outlined),
+                        ),
+                        IconButton(
+                          tooltip: l.hubMention,
+                          onPressed: vm.sending ? null : chooseMention,
+                          icon: const Icon(Icons.alternate_email),
                         ),
                         IconButton(
                           tooltip: l.chatShareTask,
