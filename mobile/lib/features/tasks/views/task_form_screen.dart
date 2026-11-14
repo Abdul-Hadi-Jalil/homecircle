@@ -10,6 +10,8 @@ import '../viewmodels/tasks_view_model.dart';
 import '../viewmodels/task_form_view_model.dart';
 import '../widgets/task_widgets.dart';
 import '../widgets/task_photo_picker.dart';
+import '../../chat/models/chat_task_source.dart';
+import '../../chat/viewmodels/family_chat_viewmodel.dart';
 
 class TaskFormScreen extends StatefulWidget {
   const TaskFormScreen({
@@ -17,9 +19,11 @@ class TaskFormScreen extends StatefulWidget {
     this.initialItemId,
     this.initialItemName,
     this.initialType,
+    this.chatSource,
     super.key,
   });
   final String? id, initialItemId, initialItemName, initialType;
+  final ChatTaskSource? chatSource;
   @override
   State<TaskFormScreen> createState() => _TaskFormScreenState();
 }
@@ -47,8 +51,27 @@ class _TaskFormScreenState extends State<TaskFormScreen> {
       if (!mounted || scope != vm.scopeKey || vm.task == null) return;
     }
     if (widget.id != null && vm.task!.kind == TaskKind.shopping) return;
+    final source = widget.chatSource;
+    final cache = context.read<FamilyChatViewModel>().repository.cache;
+    Map<String, dynamic>? secureDraft;
+    if (source != null) {
+      if (source.household != vm.session.activeHousehold?.id) return;
+      try {
+        secureDraft = await cache.read(
+          vm.session.user!.id,
+          source.household,
+          'task.${source.messageId}',
+        );
+      } catch (_) {
+        secureDraft = null;
+      }
+      if (!mounted || scope != vm.scopeKey) return;
+    }
     model = TaskFormViewModel(
       vm,
+      chatSource: source,
+      chatCache: cache,
+      secureDraft: secureDraft,
       initial: widget.id == null ? null : vm.task,
       initialItemId: widget.initialItemId,
       initialItemName: widget.initialItemName,
@@ -135,7 +158,7 @@ class _TaskFormScreenState extends State<TaskFormScreen> {
                         onPressed: m.busy
                             ? null
                             : () async {
-                                await vm.clearDraft(m.draftKey, m.originScope);
+                                await m.discardDraft();
                                 if (mounted) back();
                               },
                         child: Text(l.taskDiscardDraft),
@@ -189,7 +212,10 @@ class _TaskFormScreenState extends State<TaskFormScreen> {
                                   ? null
                                   : () {
                                       if (kind == TaskKind.shopping) {
-                                        context.pushNamed('addShopping');
+                                        context.pushNamed(
+                                          'addShopping',
+                                          extra: widget.chatSource,
+                                        );
                                       } else {
                                         m.update('task_type', kind.name);
                                       }

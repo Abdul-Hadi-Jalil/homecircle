@@ -32,6 +32,7 @@ String taskLabel(BuildContext context, String value) {
 String taskError(BuildContext context, String? code) {
   final l = context.taskCopy;
   return switch (code) {
+    'local_storage' => l.chatCacheError,
     'network' => l.taskNetworkError,
     'revision_conflict' => l.taskConflict,
     'already_claimed' => l.taskAlreadyClaimed,

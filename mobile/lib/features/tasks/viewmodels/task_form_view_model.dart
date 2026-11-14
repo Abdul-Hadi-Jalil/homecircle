@@ -4,6 +4,8 @@ import 'package:flutter/foundation.dart';
 
 import '../models/household_task.dart';
 import 'tasks_view_model.dart';
+import '../../chat/models/chat_task_source.dart';
+import '../../chat/repositories/chat_cache.dart';
 
 class TaskFormViewModel extends ChangeNotifier {
   TaskFormViewModel(
@@ -12,9 +14,14 @@ class TaskFormViewModel extends ChangeNotifier {
     String? initialItemId,
     String? initialItemName,
     String? initialType,
+    this.chatSource,
+    this.chatCache,
+    Map<String, dynamic>? secureDraft,
   }) : originScope = tasks.scopeKey {
-    final saved = tasks.draft(initial?.id ?? 'new');
-    restored = saved != null;
+    final saved = chatSource == null
+        ? tasks.draft(initial?.id ?? 'new')
+        : secureDraft;
+    restored = saved != null && saved.isNotEmpty;
     fields = {
       ...?initial?.data,
       if (initial == null)
@@ -26,18 +33,27 @@ class TaskFormViewModel extends ChangeNotifier {
         'linked_inventory_item_id': initialItemId,
       if (initialItemName != null && initial == null)
         'linked_inventory_name': initialItemName,
+      if (chatSource != null) ...{
+        'title': chatSource!.suggestedTitle,
+        'description': chatSource!.body,
+        ...chatSource!.fields,
+      },
       ...?saved,
     };
   }
   final TasksViewModel tasks;
   final HouseholdTask? initial;
   final String originScope;
+  final ChatTaskSource? chatSource;
+  final ChatCache? chatCache;
   late Map<String, dynamic> fields;
   late bool restored;
   bool busy = false, _disposed = false, uploading = false;
   Uint8List? photo;
   String? errorCode;
-  String get draftKey => initial?.id ?? 'new';
+  String get draftKey => chatSource == null
+      ? initial?.id ?? 'new'
+      : 'task.${chatSource!.messageId}';
   bool get current =>
       !_disposed && tasks.ready && tasks.scopeKey == originScope;
   void update(String key, dynamic value) {
@@ -47,8 +63,50 @@ class TaskFormViewModel extends ChangeNotifier {
       fields['linked_inventory_item_id'] = null;
       fields['linked_inventory_name'] = null;
     }
-    unawaited(tasks.saveDraft(draftKey, fields, originScope));
+    unawaited(persistDraft());
     notifyListeners();
+  }
+
+  Future<void> persistDraft() async {
+    if (!current) return;
+    if (chatSource == null) {
+      await tasks.saveDraft(draftKey, fields, originScope);
+      return;
+    }
+    try {
+      await chatCache!.write(
+        tasks.session.user!.id,
+        tasks.session.activeHousehold!.id,
+        draftKey,
+        fields,
+      );
+    } catch (_) {
+      if (current) {
+        errorCode = 'local_storage';
+        notifyListeners();
+      }
+    }
+  }
+
+  Future<void> discardDraft() async {
+    if (!current) return;
+    if (chatSource == null) {
+      await tasks.clearDraft(draftKey, originScope);
+      return;
+    }
+    try {
+      await chatCache!.write(
+        tasks.session.user!.id,
+        tasks.session.activeHousehold!.id,
+        draftKey,
+        {},
+      );
+    } catch (_) {
+      if (current) {
+        errorCode = 'local_storage';
+        notifyListeners();
+      }
+    }
   }
 
   void setPhoto(Uint8List? value) {
@@ -80,13 +138,15 @@ class TaskFormViewModel extends ChangeNotifier {
     errorCode = null;
     notifyListeners();
     try {
-      final saved = await tasks.save(initial?.id, payload());
+      final saved = chatSource == null
+          ? await tasks.save(initial?.id, payload())
+          : await tasks.createFromChat(payload(), fields);
       if (!current) return null;
       if (saved == null) {
         errorCode = tasks.errorCode;
         return null;
       }
-      await tasks.clearDraft(draftKey, originScope);
+      await discardDraft();
       if (photo != null && current) {
         uploading = true;
         notifyListeners();

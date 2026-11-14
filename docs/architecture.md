@@ -146,3 +146,52 @@ resume/manual/pull actions. Private realtime delivery remains unconfigured.
 All UI export folders now sit directly under `UI/`; the shared design reference is
 `UI/warm_household_modern/DESIGN.md`. See [the M4 report](milestone-4-report.md)
 for API contracts, quantity/currency strategy, consistency rules and test limits.
+
+## Milestone 5 family chat
+
+Messages live in `household_messages`, with scoped reactions, attachments and task
+conversion relations. FastAPI validates typed Pydantic inputs and verified JWT actors;
+Psycopg repositories set transaction-local claims under the restricted API role.
+Composite household keys prevent foreign replies, attachments and task links.
+`(household, sender, client_message_id)` and a canonical request hash provide
+idempotency. Expected revisions protect edits/deletes. A household advisory transaction
+lock serializes chat writes and reads so committed event cursors cannot skip an
+earlier uncommitted change. This favors correctness over high-volume throughput.
+
+Chat invalidations are inserted with each mutation in `chat_events`. An owner-only
+dispatcher queues private `chat_changed` broadcasts to `chat:<household>:<user>`
+for current members. Realtime receives only entity IDs, sequence, kind and revision.
+Failed queue acknowledgement leaves the event pending for the owner Cron retry job.
+Messages, events and conversion relations roll back together. Realtime observes the
+committed queue; clients tolerate duplicate/out-of-order broadcasts and refetch via
+`/changes`. History uses `(created_at, id)` cursors; change cursors include tombstones.
+This supersedes the M0 topic proposal above for chat. No publication change or raw
+Postgres Changes subscription is needed. Existing task/shopping live sync is unchanged.
+
+Flutter keeps Provider/ChangeNotifier MVVM, Dart HTTP and GoRouter. Chat services
+handle HTTP/Realtime; repository validates scope; ViewModel owns reconciliation,
+drafts, pending UUIDs, cursor catch-up, reconnect and teardown. The family chat screen
+adapts `UI/family_chat`; its action sheets/dialogs use the existing HomeCircle theme.
+Visible shared task cards refresh authoritative status every 30 seconds and on entry.
+Message conversion navigates with an in-memory source object to the existing reviewed
+forms, then calls existing business services inside the chat transaction.
+
+Secure storage holds up to 100 recently loaded messages, one composer draft and up to
+20 failed sends per user/household. Source-form drafts also use secure storage.
+Photo bytes and signed URLs are not persisted. Restored sends are failed/manual-retry;
+reconnection never sends automatically. A reviewed task becomes ordinary task data
+and follows the existing task/shopping cache policy. Chat data stays out of preferences.
+Vault failure shows a warning while online operations remain available. Logout,
+identity/scope change and known revocation clear or isolate private state; cached
+membership never authorizes app entry. App/device secure-storage acceptance is pending.
+
+Chat images accept decoded JPEG/PNG/WebP, at most configured 5 MiB/16 MP, and are
+normalized to metadata-free JPEG. The earlier generic PDF proposal is not enabled
+for chat. Upload permits bind actor, household, client message UUID, random attachment
+UUID and exact bytes. Storage uses the user's JWT, without service-role credentials.
+Finalized objects are verified before message attachment. Authorized reads issue
+60-second signed URLs; deletion tombstones the image message and attempts object
+cleanup. A reviewed operator retention workflow is still required for stranded objects.
+
+See [the M5 report](milestone-5-report.md) for API, migration, retry-job setup and
+explicit hosted acceptance gaps. No M6 implementation is included.

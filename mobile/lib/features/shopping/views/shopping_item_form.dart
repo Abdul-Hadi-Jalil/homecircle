@@ -10,6 +10,8 @@ import '../../tasks/widgets/task_widgets.dart';
 import '../viewmodels/shopping_list_viewmodel.dart';
 import '../viewmodels/shopping_form_viewmodel.dart';
 import '../widgets/shopping_widgets.dart';
+import '../../chat/models/chat_task_source.dart';
+import '../../chat/viewmodels/family_chat_viewmodel.dart';
 
 const shoppingUnits = [
   'piece',
@@ -41,9 +43,15 @@ String? shoppingNumber(
 }
 
 class ShoppingItemForm extends StatefulWidget {
-  const ShoppingItemForm({this.id, this.prefill = const {}, super.key});
+  const ShoppingItemForm({
+    this.id,
+    this.prefill = const {},
+    this.chatSource,
+    super.key,
+  });
   final String? id;
   final Map<String, dynamic> prefill;
+  final ChatTaskSource? chatSource;
   @override
   State<ShoppingItemForm> createState() => _ShoppingItemFormState();
 }
@@ -71,7 +79,30 @@ class _ShoppingItemFormState extends State<ShoppingItemForm> {
         (widget.id != null && item == null)) {
       return;
     }
-    model = ShoppingFormViewModel(vm, initial: item, prefill: widget.prefill);
+    final source = widget.chatSource,
+        cache = context.read<FamilyChatViewModel>().repository.cache;
+    Map<String, dynamic>? secureDraft;
+    if (source != null) {
+      if (source.household != vm.household) return;
+      try {
+        secureDraft = await cache.read(
+          vm.user!,
+          source.household,
+          'shopping.${source.messageId}',
+        );
+      } catch (_) {
+        secureDraft = null;
+      }
+      if (!mounted || !vm.current(captured)) return;
+    }
+    model = ShoppingFormViewModel(
+      vm,
+      initial: item,
+      prefill: widget.prefill,
+      chatSource: source,
+      chatCache: cache,
+      secureDraft: secureDraft,
+    );
     name.text = model!.fields['title'] as String? ?? '';
     quantity.text = model!.fields['quantity'] as String? ?? '';
     notes.text = model!.fields['description'] as String? ?? '';
@@ -332,7 +363,7 @@ class _ShoppingItemFormState extends State<ShoppingItemForm> {
                     onPressed: m.busy
                         ? null
                         : () async {
-                            await vm.clearDraft(m.draftKey, m.originScope);
+                            await m.discardDraft();
                             if (context.mounted) context.pop();
                           },
                     child: Text(l.taskDiscardDraft),

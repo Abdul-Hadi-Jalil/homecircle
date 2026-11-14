@@ -439,8 +439,7 @@ void main() {
       await tester.pumpAndSettle();
       expect(server.stock, .5);
       expect(find.text('1 of 1 items purchased'), findsOneWidget);
-      await tester.tap(find.byType(Checkbox).first);
-      await tester.pumpAndSettle();
+      await tapVisible(tester, find.byType(Checkbox).first);
       await tester.tap(find.text('Confirm'));
       await tester.pumpAndSettle();
       expect(server.shopping['oil']!['status'], 'open');

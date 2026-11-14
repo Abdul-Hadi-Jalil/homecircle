@@ -9,6 +9,7 @@ import '../../tasks/viewmodels/tasks_view_model.dart';
 import '../models/shopping_item.dart';
 import '../models/shopping_summary.dart';
 import '../repositories/shopping_repository.dart';
+import '../../chat/services/chat_conversion_service.dart';
 
 class ShoppingListViewModel extends ChangeNotifier {
   ShoppingListViewModel(
@@ -235,6 +236,17 @@ class ShoppingListViewModel extends ChangeNotifier {
     if (id != null && result.id != id) throw const InvalidResponseException();
     return result;
   }, originScope: originalScope);
+  Future<ShoppingItem?> createFromChat(
+    Map<String, dynamic> fields,
+    Map<String, dynamic> source,
+    String originalScope,
+  ) => write(
+    (h) async => ShoppingItem(
+      await ChatConversionService(repository.shopping.api)
+          .create(h, 'shopping', fields, source),
+    ),
+    originScope: originalScope,
+  );
   Future<ShoppingItem?> action(
     ShoppingItem item,
     String action, {

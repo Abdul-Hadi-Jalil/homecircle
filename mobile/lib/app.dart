@@ -66,6 +66,7 @@ class _HomeCircleAppState extends State<HomeCircleApp>
       ChangeNotifierProvider.value(value: widget.runtime.inventory),
       ChangeNotifierProvider.value(value: widget.runtime.tasks),
       ChangeNotifierProvider.value(value: widget.runtime.shopping),
+      ChangeNotifierProvider.value(value: widget.runtime.chat),
     ],
     child: MaterialApp.router(
       onGenerateTitle: (context) => AppLocalizations.of(context)!.appName,

@@ -2049,6 +2049,240 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Being Handled'**
   String get shoppingBeingHandled;
+
+  /// No description provided for @chatTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Family Chat'**
+  String get chatTitle;
+
+  /// No description provided for @chatComposer.
+  ///
+  /// In en, this message translates to:
+  /// **'Message your family…'**
+  String get chatComposer;
+
+  /// No description provided for @chatSend.
+  ///
+  /// In en, this message translates to:
+  /// **'Send message'**
+  String get chatSend;
+
+  /// No description provided for @chatMembers.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{1 member} other{{count} members}}'**
+  String chatMembers(int count);
+
+  /// No description provided for @chatReply.
+  ///
+  /// In en, this message translates to:
+  /// **'Reply'**
+  String get chatReply;
+
+  /// No description provided for @chatCopy.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy Text'**
+  String get chatCopy;
+
+  /// No description provided for @chatCreateTask.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Task from Message'**
+  String get chatCreateTask;
+
+  /// No description provided for @chatEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Message'**
+  String get chatEdit;
+
+  /// No description provided for @chatDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Message'**
+  String get chatDelete;
+
+  /// No description provided for @chatDeleteHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this message? Replies will show a deleted preview.'**
+  String get chatDeleteHelp;
+
+  /// No description provided for @chatDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'This message was deleted.'**
+  String get chatDeleted;
+
+  /// No description provided for @chatReplyUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Original message is unavailable or deleted.'**
+  String get chatReplyUnavailable;
+
+  /// No description provided for @chatEdited.
+  ///
+  /// In en, this message translates to:
+  /// **'Edited'**
+  String get chatEdited;
+
+  /// No description provided for @chatSent.
+  ///
+  /// In en, this message translates to:
+  /// **'Sent'**
+  String get chatSent;
+
+  /// No description provided for @chatSending.
+  ///
+  /// In en, this message translates to:
+  /// **'Sending…'**
+  String get chatSending;
+
+  /// No description provided for @chatUploading.
+  ///
+  /// In en, this message translates to:
+  /// **'Uploading image…'**
+  String get chatUploading;
+
+  /// No description provided for @chatAttach.
+  ///
+  /// In en, this message translates to:
+  /// **'Attach image'**
+  String get chatAttach;
+
+  /// No description provided for @chatViewImage.
+  ///
+  /// In en, this message translates to:
+  /// **'View image'**
+  String get chatViewImage;
+
+  /// No description provided for @chatImageUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Image unavailable. Refresh the link to try again.'**
+  String get chatImageUnavailable;
+
+  /// No description provided for @chatShareTask.
+  ///
+  /// In en, this message translates to:
+  /// **'Share Task'**
+  String get chatShareTask;
+
+  /// No description provided for @chatTaskUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Task unavailable'**
+  String get chatTaskUnavailable;
+
+  /// No description provided for @chatOlder.
+  ///
+  /// In en, this message translates to:
+  /// **'Load older messages'**
+  String get chatOlder;
+
+  /// No description provided for @chatEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Start your household conversation. Send a message to your family.'**
+  String get chatEmpty;
+
+  /// No description provided for @chatCached.
+  ///
+  /// In en, this message translates to:
+  /// **'Showing saved messages. They may have changed since your last connection.'**
+  String get chatCached;
+
+  /// No description provided for @chatReconnecting.
+  ///
+  /// In en, this message translates to:
+  /// **'Realtime is reconnecting or unavailable. Messages refresh when connectivity returns.'**
+  String get chatReconnecting;
+
+  /// No description provided for @chatOffline.
+  ///
+  /// In en, this message translates to:
+  /// **'Connection lost. Saved messages and drafts remain available.'**
+  String get chatOffline;
+
+  /// No description provided for @chatConflict.
+  ///
+  /// In en, this message translates to:
+  /// **'This message changed. Review the refreshed message before trying again.'**
+  String get chatConflict;
+
+  /// No description provided for @chatAccessRevoked.
+  ///
+  /// In en, this message translates to:
+  /// **'Chat access could not be confirmed. Reconnect and check your household membership.'**
+  String get chatAccessRevoked;
+
+  /// No description provided for @chatRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many chat actions. Please wait a moment and try again.'**
+  String get chatRateLimited;
+
+  /// No description provided for @chatRetryOriginal.
+  ///
+  /// In en, this message translates to:
+  /// **'This request ID belongs to an earlier send. Retry the original message or refresh the conversation.'**
+  String get chatRetryOriginal;
+
+  /// No description provided for @chatFailure.
+  ///
+  /// In en, this message translates to:
+  /// **'The action was not confirmed. Retry or refresh the conversation.'**
+  String get chatFailure;
+
+  /// No description provided for @chatCacheError.
+  ///
+  /// In en, this message translates to:
+  /// **'Secure local storage is unavailable. Your latest chat or draft may not be saved on this device.'**
+  String get chatCacheError;
+
+  /// No description provided for @chatReselectImage.
+  ///
+  /// In en, this message translates to:
+  /// **'Select image again'**
+  String get chatReselectImage;
+
+  /// No description provided for @chatDiscardPending.
+  ///
+  /// In en, this message translates to:
+  /// **'Discard local draft'**
+  String get chatDiscardPending;
+
+  /// No description provided for @chatPendingLimit.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry or discard a failed send before adding more. Up to 20 failed sends can be saved.'**
+  String get chatPendingLimit;
+
+  /// No description provided for @chatEmptyText.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter message text.'**
+  String get chatEmptyText;
+
+  /// No description provided for @chatNewMessages.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} new messages'**
+  String chatNewMessages(int count);
+
+  /// No description provided for @chatSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get chatSave;
+
+  /// No description provided for @chatFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to send'**
+  String get chatFailed;
 }
 
 class _AppLocalizationsDelegate

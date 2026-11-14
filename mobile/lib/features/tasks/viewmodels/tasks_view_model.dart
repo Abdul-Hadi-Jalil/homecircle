@@ -10,6 +10,7 @@ import '../models/task_comment.dart';
 import '../models/task_activity.dart';
 import '../repositories/task_repository.dart';
 import '../services/task_api_service.dart';
+import '../../chat/services/chat_conversion_service.dart';
 
 class TasksViewModel extends ChangeNotifier {
   TasksViewModel(this.repository, this.session, this.inventory) {
@@ -356,6 +357,15 @@ class TasksViewModel extends ChangeNotifier {
         (h) async =>
             HouseholdTask(await repository.service.save(h, id, fields)),
       );
+  Future<HouseholdTask?> createFromChat(
+    Map<String, dynamic> fields,
+    Map<String, dynamic> source,
+  ) => _write(
+    (h) async => HouseholdTask(
+      await ChatConversionService(repository.service.api)
+          .create(h, fields['task_type'] as String, fields, source),
+    ),
+  );
   Future<HouseholdTask?> assign(
     HouseholdTask selected,
     String operation,

@@ -1061,4 +1061,145 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get shoppingBeingHandled => 'Being Handled';
+
+  @override
+  String get chatTitle => 'Family Chat';
+
+  @override
+  String get chatComposer => 'Message your family…';
+
+  @override
+  String get chatSend => 'Send message';
+
+  @override
+  String chatMembers(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count members',
+      one: '1 member',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get chatReply => 'Reply';
+
+  @override
+  String get chatCopy => 'Copy Text';
+
+  @override
+  String get chatCreateTask => 'Create Task from Message';
+
+  @override
+  String get chatEdit => 'Edit Message';
+
+  @override
+  String get chatDelete => 'Delete Message';
+
+  @override
+  String get chatDeleteHelp =>
+      'Delete this message? Replies will show a deleted preview.';
+
+  @override
+  String get chatDeleted => 'This message was deleted.';
+
+  @override
+  String get chatReplyUnavailable =>
+      'Original message is unavailable or deleted.';
+
+  @override
+  String get chatEdited => 'Edited';
+
+  @override
+  String get chatSent => 'Sent';
+
+  @override
+  String get chatSending => 'Sending…';
+
+  @override
+  String get chatUploading => 'Uploading image…';
+
+  @override
+  String get chatAttach => 'Attach image';
+
+  @override
+  String get chatViewImage => 'View image';
+
+  @override
+  String get chatImageUnavailable =>
+      'Image unavailable. Refresh the link to try again.';
+
+  @override
+  String get chatShareTask => 'Share Task';
+
+  @override
+  String get chatTaskUnavailable => 'Task unavailable';
+
+  @override
+  String get chatOlder => 'Load older messages';
+
+  @override
+  String get chatEmpty =>
+      'Start your household conversation. Send a message to your family.';
+
+  @override
+  String get chatCached =>
+      'Showing saved messages. They may have changed since your last connection.';
+
+  @override
+  String get chatReconnecting =>
+      'Realtime is reconnecting or unavailable. Messages refresh when connectivity returns.';
+
+  @override
+  String get chatOffline =>
+      'Connection lost. Saved messages and drafts remain available.';
+
+  @override
+  String get chatConflict =>
+      'This message changed. Review the refreshed message before trying again.';
+
+  @override
+  String get chatAccessRevoked =>
+      'Chat access could not be confirmed. Reconnect and check your household membership.';
+
+  @override
+  String get chatRateLimited =>
+      'Too many chat actions. Please wait a moment and try again.';
+
+  @override
+  String get chatRetryOriginal =>
+      'This request ID belongs to an earlier send. Retry the original message or refresh the conversation.';
+
+  @override
+  String get chatFailure =>
+      'The action was not confirmed. Retry or refresh the conversation.';
+
+  @override
+  String get chatCacheError =>
+      'Secure local storage is unavailable. Your latest chat or draft may not be saved on this device.';
+
+  @override
+  String get chatReselectImage => 'Select image again';
+
+  @override
+  String get chatDiscardPending => 'Discard local draft';
+
+  @override
+  String get chatPendingLimit =>
+      'Retry or discard a failed send before adding more. Up to 20 failed sends can be saved.';
+
+  @override
+  String get chatEmptyText => 'Enter message text.';
+
+  @override
+  String chatNewMessages(int count) {
+    return '$count new messages';
+  }
+
+  @override
+  String get chatSave => 'Save';
+
+  @override
+  String get chatFailed => 'Failed to send';
 }

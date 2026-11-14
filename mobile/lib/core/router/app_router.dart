@@ -15,6 +15,8 @@ import '../../features/tasks/views/tasks_screen.dart';
 import '../../features/shopping/views/shopping_list_screen.dart';
 import '../../features/shopping/views/shopping_item_form.dart';
 import '../../features/shopping/views/shopping_details_screen.dart';
+import '../../features/chat/views/family_chat_screen.dart';
+import '../../features/chat/models/chat_task_source.dart';
 import '../../features/tasks/views/task_form_screen.dart';
 import '../../features/tasks/views/task_details_screen.dart';
 import '../localization/generated/app_localizations.dart';
@@ -152,8 +154,9 @@ GoRouter createRouter(SessionViewModel session) => GoRouter(
             GoRoute(
               path: '/chat',
               name: 'chat',
-              builder: (context, state) =>
-                  RoutePlaceholder(title: AppLocalizations.of(context)!.chat),
+              builder: (context, state) => FamilyChatScreen(
+                key: ValueKey('chat-${session.scopeRevision}'),
+              ),
             ),
           ],
         ),
@@ -199,6 +202,9 @@ GoRouter createRouter(SessionViewModel session) => GoRouter(
       path: '/add-shopping',
       name: 'addShopping',
       builder: (context, state) => ShoppingItemForm(
+        chatSource: state.extra is ChatTaskSource
+            ? state.extra as ChatTaskSource
+            : null,
         key: ValueKey('shopping-new-${session.scopeRevision}'),
         prefill: {
           if (state.uri.queryParameters['item'] != null)
@@ -244,6 +250,9 @@ GoRouter createRouter(SessionViewModel session) => GoRouter(
       path: '/create-task',
       name: 'createTask',
       builder: (context, state) => TaskFormScreen(
+        chatSource: state.extra is ChatTaskSource
+            ? state.extra as ChatTaskSource
+            : null,
         key: ValueKey('task-new-${session.scopeRevision}'),
         initialItemId: state.uri.queryParameters['item'],
         initialItemName: state.uri.queryParameters['itemName'],

@@ -4,6 +4,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:homecircle/features/chat/repositories/chat_cache.dart';
+import 'package:homecircle/features/chat/services/chat_realtime_service.dart';
 import 'package:homecircle/core/config/app_runtime.dart';
 import 'package:homecircle/core/network/api_client.dart';
 import 'package:homecircle/core/network/network_status.dart';
@@ -93,6 +95,8 @@ Future<TestRuntime> createTestRuntime({
   List<Map<String, dynamic>> memberships = const [],
   Future<http.Response> Function(http.Request)? respond,
   Map<String, Object> preferences = const {},
+  ChatCache? chatCache,
+  ChatRealtimeService? chatRealtime,
 }) async {
   SharedPreferences.setMockInitialValues(preferences);
   final store = LocalStore(await SharedPreferences.getInstance());
@@ -111,6 +115,8 @@ Future<TestRuntime> createTestRuntime({
   final service = HouseholdApi(api);
   final repository = HouseholdRepository(service);
   final runtime = AppRuntime(
+    chatCache: chatCache ?? MemoryChatCache(),
+    chatRealtime: chatRealtime,
     auth: auth,
     households: repository,
     store: store,
@@ -125,4 +131,37 @@ Future<TestRuntime> createTestRuntime({
     diagnostics: DiagnosticsViewModel(DiagnosticsRepository(api, service)),
   );
   return TestRuntime(authService, runtime);
+}
+
+class MemoryChatCache implements ChatCache {
+  final values = <String, Map<String, dynamic>>{};
+  String key(String u, String h, String kind) => '$u/$h/$kind';
+  @override
+  Future<Map<String, dynamic>?> read(String u, String h, String kind) async {
+    final value = values[key(u, h, kind)];
+    return value == null
+        ? null
+        : jsonDecode(jsonEncode(value)) as Map<String, dynamic>;
+  }
+
+  @override
+  Future<void> write(
+    String u,
+    String h,
+    String kind,
+    Map<String, dynamic> data,
+  ) async {
+    values[key(u, h, kind)] =
+        jsonDecode(jsonEncode(data)) as Map<String, dynamic>;
+  }
+
+  @override
+  Future<void> clearHousehold(String u, String h) async {
+    values.removeWhere((k, v) => k.startsWith('$u/$h/'));
+  }
+
+  @override
+  Future<void> clearUser(String u) async {
+    values.removeWhere((k, v) => k.startsWith('$u/'));
+  }
 }

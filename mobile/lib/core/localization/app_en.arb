@@ -368,5 +368,58 @@
   "shoppingSearch": "Search shopping items",
   "shoppingDraftNote": "Your draft is saved on this device. Changes reach your household only when you save.",
   "shoppingNoResults": "No shopping items match these filters.",
-  "shoppingBeingHandled": "Being Handled"
+  "shoppingBeingHandled": "Being Handled",
+  "chatTitle": "Family Chat",
+  "chatComposer": "Message your family…",
+  "chatSend": "Send message",
+  "chatMembers": "{count, plural, one{1 member} other{{count} members}}",
+  "@chatMembers": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "chatReply": "Reply",
+  "chatCopy": "Copy Text",
+  "chatCreateTask": "Create Task from Message",
+  "chatEdit": "Edit Message",
+  "chatDelete": "Delete Message",
+  "chatDeleteHelp": "Delete this message? Replies will show a deleted preview.",
+  "chatDeleted": "This message was deleted.",
+  "chatReplyUnavailable": "Original message is unavailable or deleted.",
+  "chatEdited": "Edited",
+  "chatSent": "Sent",
+  "chatSending": "Sending…",
+  "chatUploading": "Uploading image…",
+  "chatAttach": "Attach image",
+  "chatViewImage": "View image",
+  "chatImageUnavailable": "Image unavailable. Refresh the link to try again.",
+  "chatShareTask": "Share Task",
+  "chatTaskUnavailable": "Task unavailable",
+  "chatOlder": "Load older messages",
+  "chatEmpty": "Start your household conversation. Send a message to your family.",
+  "chatCached": "Showing saved messages. They may have changed since your last connection.",
+  "chatReconnecting": "Realtime is reconnecting or unavailable. Messages refresh when connectivity returns.",
+  "chatOffline": "Connection lost. Saved messages and drafts remain available.",
+  "chatConflict": "This message changed. Review the refreshed message before trying again.",
+  "chatAccessRevoked": "Chat access could not be confirmed. Reconnect and check your household membership.",
+  "chatRateLimited": "Too many chat actions. Please wait a moment and try again.",
+  "chatRetryOriginal": "This request ID belongs to an earlier send. Retry the original message or refresh the conversation.",
+  "chatFailure": "The action was not confirmed. Retry or refresh the conversation.",
+  "chatCacheError": "Secure local storage is unavailable. Your latest chat or draft may not be saved on this device.",
+  "chatReselectImage": "Select image again",
+  "chatDiscardPending": "Discard local draft",
+  "chatPendingLimit": "Retry or discard a failed send before adding more. Up to 20 failed sends can be saved.",
+  "chatEmptyText": "Enter message text.",
+  "chatNewMessages": "{count} new messages",
+  "@chatNewMessages": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "chatSave": "Save",
+  "chatFailed": "Failed to send"
 }

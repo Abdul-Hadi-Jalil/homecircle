@@ -20,6 +20,11 @@ import '../../features/tasks/viewmodels/tasks_view_model.dart';
 import '../../features/shopping/services/shopping_api_service.dart';
 import '../../features/shopping/repositories/shopping_repository.dart';
 import '../../features/shopping/viewmodels/shopping_list_viewmodel.dart';
+import '../../features/chat/repositories/chat_cache.dart';
+import '../../features/chat/repositories/chat_repository.dart';
+import '../../features/chat/services/chat_api_service.dart';
+import '../../features/chat/services/chat_realtime_service.dart';
+import '../../features/chat/viewmodels/family_chat_viewmodel.dart';
 import '../network/api_client.dart';
 import '../network/network_status.dart';
 import '../storage/local_store.dart';
@@ -35,6 +40,8 @@ class AppRuntime {
     required this.network,
     required this.client,
     required this.store,
+    this.chatCache,
+    this.chatRealtime,
   });
   final AuthRepository auth;
   final HouseholdRepository households;
@@ -43,6 +50,16 @@ class AppRuntime {
   final NetworkStatus network;
   final http.Client client;
   final LocalStore store;
+  final ChatCache? chatCache;
+  final ChatRealtimeService? chatRealtime;
+  late final FamilyChatViewModel chat = FamilyChatViewModel(
+    ChatRepository(
+      ChatApiService(households.service.api),
+      chatCache ?? SecureChatCache(const FlutterSecureStorage()),
+    ),
+    chatRealtime ?? SupabaseChatRealtime(session.realtime.client),
+    session,
+  );
   late final InventoryViewModel inventory = InventoryViewModel(
     InventoryRepository(InventoryApi(households.service.api), store),
     session,
@@ -109,6 +126,7 @@ class AppRuntime {
   }
 
   void dispose() {
+    chat.dispose();
     shopping.dispose();
     tasks.dispose();
     inventory.dispose();

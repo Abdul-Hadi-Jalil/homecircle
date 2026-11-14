@@ -40,6 +40,13 @@ def main():
                 "private.task_uploads",
                 "public.shopping_item_details",
                 "public.shopping_inventory_applications",
+                "public.household_messages",
+                "public.message_reactions",
+                "public.message_attachments",
+                "public.chat_events",
+                "public.chat_task_conversions",
+                "private.chat_uploads",
+                "private.chat_rate_limits",
             ]
             for name in names:
                 row = connection.execute("SELECT to_regclass(%s)::text", (name,)).fetchone()

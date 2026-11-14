@@ -32,6 +32,10 @@ class Settings(BaseSettings):
     invitation_pepper: SecretStr | None = None
     invitation_expiry_days: int = Field(default=7, ge=1, le=30)
     invitation_max_uses: int = Field(default=10, ge=1, le=1000)
+    chat_image_max_bytes: int = Field(default=5 * 1024 * 1024, ge=1024, le=5 * 1024 * 1024)
+    chat_message_rate: int = Field(default=60, ge=1, le=600)
+    chat_reaction_rate: int = Field(default=120, ge=1, le=1000)
+    chat_upload_rate: int = Field(default=10, ge=1, le=60)
 
     @model_validator(mode="after")
     def validate_configuration(self):

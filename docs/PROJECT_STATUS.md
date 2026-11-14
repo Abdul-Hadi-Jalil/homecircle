@@ -1,8 +1,9 @@
 # HomeCircle — current project status
 
-Updated 14 November 2026 (Asia/Karachi). Milestone 4 implementation and isolated
-verification are finished. Hosted acceptance for M1–4 remains pending. The Android
-debug build passed. No hosted migration or production data changes were made.
+Updated 14 November 2026 (Asia/Karachi). Milestone 5 chat implementation and isolated
+verification are recorded below and in [the M5 report](milestone-5-report.md).
+M1–5 hosted acceptance remains pending. No hosted migration or production data
+changes were made. Milestone 6 product work was not started.
 
 ## Milestones
 
@@ -18,7 +19,7 @@ numbered `home circle screens` wrapper folders were removed and report links upd
 | 2 — Inventory | Partially Implemented — hosted acceptance pending | Backend, Flutter screens, photos, caches/drafts and isolated tests implemented. Analysis, tests and Android debug build pass. Actual migration deployment, RLS/concurrency and real Storage transfers remain unverified. Do not mark Completed yet. |
 | 3 — Tasks & Repairs | Partially Implemented — hosted acceptance pending | Repair/Chore/General requests, assignment/claims, status/reopen, discussions/photos/activity, inventory links and offline caches/drafts implemented. Stitch exports in UI/ reviewed and adapted. Backend 146 passed/29 skipped; Flutter 58 passed/2 skipped; analysis and debug build pass. SQL migration and real Auth/API/Storage acceptance unverified. |
 | 4 — Shopping | Partially Implemented — hosted acceptance pending | Shared shopping uses household_tasks plus one-to-one details, purchase history and an idempotent inventory ledger. API, localized Flutter UI, offline drafts and isolated tests implemented. Realtime and hosted SQL acceptance remain pending. |
-| 5 — Chat & Realtime | Not Started | Placeholder and channel lifecycle scaffold only; no feature subscriptions. |
+| 5 — Chat & Realtime | Partially Implemented — hosted acceptance pending | Backend-connected chat, private Realtime invalidation/outbox, images, replies/reactions, ownership, task sharing/conversion and secure offline reading/drafts implemented. Hosted SQL/RLS/Storage and two-client Realtime acceptance remain unverified. |
 | 6 — Dashboard/Notifications/Activity | Partially Implemented | Navigation and diagnostics exist; product dashboard, FCM and family activity absent. Inventory has separate activity history. |
 | 7 — Testing/Polish/Release | Partially Implemented | Regression tests and debug APK pass; production signing/distribution and full hosted/device acceptance pending. |
 
@@ -195,8 +196,67 @@ backfills empty details for outstanding/cancelled legacy Shopping parents while
 preserving task IDs/revisions. Completed legacy Shopping parents require purchase
 attribution review. No production records were changed.
 
-M4 remains **Partially Implemented — hosted acceptance pending**. Milestone 5 is
-**Not Started** and awaits those acceptance gates. Full chat, notifications and
-dashboard modules were not started.
+M4 remains **Partially Implemented — hosted acceptance pending**. M5 was subsequently
+implemented at the user's request, as recorded below. M6 notifications/dashboard
+product work was not started.
+
+## Milestone 5 implementation and acceptance
+
+See [the M5 report](milestone-5-report.md) for the complete 13-part implementation
+report: changed files, schemas, API table, Flutter components, Realtime mechanism,
+authorization, retries/concurrency, checks, manual setup and remaining limits.
+
+- Implemented household chat with real API history, text, replies, six reactions,
+  own edits/deletion, normalized private images, task sharing and reviewed conversion
+  through existing Repair/Chore/General/Shopping forms and services.
+- Stable client UUIDs deduplicate sends and conversion retries. Revisions reject stale
+  edits. Composite household keys, actor claims and API-role RLS protect data scope.
+  Chat operations serialize per household to preserve committed change-cursor order.
+- Transactional invalidations/outbox and private, per-current-member Realtime topics
+  are implemented. Owner-only dispatch attempts immediate publication; an operator
+  Cron job retries pending events every minute. Clients refetch, deduplicate and catch
+  up on reconnect, with periodic/manual/resume refresh. No raw body is broadcast.
+- Secure storage holds bounded history, composer/pending/source-form drafts, partitioned
+  by account and household. Logout/known revocation clears private state. Images and
+  signed URLs are not persisted. Restored failed sends require manual retry; no
+  automatic offline sending. Reviewed task data follows the existing task cache policy.
+- `UI/family_chat` was reviewed and adapted to HomeCircle. Rendered chat was inspected
+  with real fonts at 390×844; reply/reaction/edit/delete interaction passed. Exact
+  pixel/device/accessibility and platform secure-storage/image-picker acceptance remain pending.
+
+Verified 14 November 2026:
+
+| Check | Actual result |
+| --- | --- |
+| Backend Ruff format/check | Clean |
+| Backend pytest | **195 passed, 46 skipped**; existing upstream TestClient deprecation warning |
+| Python dependency consistency | No broken requirements |
+| Flutter package restoration | Succeeded; dependency lock unchanged |
+| Dart formatting / Flutter analysis | Clean |
+| Flutter full tests | **90 passed, 2 skipped** |
+| Real-font chat widget capture/interaction | Passed |
+| Android debug APK | Passed; physical-device/iOS acceptance pending |
+| Read-only deployment diagnostic | Separate test project false; connection unavailable |
+| Hosted SQL/RLS/Storage/two-client Realtime | **Unverified**; no test project configured |
+
+The 46 skipped backend cases include ten new chat SQL cases for ordinary-member
+access, revocation, cross-household references, direct grants, image finalization,
+private topic helpers, outbox rollback, conversions and real concurrent duplicate
+sends/stale edits. Two optional Flutter live API cases were skipped. Isolated tests
+do not prove actual PostgreSQL triggers/policies or Supabase transport behavior.
+
+Migration `20261114000002_chat.sql` and owner job
+`supabase/operations/chat_realtime_jobs.sql` are **not applied**. The existing hosted
+workflow must apply and validate migrations in order on the separate disposable
+project first. No production records, private credentials or locked dependency
+versions were changed. Configure private channels/public-access restrictions,
+Storage and owner Cron, then run guarded integration and two-real-user acceptance.
+Stranded private objects need a reviewed operator retention workflow; failed cleanup
+is best effort. Signed URLs may remain usable for up to 60 seconds after revocation.
+
+M1 real authentication/email/callback/session/member-removal acceptance and M2–4
+hosted SQL/Storage/transaction gates remain open. **M5 is Partially Implemented —
+hosted acceptance pending.** M6 product dashboard, notifications and family activity
+were not started. Do not declare M5 complete or production-ready until live gates pass.
 
 At resume, read this file and git status --short before editing. Preexisting untracked inventory backend/migrations and modified router/mobile dependency files were preserved. Git commit 4819101's message is not acceptance evidence; older reports contain historical results and do not override this file.

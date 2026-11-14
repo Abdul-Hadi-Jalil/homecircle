@@ -19,10 +19,10 @@ MAX_BYTES = 5 * 1024 * 1024
 Image.MAX_IMAGE_PIXELS = 16_000_000
 
 
-def normalize_photo(encoded):
+def normalize_photo(encoded, *, max_bytes=MAX_BYTES):
     try:
         raw = base64.b64decode(encoded, validate=True)
-        if len(raw) > MAX_BYTES:
+        if len(raw) > max_bytes:
             raise ValueError
         with warnings.catch_warnings():
             warnings.simplefilter("error", Image.DecompressionBombWarning)
@@ -43,7 +43,7 @@ def normalize_photo(encoded):
                 output = io.BytesIO()
                 clean.save(output, format="JPEG", quality=85)
         result = output.getvalue()
-        if len(result) > MAX_BYTES:
+        if len(result) > max_bytes:
             raise ValueError
         return result
     except (

@@ -2,7 +2,7 @@
 
 Everything your home needs, in one place.
 
-HomeCircle is an Android-first Flutter app with a FastAPI API and Supabase SQL foundation. Authentication/households, inventory, tasks/requests/repairs, and shared shopping are implemented. Hosted acceptance remains pending for M1–4. Chat remains a future milestone. See [the current project status](docs/PROJECT_STATUS.md) before continuing development.
+HomeCircle is an Android-first Flutter app with FastAPI and Supabase. Authentication/households, inventory, tasks/requests/repairs, shared shopping and family chat are implemented. Hosted acceptance remains pending for M1–5, including private Realtime. See [the current project status](docs/PROJECT_STATUS.md) before continuing development.
 
 ## Project highlights
 
@@ -186,4 +186,22 @@ Backend checks report **173 passed / 36 skipped**. Flutter results and Android b
 evidence are maintained in [PROJECT_STATUS.md](docs/PROJECT_STATUS.md).
 M4 remains **Partially Implemented — hosted acceptance pending**. See the
 [M4 report](docs/milestone-4-report.md) for endpoints, constraints, files and setup.
-M5 has not started.
+M5 implementation is recorded below; hosted acceptance remains pending.
+
+## Milestone 5
+
+Family Chat now uses real household-scoped FastAPI endpoints for text, cursor history,
+replies, six reactions, own-message editing/deletion, normalized private images and
+task sharing. Reviewed message conversion reuses the existing Task/Shopping forms
+and services. Stable client UUIDs deduplicate manual retries. There is no automatic
+offline sending, delivery receipt, typing indicator or push notification.
+
+Database triggers persist invalidations in a transactional outbox. Owner-only dispatch
+fans out minimal events to each current member's private Supabase Realtime topic;
+clients refetch authoritative records and recover missed edits/deletions using the
+change cursor. A scheduled owner retry job must be configured. Chat history and drafts
+use secure storage, partitioned by user and household.
+
+See [the M5 report](docs/milestone-5-report.md) for all endpoints, changed files,
+security rules, test results and manual Supabase setup. M5 is **Partially Implemented —
+hosted acceptance pending**. No migration was applied. M6 was not started.

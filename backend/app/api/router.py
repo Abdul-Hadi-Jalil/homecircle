@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 
+from app.api.v1.chat import router as chat_router
 from app.api.v1.households import router as household_router
 from app.api.v1.inventory import router as inventory_router
 from app.api.v1.invitations import router as invitation_router
@@ -12,6 +13,7 @@ router.include_router(invitation_router)
 router.include_router(inventory_router)
 router.include_router(task_router)
 router.include_router(shopping_router)
+router.include_router(chat_router)
 
 
 @router.get("/health", tags=["health"])

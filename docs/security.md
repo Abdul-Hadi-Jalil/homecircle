@@ -1,6 +1,6 @@
 # Security boundaries
 
-Current acceptance status is in [PROJECT_STATUS.md](PROJECT_STATUS.md). The M2/M3
+Current acceptance status is in [PROJECT_STATUS.md](PROJECT_STATUS.md). The M2–5
 security properties below have isolated tests; actual hosted RLS, transactions and
 Storage behavior still require the separate disposable project.
 
@@ -109,3 +109,43 @@ forward migration preserves outstanding/cancelled legacy Shopping parents with e
 details. Completed legacy parents require reviewed purchase attribution before
 deployment. Manual/pull/resume refresh is implemented. Secure private realtime
 publication and subscription acceptance remain pending.
+
+## Milestone 5 chat security
+
+Current household membership is checked inside every API transaction, including
+ordinary-member writes. Identity comes from the verified JWT; input actors, arbitrary
+paths, system messages and foreign household references are rejected. Only senders
+edit/delete their messages; admins do not gain implicit moderation powers. Reaction
+rows are unique per member/message/emoji. Typed limits, body-size caps and database
+per-user/household rate windows bound mutations. API writes retain expected revisions,
+canonical idempotency hashes, parent locks and a household advisory lock.
+
+Raw message tables are not granted to authenticated clients: deleted body text is
+retained for audit but API tombstones omit text, image metadata and task/reply links.
+Reply previews redact deleted parents. API-role RLS and composite foreign keys provide
+additional scope boundaries; actual policy behavior is unverified until integration
+tests run. No API/client can invoke the privileged outbox dispatcher or forge events.
+
+Chat topics are private and user-addressed within the household. Join policies require
+the authenticated user's own topic and current membership. Restrictive namespace
+policies prevent another broad policy from widening chat access or enabling client
+publishing. Dispatch enumerates current members for every event, so an already joined
+removed member's old topic receives no future newly dispatched events. Already queued
+pre-removal invalidations may arrive, but contain no message text and subsequent API
+reads still require current membership. Disable public channel access in Supabase and
+verify this behavior with two real authenticated clients; no such acceptance is claimed.
+
+Image upload paths and byte hashes are server-bound to finalized permits. Overwrites
+are denied. Reads require an active attachment/message and membership; uploader-only
+orphan reads/deletes support finalization/cleanup. Image deletion is sender-owned
+message deletion, not caption-preserving image replacement. Signed URLs are bearer
+capabilities valid for up to 60 seconds even after revocation/deletion; clients keep
+them in memory only. Failed cleanup can leave private objects requiring an operator
+Storage API retention run. Never delete `storage.objects` directly.
+
+Chat records, pending text and composer/source-form drafts use Flutter secure storage,
+with user/household keys and a serialized key registry for logout cleanup. No plaintext
+preferences fallback, photo byte cache or automatic offline send exists. A task created
+after explicit review follows existing task cache rules. Secure storage and platform
+behavior still need physical-device acceptance. M1 real sign-in, renewal, logout,
+callbacks and member-removal acceptance remain prerequisites for secure operation.
