@@ -1,4 +1,4 @@
-"""Actual inventory RLS and concurrency checks: disposable hosted project only.
+"""Actual inventory RLS and concurrency checks on a disposable local/hosted target.
 
 The imported fixture refuses the application project before any writes. Ordinary
 tests roll back. The concurrent case commits only generated IDs and cleans them.
@@ -21,6 +21,7 @@ from app.models.auth import AuthenticatedUser
 from app.repositories.inventory import InventoryRepository
 from app.schemas.inventory import InventoryQuantityUpdate
 from app.services.inventory import InventoryService
+from tests.database_target import integration_connection_options
 from tests.test_database_integration import as_actor, create, user
 from tests.test_database_integration import database as database  # noqa: F401
 
@@ -254,9 +255,7 @@ def test_inventory_storage_policies_and_revocation(database):
 @pytest.mark.parametrize("operation", ["increase", "set"])
 def test_inventory_concurrent_quantity_updates(database, operation):
     # Invoking database validates the disposable test target before committed writes.
-    tls = {"sslmode": "verify-full", "connect_timeout": 10}
-    if cert := os.getenv("SUPABASE_TEST_DATABASE_SSLROOTCERT"):
-        tls["sslrootcert"] = cert
+    tls = integration_connection_options()
     url = os.environ["SUPABASE_TEST_DATABASE_URL"]
     household, actors = None, []
     try:

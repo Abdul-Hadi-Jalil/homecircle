@@ -2,6 +2,11 @@
 
 ## Milestone 7 release and verification
 
+The user selected local Supabase acceptance testing on 15 November. Follow the local
+guide for the dedicated workspace, loopback ports, pinned CLI and guarded test runner.
+WSL installation requires a Windows restart before the container engine can run.
+[Local Supabase testing](LOCAL_TESTING.md)
+
 Use the locked environment and commands in the deployment guide. API database
 timeouts are configurable through `DATABASE_STATEMENT_TIMEOUT_MS` (15000),
 `DATABASE_LOCK_TIMEOUT_MS` (5000) and

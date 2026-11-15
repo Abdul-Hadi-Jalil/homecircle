@@ -1,4 +1,4 @@
-"""Run only against an explicitly opted-in separate hosted Supabase test project.
+"""Run only against an explicitly opted-in disposable local or hosted Supabase stack.
 
 Every test rolls back its transaction. Migrations must already be applied by the CLI.
 No schema reset or drop is performed. App-project connections are rejected.
@@ -12,7 +12,7 @@ import pytest
 from psycopg.rows import dict_row
 from psycopg.types.json import Jsonb
 
-from tests.database_target import validate_hosted_test_target
+from tests.database_target import integration_connection_options, verify_local_test_database
 
 pytestmark = pytest.mark.integration
 
@@ -20,21 +20,17 @@ pytestmark = pytest.mark.integration
 @pytest.fixture
 def database():
     url = os.getenv("SUPABASE_TEST_DATABASE_URL")
-    if not url or os.getenv("HOMECIRCLE_TEST_DB") != "hosted-test":
-        pytest.skip("A separate hosted Supabase test project is not configured")
+    if not url or os.getenv("HOMECIRCLE_TEST_DB") not in ("hosted-test", "local-test"):
+        pytest.skip("A disposable local or hosted Supabase test environment is not configured")
     try:
-        validate_hosted_test_target(
-            url,
-            os.getenv("HOMECIRCLE_TEST_PROJECT_REF", ""),
-            os.getenv("SUPABASE_URL", ""),
-            os.getenv("APP_ENV", "development"),
-        )
+        options = integration_connection_options()
     except ValueError as error:
         pytest.fail(str(error), pytrace=False)
-    tls = {"sslmode": "verify-full", "connect_timeout": 10}
-    if root_cert := os.getenv("SUPABASE_TEST_DATABASE_SSLROOTCERT"):
-        tls["sslrootcert"] = root_cert
-    with psycopg.connect(url, row_factory=dict_row, **tls) as connection:
+    with psycopg.connect(url, row_factory=dict_row, **options) as connection:
+        try:
+            verify_local_test_database(connection)
+        except ValueError as error:
+            pytest.fail(str(error), pytrace=False)
         with connection.transaction(force_rollback=True):
             yield connection
 

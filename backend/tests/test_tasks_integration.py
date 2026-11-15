@@ -1,4 +1,4 @@
-"""Real SQL checks, exclusively through the guarded disposable hosted test fixture."""
+"""Real SQL checks through the guarded disposable local or hosted test fixture."""
 
 import asyncio
 import os
@@ -17,6 +17,7 @@ from app.schemas.inventory import InventoryConditionUpdate, InventoryItemCreate
 from app.schemas.task import Assignment, CommentCreate, StatusUpdate, TaskCreate, TaskUpdate
 from app.services.inventory import InventoryService
 from app.services.tasks import TaskService
+from tests.database_target import integration_connection_options
 from tests.test_database_integration import as_actor
 from tests.test_database_integration import database as database  # noqa: F401
 from tests.test_inventory_integration import FixtureRepository, seed
@@ -242,9 +243,7 @@ async def test_task_private_attachment_policies_and_comment_scope(database):
 def test_concurrent_task_claims_and_updates(database, operation):
     # The fixture validates target identity before any committed records exist.
     url = os.environ["SUPABASE_TEST_DATABASE_URL"]
-    tls = {"sslmode": "verify-full", "connect_timeout": 10}
-    if cert := os.getenv("SUPABASE_TEST_DATABASE_SSLROOTCERT"):
-        tls["sslrootcert"] = cert
+    tls = integration_connection_options()
     home = None
     actors = []
     try:

@@ -2,6 +2,14 @@
 
 ## Milestone 7 verification scope
 
+The 15 November local-testing follow-up adds an explicit `local-test` mode restricted
+to `127.0.0.1:55422/postgres`, a pinned loopback socket address and a disposable
+instance marker checked before writes. Hosted target validation and verified TLS
+remain in the hosted path. Concurrency connections share these checks. Tests reject
+remote hosts, other local ports, service/host-address overrides and production mode.
+Actual local SQL acceptance remains pending Windows restart and a running Docker
+engine. [Local testing](LOCAL_TESTING.md)
+
 Local checks pass for JWT validation, every protected API operation rejecting absent
 bearer identity, strict inputs, sanitized errors, restricted pool startup, actor
 transaction/rollback behavior and user/household cache isolation. All 85 protected

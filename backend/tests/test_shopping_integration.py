@@ -1,4 +1,4 @@
-"""Write-capable SQL checks run exclusively via the guarded disposable-project fixture."""
+"""Write-capable SQL checks use the guarded disposable local or hosted fixture."""
 
 import asyncio
 import os
@@ -16,6 +16,7 @@ from app.repositories.shopping import ShoppingRepository
 from app.schemas.shopping import ApplyInventory, Purchase, ShoppingCreate, ShoppingUpdate
 from app.schemas.task import Assignment, Revision
 from app.services.shopping import ShoppingService
+from tests.database_target import integration_connection_options
 from tests.test_database_integration import as_actor
 from tests.test_database_integration import database as database  # noqa: F401
 from tests.test_inventory_integration import FixtureRepository, insert_item, seed
@@ -187,9 +188,7 @@ async def test_shopping_activity_failure_rolls_back_purchase(database):
 def test_shopping_real_concurrent_claim_purchase_and_stock(database, operation):
     # The fixture validates target identity before independent committed connections.
     url = os.environ["SUPABASE_TEST_DATABASE_URL"]
-    tls = {"sslmode": "verify-full", "connect_timeout": 10}
-    if cert := os.getenv("SUPABASE_TEST_DATABASE_SSLROOTCERT"):
-        tls["sslrootcert"] = cert
+    tls = integration_connection_options()
     home = None
     actors = []
     try:

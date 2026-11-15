@@ -1,4 +1,4 @@
-"""Chat SQL behavior. Uses only the existing guarded disposable hosted project."""
+"""Chat SQL behavior on the guarded disposable local or hosted Supabase target."""
 
 import asyncio
 import os
@@ -16,6 +16,7 @@ from app.models.auth import AuthenticatedUser
 from app.repositories.chat import ChatRepository
 from app.schemas.chat import MessageCreate, MessageEdit, TaskConversion
 from app.services.chat import ChatService
+from tests.database_target import integration_connection_options
 from tests.test_chat import settings
 from tests.test_database_integration import as_actor, create
 from tests.test_database_integration import database as database  # noqa: F401
@@ -265,9 +266,7 @@ def test_chat_image_binding_and_private_topic_authorization(database):
 @pytest.mark.parametrize("operation", ["send", "edit"])
 def test_chat_concurrent_duplicate_send_and_stale_edit(database, operation):
     url = os.environ["SUPABASE_TEST_DATABASE_URL"]
-    tls = {"sslmode": "verify-full", "connect_timeout": 10}
-    if cert := os.getenv("SUPABASE_TEST_DATABASE_SSLROOTCERT"):
-        tls["sslrootcert"] = cert
+    tls = integration_connection_options()
     home = None
     actors = []
     try:

@@ -1,11 +1,35 @@
 # HomeCircle — current project status
 
-Updated 14 November 2026 (Asia/Karachi). Milestone 7 local hardening, regression
+Updated 15 November 2026 (Asia/Karachi). Milestone 7 local hardening, regression
 verification and unsigned Android release builds are implemented. **Not Release
 Ready. M7 remains partially implemented.** M1–6 hosted/device acceptance remains
-pending. Firebase, the disposable Supabase test project and release signing are
-unconfigured. [Final QA report](FINAL_QA_REPORT.md),
+pending. Firebase and release signing are unconfigured. Local Supabase preparation
+and its Windows restart requirement are recorded below. [Final QA report](FINAL_QA_REPORT.md),
 [Known issues](KNOWN_ISSUES.md), [M6 report](milestone-6-report.md)
+
+## Local Supabase follow-up, 15 November
+
+The user approved local Supabase testing after the existing project's Free-plan
+dashboard blocked preview branch creation. WSL 3.0.5 is installed and Windows has
+enabled Virtual Machine Platform. Windows explicitly requires a restart before the
+WSL 2 engine can run. Docker Desktop 4.99.0 and CLI 29.9.3 are installed, but Docker
+shows an engine-stopped state until the Windows feature takes effect. The dedicated local
+workspace and runner are prepared with all 12 migrations, project ID `homecircle-test`,
+PostgreSQL port 55422 and API port 55421. [Local testing](LOCAL_TESTING.md)
+
+Backend preflight passes with 239 tests and 58 integration skips. The new local-target
+guards require an explicit local-test mode, loopback socket, dedicated port and
+disposable database marker. All concurrency cases use the same connection checks.
+Actual SQL tests, local Auth/Storage and two-client acceptance remain pending the
+running local stack. M7 and QA-01 remain open.
+
+Read-only checks against the hosted app database now succeed through `homecircle_api`.
+The role has no CREATE DATABASE, CREATE ROLE or superuser privilege. Inventory tables
+exist, but the `lock_inventory_household` helper and inspected task, shopping, chat,
+activity and notification tables are absent. The dashboard identifies `inventory_photos`
+as its last migration. The restricted API role cannot read migration history. This
+confirms a deployed schema gap for M2 access fixes and M3–6, with owner migration
+history verification still required. No hosted schema changes were made in this check.
 
 ## Milestones
 
@@ -23,9 +47,12 @@ numbered `home circle screens` wrapper folders were removed and report links upd
 | 4 — Shopping | Partially Implemented — hosted acceptance pending | Shared shopping uses household_tasks plus one-to-one details, purchase history and an idempotent inventory ledger. API, localized Flutter UI, offline drafts and isolated tests implemented. Realtime and hosted SQL acceptance remain pending. |
 | 5 — Chat & Realtime | Partially Implemented — hosted acceptance pending | Backend-connected chat, private Realtime invalidation/outbox, images, replies/reactions, ownership, task sharing/conversion and secure offline reading/drafts implemented. Hosted SQL/RLS/Storage and two-client Realtime acceptance remain unverified. |
 | 6 — Dashboard/Notifications/Activity | Partially Implemented — external acceptance pending | Real-data dashboard, unified activity, persistent notifications, preferences, Android FCM transport and durable worker implemented. Hosted SQL/RLS, live FCM and device acceptance remain unverified. Dedicated dashboard/activity Realtime remains incomplete with refresh fallbacks. |
-| 7 — Testing/Polish/Release | Partially Implemented — Not Release Ready | Backend 226 passed/58 skipped, Flutter 115 passed/2 skipped. Analysis/lint pass. Unsigned release APK/AAB build. Profile/settings, logout, large-text chat, contrast, configuration, request limits and API readiness hardened. Hosted security, real device workflows, Firebase, branding and signing remain open. |
+| 7 — Testing/Polish/Release | Partially Implemented — Not Release Ready | Backend 239 passed/58 skipped after local test preparation. Flutter M7 run 115 passed/2 skipped. Analysis/lint pass. Unsigned release APK/AAB build. Local Supabase runner and runtime dependencies are prepared, with Windows restart required before SQL tests. Hosted security, real device workflows, Firebase, branding and signing remain open. |
 
 ## Milestone 7 verification summary
+
+The following records the 14 November milestone run. The 15 November local test
+preparation and latest backend results are recorded above.
 
 Final local backend checks pass with 226 tests and 58 guarded database skips. Flutter
 passes 115 tests with two optional live API skips. Analysis, Ruff, formatting and

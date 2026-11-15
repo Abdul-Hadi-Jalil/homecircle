@@ -1,12 +1,12 @@
 # Known issues and release gates
 
-Updated 14 November 2026. HomeCircle is **Not Release Ready**. Priorities describe
+Updated 15 November 2026. HomeCircle is **Not Release Ready**. Priorities describe
 release impact. External acceptance gaps remain gates even when isolated tests pass.
 
 | ID | Priority | State | Issue and next action |
 | --- | --- | --- | --- |
-| QA-01 | P1 | Open | Dedicated disposable Supabase project is unconfigured. Apply reviewed migrations there, run the guarded SQL suite and five-actor matrix, and verify ordinary-member writes, concurrent operations and active membership revocation. |
-| QA-02 | P1 | Open | Hosted migration history, grants, Storage policies and private Realtime behavior remain unverified. Obtain catalog evidence and two-client acceptance in the disposable project before considering production migration approval. |
+| QA-01 | P1 | Open | Local test setup is prepared and WSL/Docker are installed. Restart Windows to activate the required Virtual Machine Platform feature, then start the local stack and run database tests with temporary accounts. Check normal-member edits, simultaneous updates, five account situations and removed-member access. Actual SQL tests remain unexecuted. See LOCAL_TESTING.md. |
+| QA-02 | P1 | Open | On 15 November, read-only hosted checks found inventory tables but no inventory access-lock helper or inspected M3–6 task/shopping/chat/activity/notification tables. Dashboard last migration is inventory_photos. Hosted schema deployment is incomplete. Verify full migration history, grants, Storage and private Realtime in the isolated test environment before an approved hosted deployment. |
 | QA-03 | P1 | Open | Real registration, confirmation, recovery, renewal and household invitation acceptance remain incomplete from M1. Exercise flow A with two test accounts and verify logout/revocation on both clients. |
 | QA-04 | P1 | Open | Firebase Android configuration and worker credentials are absent. Verify foreground/background/terminated delivery, token rotation, denied permission, account handoff and notification navigation. |
 | QA-05 | P1 | Open | Production HTTPS API endpoint, approved package identity/version and release signing are unconfirmed. Current unsigned release artifacts contain no runtime defines and show the configuration screen. Supply the real public release configuration and existing approved signing credentials, rebuild and verify signatures. |

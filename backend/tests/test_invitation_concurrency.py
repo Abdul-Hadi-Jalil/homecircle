@@ -1,4 +1,4 @@
-"""Committed concurrency checks, exclusively on the guarded hosted test project.
+"""Committed concurrency checks on the guarded local or hosted test environment.
 
 Only generated fixture IDs are deleted. No database/schema reset is used.
 """
@@ -11,6 +11,7 @@ import psycopg
 import pytest
 from psycopg.rows import dict_row
 
+from tests.database_target import integration_connection_options
 from tests.test_database_integration import as_actor, create, issue_invite, user
 from tests.test_database_integration import database as database  # noqa: F401
 
@@ -20,9 +21,7 @@ pytestmark = pytest.mark.integration
 @pytest.mark.parametrize("same_actor", [False, True])
 def test_concurrent_redemption_has_one_consumption(database, same_actor):
     # Requesting database invokes the target guard before any committed writes.
-    tls = {"sslmode": "verify-full", "connect_timeout": 10}
-    if cert := os.getenv("SUPABASE_TEST_DATABASE_SSLROOTCERT"):
-        tls["sslrootcert"] = cert
+    tls = integration_connection_options()
 
     def connect():
         return psycopg.connect(

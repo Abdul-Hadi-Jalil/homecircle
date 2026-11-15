@@ -10,6 +10,10 @@ branding and signing acceptance. Candidate version `1.0.0+2` retains
 [Android release checklist](docs/ANDROID_RELEASE_CHECKLIST.md),
 [Deployment guide](docs/DEPLOYMENT_GUIDE.md), [Known issues](docs/KNOWN_ISSUES.md)
 
+Local Supabase testing uses a dedicated workspace and guarded database connection.
+Windows runtime setup and restart requirements are recorded in the local guide.
+[Local testing](docs/LOCAL_TESTING.md)
+
 HomeCircle is an Android-first Flutter app with FastAPI and Supabase. Household management, inventory, tasks, shopping, chat, the dashboard, family activity and persistent notifications are implemented. Firebase push integration and M1–6 hosted/device acceptance remain pending. Read the current project status before continuing development. [Project status](docs/PROJECT_STATUS.md)
 
 ## Project highlights
