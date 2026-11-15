@@ -11,7 +11,7 @@ grant execute on function public.lock_inventory_household(uuid) to homecircle_ap
 
 -- No profile RLS expansion or member-list pagination limit. Former participants
 -- remain attributable while their profile exists; deleted profiles return NULL.
-create function public.inventory_actor_name(target uuid, actor uuid) returns text
+create or replace function public.inventory_actor_name(target uuid, actor uuid) returns text
 language sql stable security definer set search_path='' as $$
   select p.display_name from public.profiles p where p.id=actor
     and private.is_member(target) and (
