@@ -1,15 +1,15 @@
 # Known issues and release gates
 
-Updated 15 November 2026. HomeCircle is **Not Release Ready**. Priorities describe
+Updated 16 November 2026. HomeCircle is **Not Release Ready**. Priorities describe
 release impact. External acceptance gaps remain gates even when isolated tests pass.
 
 | ID | Priority | State | Issue and next action |
 | --- | --- | --- | --- |
-| QA-01 | P1 | Open | Local test setup is prepared and WSL/Docker are installed. Restart Windows to activate the required Virtual Machine Platform feature, then start the local stack and run database tests with temporary accounts. Check normal-member edits, simultaneous updates, five account situations and removed-member access. Actual SQL tests remain unexecuted. See LOCAL_TESTING.md. |
-| QA-02 | P1 | Open | On 15 November, read-only hosted checks found inventory tables but no inventory access-lock helper or inspected M3–6 task/shopping/chat/activity/notification tables. Dashboard last migration is inventory_photos. Hosted schema deployment is incomplete. Verify full migration history, grants, Storage and private Realtime in the isolated test environment before an approved hosted deployment. |
+| QA-01 | P1 | Open | Local test setup is prepared and WSL/Docker are installed. The user deferred full testing on 16 November. When resumed, start Docker and the isolated stack, then verify normal-member edits, simultaneous updates, five account situations and removed-member access. Actual SQL tests remain unexecuted. See LOCAL_TESTING.md. |
+| QA-02 | P1 | Open — deployment verified, behavior pending | All 12 hosted migrations are applied as of 16 November. Catalog checks confirm module tables, the inventory access helper, selected RLS flags, private buckets and restricted roles. Storage transfers, actual multi-user RLS/concurrency and private Realtime acceptance remain pending. |
 | QA-03 | P1 | Open | Real registration, confirmation, recovery, renewal and household invitation acceptance remain incomplete from M1. Exercise flow A with two test accounts and verify logout/revocation on both clients. |
 | QA-04 | P1 | Open | Firebase Android configuration and worker credentials are absent. Verify foreground/background/terminated delivery, token rotation, denied permission, account handoff and notification navigation. |
-| QA-05 | P1 | Open | Production HTTPS API endpoint, approved package identity/version and release signing are unconfirmed. Current unsigned release artifacts contain no runtime defines and show the configuration screen. Supply the real public release configuration and existing approved signing credentials, rebuild and verify signatures. |
+| QA-05 | P1 | Open — hosting resolved | API is live at https://homecircle-api.onrender.com with healthy database readiness. The current installable debug APK uses that fixed address. Production signing, owner identity/version confirmation and release-signed acceptance remain pending. The earlier unsigned release artifacts still represent the 14 November build. |
 | QA-06 | P1 | Open | Flows A–F have partial isolated coverage, with live multi-user/device acceptance pending. SQL skips provide no executed authorization or concurrency evidence. |
 | QA-07 | P2 | Open | Dedicated dashboard/activity Realtime from M6 is incomplete. Lifecycle, explicit and periodic refresh provide current fallback behavior. |
 | QA-08 | P2 | Open | Starter Android launcher/splash assets remain. Stitch screenshots reference branding, but a standalone approved Android asset set was not recovered. Confirm branding assets before distribution. |

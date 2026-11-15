@@ -1,6 +1,6 @@
 # Android release checklist
 
-Updated 14 November 2026. **Not Release Ready**. Checkboxes track executed evidence
+Updated 16 November 2026. **Not Release Ready**. Checkboxes track executed evidence
 or explicit owner confirmation. Version `1.0.0+2` was selected for release preparation,
 with the existing application ID retained. Owner confirmation is pending.
 
@@ -9,10 +9,10 @@ with the existing application ID retained. Owner confirmation is pending.
 - [ ] Version name/code confirmed by owner, candidate `1.0.0` / `2`
 - [ ] Branding approved for launcher, adaptive icon and splash
 - [x] Android permissions reviewed, INTERNET and POST_NOTIFICATIONS
-- [ ] Backend environment configured for production HTTPS
+- [x] Backend environment configured for production HTTPS on Render
 - [ ] Supabase configuration verified end to end
 - [ ] Firebase configuration verified
-- [ ] Database migrations applied and verified on the intended environment
+- [x] All 12 database migration versions applied and verified on HomeCircle Supabase
 - [ ] Live database, Storage and Realtime security tests passed
 - [x] Isolated backend security tests passed
 - [x] Flutter tests passed
@@ -23,6 +23,7 @@ with the existing application ID retained. Owner confirmation is pending.
 - [ ] Signed AAB produced
 - [ ] Release-signed installation tested
 - [x] Configured debug APK installed and launched to onboarding on the API 37 emulator
+- [x] Debug APK rebuilt with the hosted Render URL and its signature verified on 16 November
 - [ ] Critical workflows A–F tested on device with real services
 - [ ] Physical-device, TalkBack and populated-household performance acceptance
 - [ ] Privacy policy prepared

@@ -1,7 +1,42 @@
 # Deployment and operations
 
-This is an operator runbook. Milestone 7 performed local builds and tests. Production
-deployment remains gated by the open release issues and the user's approval.
+This is an operator runbook. The user authorized hosted deployment on 16 November.
+The FastAPI API is live on Render and all 12 Supabase migrations are applied. Full
+application release acceptance remains open in the project status.
+
+## Current Render deployment
+
+- API URL is `https://homecircle-api.onrender.com`.
+- Service is `homecircle-api`, ID `srv-dbt235gae00c739ei3vg`, Render Free, Singapore.
+- The HomeCircle Blueprint uses the root `render.yaml` from the public GitHub repo.
+- Python 3.13.17 installs `backend/requirements.lock`. Uvicorn runs the existing
+  application factory and Psycopg-compatible loop on Render's `$PORT`.
+- Health checks use `/ready`. Deployment verification observed health/readiness 200,
+  unauthenticated profile 401 and production docs/schema 404.
+- Private environment settings contain the restricted database URL and existing
+  invitation pepper, copied with the user's approval. Preserve that pepper across
+  deployments so issued invitation codes remain usable.
+- Service auto-deploy is off. Trigger a manual deploy for application updates.
+  Blueprint configuration synchronization is managed separately by Render.
+
+Render Free sleeps after 15 minutes without traffic and can take about a minute to
+wake. The mobile HTTP timeout can expire during that initial wakeup, requiring a
+retry once the service is ready. Always-on compute requires a separate plan choice.
+[Render Free behavior](https://render.com/docs/free)
+
+To recreate the service, use New Blueprint Instance in Render, provide the public
+HomeCircle repository URL, select `main` and the root `render.yaml`, and fill the four
+prompted environment values from the local backend configuration. The API uses the
+existing Supabase database. The notification worker requires its separate Firebase
+credentials and hosting configuration before FCM delivery can operate.
+
+The user's 16 November migration authorization applied inventory access, tasks,
+shopping, chat and household hub versions. The initial inventory-access attempt
+encountered an already existing actor-name function. Its pending migration now uses
+`CREATE OR REPLACE FUNCTION` with the existing signature. The retry completed, and
+the CLI reports no pending versions. Migration history and catalog checks were read
+through the authenticated Supabase CLI. Write-capable integration tests remain
+deferred at the user's request.
 
 ## Reproduce the environment
 

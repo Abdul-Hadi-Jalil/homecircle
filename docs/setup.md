@@ -122,6 +122,12 @@ configured zone and uses it for overdue/upcoming dates.
 
 ### Firebase Android
 
+For the current Render-backed APK, complete these account configuration steps.
+Create/select a Firebase project, then add the Android app with the package ID below.
+Download `google-services.json` into `mobile/android/app/` and confirm the project's
+Cloud Messaging HTTP v1 API is enabled. Save the project ID for worker configuration.
+The next APK rebuild will include the Android file automatically.
+
 1. Create/select the intended Firebase project and register the Android application
    `com.homecircle.homecircle`. Enable the Cloud Messaging API for that project.
 2. Place its public Android configuration at `mobile/android/app/google-services.json`.
@@ -141,6 +147,19 @@ Firebase documents native project configuration and Flutter app-state handling.
 [Flutter message handling](https://firebase.google.com/docs/cloud-messaging/flutter/receive-messages)
 
 ### Firebase Admin worker
+
+In Firebase Project Settings, open Service accounts and the Firebase Admin SDK tab.
+Generate a private service-account JSON key for the approved backend account and
+store it outside source control. Supply its local path for deployment configuration,
+keeping its contents out of chat. The worker needs credentials authorized to send
+FCM messages for the same Firebase project as the Android configuration.
+
+For Render, add this JSON as a private Secret File on the worker service and set
+`GOOGLE_APPLICATION_CREDENTIALS=/etc/secrets/<filename>`. Set `FIREBASE_PROJECT_ID`
+and the dedicated worker database URL, then supervise the existing notification
+worker command below. Worker deployment and its compute plan are pending this
+configuration. The current Free web service hosts the API process.
+[Render Secret Files](https://render.com/docs/configure-environment-variables#secret-files)
 
 1. Provision the migration-created `homecircle_worker` as a dedicated login with a
    locally generated secret. Supply its verified-TLS connection through

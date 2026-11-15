@@ -1,13 +1,51 @@
 # HomeCircle — current project status
 
-Updated 15 November 2026 (Asia/Karachi). Milestone 7 local hardening, regression
+Updated 16 November 2026 (Asia/Karachi). Milestone 7 local hardening, regression
 verification and unsigned Android release builds are implemented. **Not Release
 Ready. M7 remains partially implemented.** M1–6 hosted/device acceptance remains
-pending. Firebase and release signing are unconfigured. Local Supabase preparation
-and its Windows restart requirement are recorded below. [Final QA report](FINAL_QA_REPORT.md),
+pending. The FastAPI service is live on Render, all 12 Supabase migrations are applied,
+and the current debug APK uses the hosted HTTPS API. Firebase and release signing
+remain unconfigured. [Final QA report](FINAL_QA_REPORT.md),
 [Known issues](KNOWN_ISSUES.md), [M6 report](milestone-6-report.md)
 
+## Hosted deployment and APK, 16 November
+
+The user authorized Render hosting and applying the pending Supabase migrations,
+and requested that full testing continue later. The API is live at
+`https://homecircle-api.onrender.com` on Render Free in Singapore, deployed from
+commit `49e5d71`. Service ID is `srv-dbt235gae00c739ei3vg`, managed by the HomeCircle
+Blueprint `exs-dbt21off3r2c73bn0kgg`. Repository `render.yaml` defines the locked
+Python build, database readiness probe and manually triggered service deploys.
+
+The existing database URL and invitation pepper were copied to Render environment
+settings with explicit user approval. Supabase public settings were also supplied.
+The configured JWT mode is JWKS and the issuer matches the project default.
+
+Five pending migrations applied successfully after correcting the unapplied inventory
+access migration to replace an existing manually created actor-name helper. All 12
+migration versions are now in hosted history and a subsequent CLI dry run reports
+up to date. The restricted API connection sees all inspected inventory, task, shopping,
+chat, activity and notification tables, plus the access-lock helper. Selected module
+tables have RLS enabled, all four Storage buckets remain private, and API/worker roles
+have neither superuser nor BYPASSRLS privileges. Full multi-user and concurrency
+acceptance remains pending.
+
+Deployment verification returned HTTP 200 for `/health` and `/ready`, HTTP 401 for
+unauthenticated `/api/v1/me`, and HTTP 404 for production docs/schema endpoints.
+The installable development-signed APK rebuilt successfully with the Render URL and
+passed APK signature verification. It is at
+`mobile/build/app/outputs/flutter-apk/app-debug.apk`, size 210,800,767 bytes, SHA-256
+`3265cc6952b541a0dd8b85641fc76921d7fbfbf7e8a734c822a8360ae60b19b8`.
+Ignored local/release public configuration files now use the fixed HTTPS address.
+Release signing and signed-in/device workflow acceptance remain pending. Firebase
+setup requires the Android configuration and server worker credentials described in
+the setup guide. Render Free can sleep after inactivity and needs time to wake.
+[Deployment guide](DEPLOYMENT_GUIDE.md), [Firebase setup](setup.md#firebase-android)
+
 ## Local Supabase follow-up, 15 November
+
+This dated setup record precedes the hosted deployment above. The user deferred
+executing the local database tests on 16 November.
 
 The user approved local Supabase testing after the existing project's Free-plan
 dashboard blocked preview branch creation. WSL 3.0.5 is installed and Windows has
@@ -42,12 +80,12 @@ numbered `home circle screens` wrapper folders were removed and report links upd
 | --- | --- | --- |
 | 0 — Foundation | Completed | Approved Flutter/FastAPI/Supabase foundation exists. Repaired environments and existing regression tests pass. |
 | 1 — Authentication & Households | Partially Implemented | Auth, households, invitations, member listing, switching and admin settings exist. Real email/device callbacks, signed-in multi-user and hosted SQL acceptance remain unverified. Role/removal RPCs have no management UI. |
-| 2 — Inventory | Partially Implemented — hosted acceptance pending | Backend, Flutter screens, photos, caches/drafts and isolated tests implemented. Analysis, tests and Android debug build pass. Actual migration deployment, RLS/concurrency and real Storage transfers remain unverified. Do not mark Completed yet. |
-| 3 — Tasks & Repairs | Partially Implemented — hosted acceptance pending | Repair/Chore/General requests, assignment/claims, status/reopen, discussions/photos/activity, inventory links and offline caches/drafts implemented. Stitch exports in UI/ reviewed and adapted. Backend 146 passed/29 skipped; Flutter 58 passed/2 skipped; analysis and debug build pass. SQL migration and real Auth/API/Storage acceptance unverified. |
-| 4 — Shopping | Partially Implemented — hosted acceptance pending | Shared shopping uses household_tasks plus one-to-one details, purchase history and an idempotent inventory ledger. API, localized Flutter UI, offline drafts and isolated tests implemented. Realtime and hosted SQL acceptance remain pending. |
-| 5 — Chat & Realtime | Partially Implemented — hosted acceptance pending | Backend-connected chat, private Realtime invalidation/outbox, images, replies/reactions, ownership, task sharing/conversion and secure offline reading/drafts implemented. Hosted SQL/RLS/Storage and two-client Realtime acceptance remain unverified. |
-| 6 — Dashboard/Notifications/Activity | Partially Implemented — external acceptance pending | Real-data dashboard, unified activity, persistent notifications, preferences, Android FCM transport and durable worker implemented. Hosted SQL/RLS, live FCM and device acceptance remain unverified. Dedicated dashboard/activity Realtime remains incomplete with refresh fallbacks. |
-| 7 — Testing/Polish/Release | Partially Implemented — Not Release Ready | Backend 239 passed/58 skipped after local test preparation. Flutter M7 run 115 passed/2 skipped. Analysis/lint pass. Unsigned release APK/AAB build. Local Supabase runner and runtime dependencies are prepared, with Windows restart required before SQL tests. Hosted security, real device workflows, Firebase, branding and signing remain open. |
+| 2 — Inventory | Partially Implemented — hosted acceptance pending | Backend, Flutter screens, photos, caches/drafts and isolated tests implemented. Analysis, tests and Android debug build pass. Migrations deployed on 16 November. RLS/concurrency behavior and real Storage transfers remain unverified. |
+| 3 — Tasks & Repairs | Partially Implemented — hosted acceptance pending | Repair/Chore/General requests, assignment/claims, status/reopen, discussions/photos/activity, inventory links and offline caches/drafts implemented. Stitch exports in UI/ reviewed and adapted. Isolated tests, analysis and debug build pass. Migration deployed. Real Auth/API/Storage acceptance remains pending. |
+| 4 — Shopping | Partially Implemented — hosted acceptance pending | Shared shopping uses household_tasks plus one-to-one details, purchase history and an idempotent inventory ledger. API, localized Flutter UI, offline drafts and isolated tests implemented. Migration deployed. Realtime and database behavior acceptance remain pending. |
+| 5 — Chat & Realtime | Partially Implemented — hosted acceptance pending | Backend-connected chat, private Realtime invalidation/outbox, images, replies/reactions, ownership, task sharing/conversion and secure offline reading/drafts implemented. Migration deployed. RLS/Storage behavior and two-client Realtime acceptance remain unverified. |
+| 6 — Dashboard/Notifications/Activity | Partially Implemented — external acceptance pending | Real-data dashboard, unified activity, persistent notifications, preferences, Android FCM transport and durable worker implemented. Migration deployed. RLS behavior, Firebase configuration, hosted worker, live FCM and device acceptance remain pending. Dedicated dashboard/activity Realtime remains incomplete with refresh fallbacks. |
+| 7 — Testing/Polish/Release | Partially Implemented — Not Release Ready | Backend preflight 239 passed/58 skipped. Flutter M7 run 115 passed/2 skipped. Analysis/lint pass. API live on Render and all 12 migrations deployed. A development-signed APK rebuilt with the hosted URL passes signature verification. Full SQL/device testing is deferred by the user. Hosted security behavior, Firebase, branding and production signing remain open. |
 
 ## Milestone 7 verification summary
 

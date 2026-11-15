@@ -2,6 +2,11 @@
 
 Everything your home needs, in one place.
 
+The API is deployed at `https://homecircle-api.onrender.com`. All 12 Supabase
+migrations are applied, and the current debug APK uses that fixed HTTPS address.
+Render Free can take time to wake after inactivity. Full workflow testing, Firebase
+push and production signing remain pending. [Current status](docs/PROJECT_STATUS.md)
+
 Milestone 7 local hardening and unsigned Android release builds are available.
 **Not Release Ready** pending hosted security, Auth/Realtime/FCM, device workflow,
 branding and signing acceptance. Candidate version `1.0.0+2` retains

@@ -2,6 +2,11 @@
 
 14 November 2026, Asia/Karachi. Milestone 7 local engineering report.
 
+The 16 November deployment follow-up records the live Render API, applied migrations
+and a rebuilt development APK with the hosted URL. Artifact hashes and deployment
+gaps below describe the 14 November assessment. Full acceptance testing remains
+pending. [Current project status](PROJECT_STATUS.md#hosted-deployment-and-apk-16-november)
+
 ## A. Executive summary
 
 **Not Release Ready. Milestone 7 remains partially implemented.** Local backend and
