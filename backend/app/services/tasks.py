@@ -251,8 +251,9 @@ class TaskService:
             old = await self.repository.task(c, household, task_id, lock=True)
             editable(old)
             check_revision(old, expected)
-            comment = await self.repository.comment(c, household, task_id, comment_id)
+            comment = await self.repository.comment(c, household, task_id, comment_id, lock=False)
             await self.comment_permission(c, user, household, comment)
+            comment = await self.repository.comment(c, household, task_id, comment_id)
             check_revision(comment, expected_comment)
             if body is None:
                 query, value, action = "deleted_at=%s", datetime.now(UTC), "comment_deleted"

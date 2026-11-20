@@ -19,6 +19,7 @@ CONFIG = ROOT / "backend" / "tests" / "local_supabase.toml"
 CLI_VERSION = "3.1.0"
 NETWORK = "homecircle-local-test"
 DB_URL = "postgresql://postgres:postgres@127.0.0.1:55422/postgres"
+DB_CONTAINER = "supabase_db_homecircle-test"
 
 
 def prepare():
@@ -108,7 +109,7 @@ def ensure_network(docker):
         raise RuntimeError("Existing test network does not restrict published ports to loopback")
 
 
-def mark_database():
+def mark_database(docker):
     status = json.loads(cli(["status", "--output", "json"], capture=True).stdout)
     if status.get("DB_URL") != DB_URL:
         raise RuntimeError("CLI reported an unexpected local database URL")
@@ -125,14 +126,38 @@ def mark_database():
         ).fetchone()
         if row != {"database": "postgres", "role": "postgres"}:
             raise RuntimeError("Unexpected local database identity")
-        connection.execute(
-            "SELECT set_config('homecircle.test_instance', %s, false)", (LOCAL_TEST_MARKER,)
-        )
-        # Fixed database and marker values belong only to this dedicated local stack.
-        connection.execute(
-            "ALTER DATABASE postgres SET homecircle.test_instance = "
-            "'homecircle-local-integration-v1'"
-        )
+    # Current local images do not make `postgres` a superuser, so the marker and the
+    # test role switching are configured as the container's local admin role.
+    # Fixed database, marker and role values belong only to this dedicated local stack.
+    local_admin_sql(
+        docker,
+        f"ALTER DATABASE postgres SET homecircle.test_instance = '{LOCAL_TEST_MARKER}'",
+    )
+    # Integration tests SET ROLE into the restricted app roles; grant SET only.
+    local_admin_sql(
+        docker, "GRANT homecircle_api, homecircle_worker TO postgres WITH SET TRUE, INHERIT FALSE"
+    )
+
+
+def local_admin_sql(docker, statement):
+    subprocess.run(
+        [
+            docker,
+            "exec",
+            DB_CONTAINER,
+            "psql",
+            "-U",
+            "supabase_admin",
+            "-d",
+            "postgres",
+            "-v",
+            "ON_ERROR_STOP=1",
+            "-qc",
+            statement,
+        ],
+        check=True,
+        capture_output=True,
+    )
 
 
 def verify_port_bindings(docker):
@@ -198,7 +223,7 @@ def main():
     if not args.test_only:
         # CLI 3.1 defaults db push to the local workspace. No remote/link flags are used.
         cli(["db", "push"])
-        mark_database()
+        mark_database(docker)
     environment = os.environ.copy()
     environment.update(
         {

@@ -42,8 +42,9 @@ def test_five_actor_household_inventory_matrix(database):
                 "SELECT public.lock_inventory_household(%s) AS allowed", (home,)
             ).fetchone()["allowed"] == (home in homes)
         updated = database.execute(
-            "UPDATE public.inventory_items SET quantity=quantity+1 WHERE id IN (%s,%s) "
-            "RETURNING household_id",
-            (item_a, item_b),
+            # The update policy requires the writer to stamp itself, as the app does.
+            "UPDATE public.inventory_items SET quantity=quantity+1, updated_by=%s "
+            "WHERE id IN (%s,%s) RETURNING household_id",
+            (actor, item_a, item_b),
         ).fetchall()
         assert {row["household_id"] for row in updated} == homes

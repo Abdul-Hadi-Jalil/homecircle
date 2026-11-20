@@ -22,7 +22,7 @@ from app.repositories.inventory import InventoryRepository
 from app.schemas.inventory import InventoryQuantityUpdate
 from app.services.inventory import InventoryService
 from tests.database_target import integration_connection_options
-from tests.test_database_integration import as_actor, create, user
+from tests.test_database_integration import as_actor, create, storage_delete_denied, user
 from tests.test_database_integration import database as database  # noqa: F401
 
 pytestmark = pytest.mark.integration
@@ -234,9 +234,7 @@ def test_inventory_storage_policies_and_revocation(database):
     assert database.execute("SELECT private.inventory_photo_read(%s) AS ok", (path,)).fetchone()[
         "ok"
     ]
-    assert not database.execute(
-        "DELETE FROM storage.objects WHERE name=%s RETURNING id", (path,)
-    ).fetchone()
+    assert storage_delete_denied(database, path)
     as_actor(database, outsider)
     assert not database.execute(
         "SELECT name FROM storage.objects WHERE name=%s", (path,)

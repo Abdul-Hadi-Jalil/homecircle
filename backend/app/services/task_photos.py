@@ -29,8 +29,11 @@ class TaskPhotos(InventoryPhotos):
         editable(old)
         check_revision(old, data.expected_revision)
         if data.comment_id:
-            comment = await self.repository.comment(c, household, task_id, data.comment_id)
+            comment = await self.repository.comment(
+                c, household, task_id, data.comment_id, lock=False
+            )
             await TaskService(self.repository).comment_permission(c, user, household, comment)
+            await self.repository.comment(c, household, task_id, data.comment_id)
         count = (
             await (
                 await c.execute(

@@ -35,6 +35,23 @@ def database():
             yield connection
 
 
+def storage_delete_denied(connection, path):
+    """Direct SQL deletion of a Storage object must not remove it.
+
+    Older Storage versions filter the row through RLS; newer ones also raise from
+    storage.protect_delete(). Both deny the deletion. A savepoint keeps the outer
+    test transaction usable after the raised error.
+    """
+    try:
+        with connection.transaction():
+            deleted = connection.execute(
+                "DELETE FROM storage.objects WHERE name=%s RETURNING id", (path,)
+            ).fetchone()
+    except psycopg.errors.InsufficientPrivilege:
+        return True
+    return deleted is None
+
+
 def as_actor(connection, user_id, role="authenticated"):
     # Roles are fixed test constants, never externally supplied SQL identifiers.
     connection.execute("RESET ROLE")

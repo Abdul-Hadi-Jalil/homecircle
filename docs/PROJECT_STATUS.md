@@ -3,10 +3,49 @@
 Updated 16 November 2026 (Asia/Karachi). Milestone 7 local hardening, regression
 verification and unsigned Android release builds are implemented. **Not Release
 Ready. M7 remains partially implemented.** M1–6 hosted/device acceptance remains
-pending. The FastAPI service is live on Render, all 12 Supabase migrations are applied,
+pending. The FastAPI service is live on Render, all 13 Supabase migrations are applied,
 and the current debug APK uses the hosted HTTPS API. Firebase and release signing
 remain unconfigured. [Final QA report](FINAL_QA_REPORT.md),
 [Known issues](KNOWN_ISSUES.md), [M6 report](milestone-6-report.md)
+
+## Local database acceptance, 20 November
+
+The guarded SQL integration suite ran for the first time, against the dedicated
+local Supabase stack (PostgreSQL 17, all migrations applied from scratch).
+**Result: 58 passed, 0 skipped.** This covers household/member/outsider RLS,
+invitations and concurrent redemption, inventory/task/shopping/chat/hub writes,
+revocation, rollback and real concurrent claims, edits and stock application.
+Regular suites: backend 239 passed / 58 deselected, Flutter 115 passed / 2 skipped,
+Ruff check and format clean. Live API smoke: `/health` and `/ready` 200, missing or
+invalid bearer 401, docs/schema 404.
+
+The first run found seven failures. Fixed:
+
+- Task comments: another member changing someone else's comment returned 404
+  instead of 403, because `FOR UPDATE` applies the comment UPDATE policy and hid
+  the row. The permission check now reads unlocked first, then locks
+  (`backend/app/repositories/tasks.py`, `services/tasks.py`, `services/task_photos.py`).
+  Access was always denied; only the error was wrong.
+- New migration `20261120000000_shopping_inventory_link_delete.sql`: deleting a
+  household with shopping items linked to inventory failed on the immediate
+  inventory foreign keys of `shopping_item_details` and
+  `shopping_inventory_applications`. Both are now checked at commit, so a household
+  cascade completes while a lone referenced inventory delete is still refused.
+  Applied to the hosted `homecircle` project on 20 November at the user's request,
+  after a dry run showed it as the only pending version. The CLI now reports the
+  remote database up to date (13 versions), a read-only catalog check confirms both
+  constraints are deferrable and initially deferred, and the API `/ready` returns 200.
+- Tests: the five-actor matrix now stamps `updated_by` as the app does, and direct
+  Storage deletion checks accept the newer `storage.protect_delete()` error.
+- Local runner: tags the database and grants `SET` on the app roles through the
+  container's local admin role, because current local images do not make
+  `postgres` a superuser. Docker Desktop was set to bind published ports to
+  loopback by default so the runner's exposure guard passes.
+
+Still open: real email/Auth and
+two-device acceptance (flows A–F), Firebase worker delivery and release signing.
+Other intra-household `NO ACTION` links (chat replies/linked tasks, chat
+conversions, comment attachments) have not been exercised by a household delete.
 
 ## Hosted deployment and APK, 16 November
 
