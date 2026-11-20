@@ -38,6 +38,9 @@ artifacts/
 .tmp/
 **/google-services.json
 **/GoogleService-Info.plist
+# FlutterFire CLI output: same Firebase project config, kept local.
+mobile/lib/firebase_options.dart
+mobile/firebase.json
 **/*service-account*.json
 **/*firebase-adminsdk*.json
 **/serviceAccount*.json
