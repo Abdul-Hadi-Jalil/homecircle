@@ -365,35 +365,35 @@ class _FamilyChatScreenState extends State<FamilyChatScreen>
               icon: const Icon(Icons.info_outline),
             ),
           ),
-          if (!vm.connected)
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-              child: Text(
-                l.chatReconnecting,
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
-            ),
-          if (vm.cached)
-            Padding(
-              padding: const EdgeInsets.all(8),
-              child: Text(l.chatCached),
-            ),
-          if (vm.cacheError)
-            Padding(
-              padding: const EdgeInsets.all(8),
-              child: Text(l.chatCacheError),
-            ),
-          if (vm.error != null)
-            Padding(
-              padding: const EdgeInsets.all(8),
-              child: Text(chatError(context, vm.error)),
-            ),
           if (vm.loading) const LinearProgressIndicator(),
           Expanded(
             child: ListView(
               controller: scroll,
               padding: const EdgeInsets.all(16),
               children: [
+                if (!vm.connected)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 4),
+                    child: Text(
+                      l.chatReconnecting,
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ),
+                if (vm.cached)
+                  Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Text(l.chatCached),
+                  ),
+                if (vm.cacheError)
+                  Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Text(l.chatCacheError),
+                  ),
+                if (vm.error != null)
+                  Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Text(chatError(context, vm.error)),
+                  ),
                 if (vm.hasOlder)
                   TextButton(
                     onPressed: vm.olderLoading ? null : older,
