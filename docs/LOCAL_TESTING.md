@@ -7,6 +7,13 @@ hosted connection file is not used by the local runner.
 
 ## Current setup status
 
+Update 20 November 2026: the stack runs and the full guarded suite passes
+(58 passed). Docker Desktop must bind published ports to loopback, or the runner
+stops the stack: set `"ip": "127.0.0.1"` in the Docker Engine settings and choose
+the default-local port binding behavior under Settings → Resources → Network.
+The runner now configures the disposable marker and test role grants itself.
+The record below describes the earlier 15 November preparation.
+
 Prepared on 15 November 2026. The isolated workspace contains all 12 repository
 migrations. Supabase CLI 3.1.0 is pinned by the runner. WSL 3.0.5 and its Linux kernel
 are installed. Windows enabled Virtual Machine Platform and explicitly requires a

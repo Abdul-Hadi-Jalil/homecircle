@@ -129,7 +129,7 @@ class FakeTasks:
         (self.comments_data if table == "task_comments" else self.attachments_data)[row["id"]] = row
         return row.copy()
 
-    async def comment(self, c, household, task_id, comment_id):
+    async def comment(self, c, household, task_id, comment_id, *, lock=True):
         row = self.comments_data.get(comment_id)
         if (
             not row

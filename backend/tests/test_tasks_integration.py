@@ -18,7 +18,7 @@ from app.schemas.task import Assignment, CommentCreate, StatusUpdate, TaskCreate
 from app.services.inventory import InventoryService
 from app.services.tasks import TaskService
 from tests.database_target import integration_connection_options
-from tests.test_database_integration import as_actor
+from tests.test_database_integration import as_actor, storage_delete_denied
 from tests.test_database_integration import database as database  # noqa: F401
 from tests.test_inventory_integration import FixtureRepository, seed
 
@@ -230,9 +230,7 @@ async def test_task_private_attachment_policies_and_comment_scope(database):
     database.execute("UPDATE private.task_uploads SET finalized=true WHERE path=%s", (path,))
     as_actor(database, member)
     assert database.execute("SELECT private.task_photo_read(%s) AS ok", (path,)).fetchone()["ok"]
-    assert not database.execute(
-        "DELETE FROM storage.objects WHERE name=%s RETURNING id", (path,)
-    ).fetchone()
+    assert storage_delete_denied(database, path)
     as_actor(database, outsider)
     assert not database.execute(
         "SELECT name FROM storage.objects WHERE name=%s", (path,)

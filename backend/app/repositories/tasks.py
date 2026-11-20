@@ -173,11 +173,13 @@ class TaskRepository:
             ).fetchone()
         )["allowed"]
 
-    async def comment(self, c, household, task_id, comment_id):
+    async def comment(self, c, household, task_id, comment_id, *, lock=True):
+        # FOR UPDATE applies the comment UPDATE policy, which hides other members'
+        # comments. Read unlocked first when a 403 must be distinguished from 404.
         row = await (
             await c.execute(
                 "SELECT * FROM public.task_comments WHERE household_id=%s AND task_id=%s AND id=%s "
-                "AND deleted_at IS NULL FOR UPDATE",
+                "AND deleted_at IS NULL" + (" FOR UPDATE" if lock else ""),
                 (household, task_id, comment_id),
             )
         ).fetchone()
