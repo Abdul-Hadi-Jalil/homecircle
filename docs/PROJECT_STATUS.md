@@ -8,6 +8,28 @@ and the current debug APK uses the hosted HTTPS API. Firebase and release signin
 remain unconfigured. [Final QA report](FINAL_QA_REPORT.md),
 [Known issues](KNOWN_ISSUES.md), [M6 report](milestone-6-report.md)
 
+## Branding and signed release APK, 20 November
+
+- Launcher icon: an original white house inside a ring on HomeCircle primary blue
+  (`#2248D1`) with a secondary-green door. It ships as legacy square/round icons,
+  an adaptive icon with a monochrome layer for Android 13 themed icons, and a 512 px
+  Play icon at `docs/images/homecircle-play-icon-512.png`. Regenerate with
+  `mobile/tool/generate_launcher_icons.py`.
+- Splash: brand-blue background with the mark (classic splash and Android 12+
+  system splash, light and dark).
+- Release signing: a new owner-approved keystore (alias `homecircle`, RSA 4096,
+  valid to 2054) is stored outside the repo at
+  `C:/Users/abdul/.homecircle-signing/homecircle-release.jks`. Its passwords are in
+  the ignored `mobile/android/key.properties`. **Back up both; losing the key means
+  no future updates.** Certificate SHA-256
+  `31:BE:6C:EB:26:6E:6F:D3:18:91:CA:2C:04:49:CD:C0:40:10:21:49:A0:9D:C5:3D:01:BD:B5:C8:53:DE:67:E4`.
+- Signed release APK `1.0.0` (code 2), built with `config.release.local.json`
+  (Render API, HTTPS): `mobile/build/app/outputs/flutter-apk/app-release.apk`,
+  62,868,753 bytes, SHA-256
+  `e7095195037a21b81d059bb78e7d3db40cd473644637a6100c8a48a091718a18`. `apksigner`
+  verifies it with the certificate above. Emulator installation timed out under host
+  memory pressure; install on a physical device is still to be confirmed.
+
 ## Local database acceptance, 20 November
 
 The guarded SQL integration suite ran for the first time, against the dedicated
