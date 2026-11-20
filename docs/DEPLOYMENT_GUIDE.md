@@ -1,7 +1,7 @@
 # Deployment and operations
 
 This is an operator runbook. The user authorized hosted deployment on 16 November.
-The FastAPI API is live on Render and all 12 Supabase migrations are applied. Full
+The FastAPI API is live on Render and all 13 Supabase migrations are applied. Full
 application release acceptance remains open in the project status.
 
 ## Current Render deployment

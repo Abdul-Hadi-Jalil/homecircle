@@ -3,7 +3,7 @@
 Updated 16 November 2026 (Asia/Karachi). Milestone 7 local hardening, regression
 verification and unsigned Android release builds are implemented. **Not Release
 Ready. M7 remains partially implemented.** M1–6 hosted/device acceptance remains
-pending. The FastAPI service is live on Render, all 12 Supabase migrations are applied,
+pending. The FastAPI service is live on Render, all 13 Supabase migrations are applied,
 and the current debug APK uses the hosted HTTPS API. Firebase and release signing
 remain unconfigured. [Final QA report](FINAL_QA_REPORT.md),
 [Known issues](KNOWN_ISSUES.md), [M6 report](milestone-6-report.md)
@@ -31,7 +31,10 @@ The first run found seven failures. Fixed:
   inventory foreign keys of `shopping_item_details` and
   `shopping_inventory_applications`. Both are now checked at commit, so a household
   cascade completes while a lone referenced inventory delete is still refused.
-  **Applied locally only; not yet applied to the hosted project.**
+  Applied to the hosted `homecircle` project on 20 November at the user's request,
+  after a dry run showed it as the only pending version. The CLI now reports the
+  remote database up to date (13 versions), a read-only catalog check confirms both
+  constraints are deferrable and initially deferred, and the API `/ready` returns 200.
 - Tests: the five-actor matrix now stamps `updated_by` as the app does, and direct
   Storage deletion checks accept the newer `storage.protect_delete()` error.
 - Local runner: tags the database and grants `SET` on the app roles through the
@@ -39,7 +42,7 @@ The first run found seven failures. Fixed:
   `postgres` a superuser. Docker Desktop was set to bind published ports to
   loopback by default so the runner's exposure guard passes.
 
-Still open: hosted application of the new migration, real email/Auth and
+Still open: real email/Auth and
 two-device acceptance (flows A–F), Firebase worker delivery and release signing.
 Other intra-household `NO ACTION` links (chat replies/linked tasks, chat
 conversions, comment attachments) have not been exercised by a household delete.
