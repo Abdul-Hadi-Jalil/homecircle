@@ -1,12 +1,12 @@
 # Android release checklist
 
 Updated 16 November 2026. **Not Release Ready**. Checkboxes track executed evidence
-or explicit owner confirmation. Version `1.0.0+2` was selected for release preparation,
+or explicit owner confirmation. Version `1.0.0+1` was selected for release preparation,
 with the existing application ID retained. Owner confirmation is pending.
 
 - [ ] Application ID confirmed by owner, currently `com.homecircle.homecircle`
 - [ ] App name confirmed by owner, currently `HomeCircle`
-- [ ] Version name/code confirmed by owner, candidate `1.0.0` / `2`
+- [ ] Version name/code confirmed by owner, candidate `1.0.0` / `1`
 - [ ] Branding approved for launcher, adaptive icon and splash
 - [x] Android permissions reviewed, INTERNET and POST_NOTIFICATIONS
 - [x] Backend environment configured for production HTTPS on Render

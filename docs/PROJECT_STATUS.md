@@ -167,7 +167,7 @@ configuration feedback. Release signing, HTTPS runtime configuration, Firebase a
 approved Android branding remain required.
 
 M7 adds no database migration. Existing migrations remain pending verified deployment
-history and disposable-project acceptance. Candidate `1.0.0+2` retains the existing
+history and disposable-project acceptance. Candidate `1.0.0+1` retains the existing
 application ID pending owner confirmation. Detailed fixes, changed files, artifact
 hashes, test commands, five-user/flows A–F coverage and release blockers are recorded
 in the final QA report. [Final QA report](FINAL_QA_REPORT.md),

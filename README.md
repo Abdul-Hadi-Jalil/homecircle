@@ -9,7 +9,7 @@ push and production signing remain pending. [Current status](docs/PROJECT_STATUS
 
 Milestone 7 local hardening and unsigned Android release builds are available.
 **Not Release Ready** pending hosted security, Auth/Realtime/FCM, device workflow,
-branding and signing acceptance. Candidate version `1.0.0+2` retains
+branding and signing acceptance. Candidate version `1.0.0+1` retains
 `com.homecircle.homecircle` pending owner confirmation.
 [Final QA report](docs/FINAL_QA_REPORT.md),
 [Android release checklist](docs/ANDROID_RELEASE_CHECKLIST.md),

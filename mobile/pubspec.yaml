@@ -1,7 +1,7 @@
 name: homecircle
 description: "Everything your home needs, in one place."
 publish_to: 'none'
-version: 1.0.0+2
+version: 1.0.0+1
 
 environment:
   sdk: ^3.13.7
