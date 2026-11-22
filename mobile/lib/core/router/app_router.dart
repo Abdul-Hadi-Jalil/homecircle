@@ -6,6 +6,7 @@ import '../../features/auth/views/auth_view.dart';
 import '../../features/auth/views/onboarding_view.dart';
 import '../../features/auth/views/auth_notice_view.dart';
 import '../../features/household/views/membership_views.dart';
+import '../../features/splash/splash_screen.dart';
 import '../../features/dashboard/views/home_view.dart';
 import '../../features/household/viewmodels/session_view_model.dart';
 import '../../features/household/views/household_view.dart';
@@ -22,7 +23,6 @@ import '../../features/notifications/views/notification_settings_screen.dart';
 import '../../features/tasks/views/task_form_screen.dart';
 import '../../features/tasks/views/task_details_screen.dart';
 import '../localization/generated/app_localizations.dart';
-import '../widgets/app_widgets.dart';
 import '../widgets/mock_widgets.dart';
 import 'route_guard.dart';
 
@@ -31,7 +31,8 @@ GoRouter createRouter(SessionViewModel session) => GoRouter(
   refreshListenable: session,
   redirect: (context, state) => routeRedirect(
     path: state.uri.path,
-    restoring: session.restoring || session.switching,
+    restoring:
+        session.restoring || session.switching || !session.splashDone,
     signedIn: session.user != null,
     hasHousehold: session.activeHousehold != null,
     passwordRecovery: session.passwordRecovery,
@@ -79,10 +80,7 @@ GoRouter createRouter(SessionViewModel session) => GoRouter(
     GoRoute(
       path: '/bootstrap',
       name: 'bootstrap',
-      builder: (context, state) => AppScaffold(
-        title: AppLocalizations.of(context)!.bootstrap,
-        body: const AppLoadingIndicator(),
-      ),
+      builder: (context, state) => const SplashScreen(),
     ),
     GoRoute(
       path: '/welcome',
