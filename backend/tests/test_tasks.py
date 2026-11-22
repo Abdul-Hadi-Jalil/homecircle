@@ -627,3 +627,17 @@ def test_comment_api_contract(client, method, suffix, body, handler):
     )
     assert result.status_code == (201 if method == "POST" else 200), result.text
     assert getattr(service, handler).call_args.args[0].id is not None
+
+
+def test_requested_assignment_filter_is_accepted_and_unknown_values_rejected(client):
+    service = AsyncMock()
+    service.list.return_value = {"items": [], "total": 0, "page": 1, "page_size": 1}
+    client.app.dependency_overrides[get_task_service] = lambda: service
+    root = f"/api/v1/households/{HOME}/tasks"
+    headers = {"Authorization": "Bearer valid-token"}
+    response = client.get(
+        root + "?assignment=requested&active_only=true&page_size=1", headers=headers
+    )
+    assert response.status_code == 200
+    assert service.list.call_args.args[2]["assignment"] == "requested"
+    assert client.get(root + "?assignment=everyone", headers=headers).status_code == 422

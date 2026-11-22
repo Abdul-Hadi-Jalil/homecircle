@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../localization/generated/app_localizations.dart';
 import '../network/network_status.dart';
+import '../theme/app_theme.dart';
 
 class AppPrimaryButton extends StatelessWidget {
   const AppPrimaryButton({
@@ -46,6 +47,11 @@ class AppTextField extends StatelessWidget {
     this.obscureText = false,
     this.validator,
     this.keyboardType,
+    this.icon,
+    this.hint,
+    this.suffix,
+    this.labelAction,
+    this.trailing,
     super.key,
   });
   final String label;
@@ -53,15 +59,64 @@ class AppTextField extends StatelessWidget {
   final bool obscureText;
   final String? Function(String?)? validator;
   final TextInputType? keyboardType;
+  final IconData? icon;
+  final String? hint;
+
+  /// Widget shown inside the field at its trailing edge (eg. a visibility toggle).
+  final Widget? suffix;
+
+  /// Small action shown opposite the label (eg. "Forgot Password?").
+  final Widget? labelAction;
+
+  /// Non-interactive indicator drawn inside the field (eg. a verified icon).
+  final Widget? trailing;
   @override
-  Widget build(BuildContext context) => TextFormField(
-    controller: controller,
-    obscureText: obscureText,
-    enableSuggestions: !obscureText,
-    autocorrect: !obscureText,
-    validator: validator,
-    keyboardType: keyboardType,
-    decoration: InputDecoration(labelText: label),
+  Widget build(BuildContext context) => Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Padding(
+        padding: const EdgeInsetsDirectional.only(start: 4, bottom: 6),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Flexible(
+              child: Text(
+                label,
+                style: AppText.labelMd.copyWith(color: AppColors.muted),
+              ),
+            ),
+            ?labelAction,
+          ],
+        ),
+      ),
+      TextFormField(
+        controller: controller,
+        obscureText: obscureText,
+        enableSuggestions: !obscureText,
+        autocorrect: !obscureText,
+        validator: validator,
+        keyboardType: keyboardType,
+        style: AppText.bodyMd.copyWith(color: AppColors.text),
+        decoration: InputDecoration(
+          hintText: hint,
+          prefixIcon: icon == null
+              ? null
+              : Padding(
+                  padding: const EdgeInsetsDirectional.only(start: 14, end: 10),
+                  child: Icon(icon, size: 20, color: const Color(0xFF747686)),
+                ),
+          prefixIconConstraints: const BoxConstraints(
+            minWidth: 44,
+            minHeight: 20,
+          ),
+          suffixIcon: suffix ?? trailing,
+          suffixIconConstraints: const BoxConstraints(
+            minWidth: 44,
+            minHeight: 44,
+          ),
+        ),
+      ),
+    ],
   );
 }
 
@@ -110,16 +165,23 @@ class AppScaffold extends StatelessWidget {
     required this.body,
     this.actions,
     this.bottomNavigationBar,
+    this.appBar,
+    this.floatingActionButton,
     super.key,
   });
   final String title;
   final Widget body;
   final List<Widget>? actions;
   final Widget? bottomNavigationBar;
+
+  /// Replaces the default app bar (used by screens that follow the brand bar).
+  final PreferredSizeWidget? appBar;
+  final Widget? floatingActionButton;
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title: Text(title), actions: actions),
+    appBar: appBar ?? AppBar(title: Text(title), actions: actions),
     bottomNavigationBar: bottomNavigationBar,
+    floatingActionButton: floatingActionButton,
     body: SafeArea(
       child: Column(
         children: [

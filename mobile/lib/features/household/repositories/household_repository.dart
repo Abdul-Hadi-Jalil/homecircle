@@ -29,12 +29,24 @@ class HouseholdRepository {
 
   Future<void> revoke(String id, String inviteId) =>
       service.revoke(id, inviteId);
+  Future<int> taskTotal(String household, Map<String, String> query) =>
+      service.taskTotal(household, query);
+  Future<void> setMemberRole(String id, String userId, String role) =>
+      service.setMemberRole(id, userId, role);
+  Future<void> removeMember(String id, String userId) =>
+      service.removeMember(id, userId);
+  Future<void> leave(String id) => service.leave(id);
+  Future<void> deleteHousehold(String id) => service.deleteHousehold(id);
   Future<List<HouseholdMember>> members(String id, int offset) async =>
       (await service.members(id, offset))
           .map((row) => HouseholdMember.fromJson(row as Map<String, dynamic>))
           .toList();
-  Future<void> update(String id, String name, String? description) =>
-      service.update(id, name.trim(), description);
+  Future<void> update(
+    String id,
+    String name,
+    String? description, {
+    String? avatarKey,
+  }) => service.update(id, name.trim(), description, avatarKey: avatarKey);
 
   Future<Household> getHousehold(String householdId) async {
     try {
@@ -60,9 +72,15 @@ class HouseholdRepository {
     }
   }
 
-  Future<Household> create(String name, String? description) async {
+  Future<Household> create(
+    String name,
+    String? description, {
+    String? avatarKey,
+  }) async {
     try {
-      return Household.fromJson(await service.create(name.trim(), description));
+      return Household.fromJson(
+        await service.create(name.trim(), description, avatarKey: avatarKey),
+      );
     } on TypeError {
       throw const InvalidResponseException();
     } on FormatException {

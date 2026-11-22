@@ -84,7 +84,13 @@ async def test_preview_exposes_only_minimum_metadata(invitations):
         "role": None,
     }
     result = await invitations.resolve(AuthenticatedUser(USER_ID), "HC-AAAA-AAAA-AAAA-AAAA")
-    assert set(result.model_dump()) == {"household_id", "name", "already_member"}
+    assert set(result.model_dump()) == {
+        "household_id",
+        "name",
+        "already_member",
+        "member_count",
+        "avatar_key",
+    }
     invitations.households.get_household.assert_not_called()
 
 

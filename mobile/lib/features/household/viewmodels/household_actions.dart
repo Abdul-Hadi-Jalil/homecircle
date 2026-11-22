@@ -65,8 +65,49 @@ class HouseholdActions extends ChangeNotifier {
     members = [...members, ...batch];
     moreMembers = batch.length == 50;
   });
-  Future<bool> update(String id, String name, String? description) =>
-      run(() => repository.update(id, name, description));
+
+  /// Counts shown under My Activity on the profile.
+  int assignedActive = 0;
+  int requestsOpen = 0;
+  int completedMine = 0;
+  Future<bool> loadMyActivity(String id) => run(() async {
+    final counts = await Future.wait([
+      repository.taskTotal(id, {'assignment': 'me', 'active_only': 'true'}),
+      repository.taskTotal(id, {
+        'assignment': 'requested',
+        'active_only': 'true',
+      }),
+      repository.taskTotal(id, {'assignment': 'me', 'status': 'completed'}),
+    ]);
+    assignedActive = counts[0];
+    requestsOpen = counts[1];
+    completedMine = counts[2];
+  });
+  Future<bool> reloadMembers(String id) => run(() async {
+    members = [];
+    final batch = await repository.members(id, 0);
+    members = batch;
+    moreMembers = batch.length == 50;
+  });
+  Future<bool> setMemberRole(String id, String userId, String role) =>
+      run(() async {
+        await repository.setMemberRole(id, userId, role);
+        members = await repository.members(id, 0);
+      });
+  Future<bool> removeMember(String id, String userId) => run(() async {
+    await repository.removeMember(id, userId);
+    members = await repository.members(id, 0);
+  });
+  Future<bool> leave(String id) => run(() => repository.leave(id));
+  Future<bool> deleteHousehold(String id) =>
+      run(() => repository.deleteHousehold(id));
+  Future<bool> update(
+    String id,
+    String name,
+    String? description, {
+    String? avatarKey,
+  }) =>
+      run(() => repository.update(id, name, description, avatarKey: avatarKey));
   Future<bool> loadProfile() => run(() async {
     profile = await repository.profile();
   });

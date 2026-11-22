@@ -492,10 +492,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get welcome => 'Welcome';
 
   @override
-  String get login => 'Log in';
+  String get login => 'Sign In';
 
   @override
-  String get register => 'Create account';
+  String get register => 'Create Account';
 
   @override
   String get forgotPassword => 'Forgot password';
@@ -504,7 +504,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get resetPassword => 'Set a new password';
 
   @override
-  String get email => 'Email';
+  String get email => 'Email Address';
 
   @override
   String get password => 'Password';
@@ -536,13 +536,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get selectHousehold => 'Select household';
 
   @override
-  String get createHousehold => 'Create household';
+  String get createHousehold => 'Create Household';
 
   @override
-  String get joinHousehold => 'Join household';
+  String get joinHousehold => 'Join Household';
 
   @override
-  String get inviteFamily => 'Invite family';
+  String get inviteFamily => 'Invite Family Members';
 
   @override
   String get householdName => 'Household name';
@@ -630,22 +630,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get profileConnected => 'Your authenticated API profile is available.';
 
   @override
-  String get onboardTeamTitle => 'A little teamwork makes home easier.';
+  String get onboardTeamTitle => 'Share responsibilities without the friction.';
 
   @override
-  String get onboardSyncTitle => 'Your family, always in sync.';
+  String get onboardSyncTitle => 'Your whole household, effortlessly in sync.';
 
   @override
   String get onboardItems =>
-      'Keep track of household items, supplies, and everything your family needs.';
+      'Keep track of household items, supplies, and everything your family needs before you run out.';
 
   @override
   String get onboardTeam =>
-      'Create tasks, report issues, and keep everyone informed.';
+      'A little teamwork makes home easier. Create tasks, report issues, and keep everyone informed.';
 
   @override
   String get onboardSync =>
-      'Share messages, manage shopping lists, and stay updated.';
+      'Share messages, collaborate on shopping lists in real-time, and celebrate getting things done together.';
 
   @override
   String get next => 'Next';
@@ -712,11 +712,11 @@ class AppLocalizationsEn extends AppLocalizations {
       'Choose a stronger password that meets the project’s requirements.';
 
   @override
-  String get householdConnection => 'Household connection';
+  String get householdConnection => 'Household Connection';
 
   @override
   String get householdConnectionDescription =>
-      'Create your account first, then choose a household or join with an invitation.';
+      'New to HomeCircle? Creating an account connects you to your family household in the next step with an invite code.';
 
   @override
   String get prepareHome => 'Let’s set up your home';
@@ -737,11 +737,11 @@ class AppLocalizationsEn extends AppLocalizations {
       'A default household avatar is provided. Photo uploads are optional and will be available later.';
 
   @override
-  String get adminNotice => 'You’ll be the Household Admin';
+  String get adminNotice => 'You\'ll be the Household Admin';
 
   @override
   String get adminDescription =>
-      'Manage household details and invite family members.';
+      'You can invite family members, assign roles, and manage household settings anytime.';
 
   @override
   String get invitationCode => 'Invitation code';
@@ -785,7 +785,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get copyCode => 'Copy Code';
 
   @override
-  String get shareInvitation => 'Share Invitation';
+  String get shareInvitation => 'Share Invite';
 
   @override
   String get codeShownOnce =>
@@ -837,7 +837,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String memberSummary(int count, String role) {
-    return '$count members · $role';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count members',
+      one: '1 member',
+    );
+    return '$_temp0 · $role';
   }
 
   @override
@@ -886,7 +892,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get sendResetLink => 'Send reset link';
 
   @override
-  String get fullName => 'Full name';
+  String get fullName => 'Family Member Name';
 
   @override
   String get householdNameHint => 'e.g. Our Family Home';
@@ -1205,17 +1211,17 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String hubMorning(String name) {
-    return 'Good morning, $name!';
+    return 'Good morning, $name 👋';
   }
 
   @override
   String hubAfternoon(String name) {
-    return 'Good afternoon, $name!';
+    return 'Good afternoon, $name 👋';
   }
 
   @override
   String hubEvening(String name) {
-    return 'Good evening, $name!';
+    return 'Good evening, $name 👋';
   }
 
   @override
@@ -1252,7 +1258,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get hubAddItem => 'Add Item';
 
   @override
-  String get hubRequest => 'Request Something';
+  String get hubRequest => 'Request Item';
 
   @override
   String get hubReport => 'Report Issue';
@@ -1267,10 +1273,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get hubUpcoming => 'Upcoming Tasks';
 
   @override
-  String get hubRecent => 'Recent Family Activity';
+  String get hubRecent => 'Recent Activity';
 
   @override
-  String get hubViewAll => 'View All';
+  String get hubViewAll => 'See All';
 
   @override
   String get hubEmptyTitle => 'Your home starts here!';
@@ -1506,5 +1512,1227 @@ class AppLocalizationsEn extends AppLocalizations {
       one: '1 unread',
     );
     return '$_temp0';
+  }
+
+  @override
+  String get onboardBrandTag => 'Family Sync';
+
+  @override
+  String get onboardTab1 => '1. Organize';
+
+  @override
+  String get onboardTab2 => '2. Share';
+
+  @override
+  String get onboardTab3 => '3. Connect';
+
+  @override
+  String onboardStepCounter(int step) {
+    return 'Step $step of 3';
+  }
+
+  @override
+  String get onboardHaveAccount => 'Already have an account?';
+
+  @override
+  String get onboardSignIn => 'Sign In';
+
+  @override
+  String get demoPantry => 'Pantry & Supplies';
+
+  @override
+  String get demoRestocked => 'Restocked';
+
+  @override
+  String get demoOatMilk => 'Oat Milk & Coffee';
+
+  @override
+  String get demoDetergent => 'Eco Detergent';
+
+  @override
+  String get demoTwoLeft => '2 Left';
+
+  @override
+  String get demoSmartAlert => 'Smart Low Alert';
+
+  @override
+  String get demoMomUpdated => 'Mom updated shelf';
+
+  @override
+  String get demoChores => 'Household Chore Rotation';
+
+  @override
+  String get demoFairSplit => 'Fair Split';
+
+  @override
+  String get demoBins => 'Take Out Bins';
+
+  @override
+  String get demoDone => 'Done';
+
+  @override
+  String get demoPlants => 'Water Balcony Plants';
+
+  @override
+  String get demoToday => 'Today';
+
+  @override
+  String get demoNoNagging => 'No More Nagging';
+
+  @override
+  String get demoStream => 'Shared Family Stream';
+
+  @override
+  String get demoDadMarket => 'Dad • Market';
+
+  @override
+  String get demoTwoMin => '2m ago';
+
+  @override
+  String get demoSourdough => 'Grabbed the sourdough! Anything else?';
+
+  @override
+  String get demoEmma => 'Emma';
+
+  @override
+  String get demoJustNow => 'Just now';
+
+  @override
+  String get demoAvocados => 'Avocados are on the kitchen list! 🥑';
+
+  @override
+  String get demoInstantSync => 'Instant Family Sync';
+
+  @override
+  String get authBrandTag => 'Household Sync';
+
+  @override
+  String get forgotPasswordLink => 'Forgot Password?';
+
+  @override
+  String get noAccount => 'Don\'t have an account?';
+
+  @override
+  String get authFailedTitle => 'Something went wrong';
+
+  @override
+  String get invalidCredentialsTitle => 'Invalid credentials';
+
+  @override
+  String get dismiss => 'Dismiss';
+
+  @override
+  String get householdConnectionStep => 'Step 1 of 2';
+
+  @override
+  String get fullNameHint => 'e.g. Abu Bakr';
+
+  @override
+  String get emailHint => 'example@email.com';
+
+  @override
+  String get setupBadge => 'Welcome to HomeCircle';
+
+  @override
+  String get setupTitle => 'Let\'s set up your home';
+
+  @override
+  String get setupSubtitle =>
+      'Create a space for your family or join one they\'ve already created.';
+
+  @override
+  String get familyTip => 'Family Tip';
+
+  @override
+  String get familyTipBody =>
+      'Family members living together should join the same household rather than creating separate spaces.';
+
+  @override
+  String get createCardTitle => 'Create a Household';
+
+  @override
+  String get recommendedHeads => 'Recommended for Heads';
+
+  @override
+  String get createCardBody =>
+      'Start a new family space, become admin, and invite everyone to coordinate chores, groceries, and shared plans.';
+
+  @override
+  String get adminControls => 'Admin Controls';
+
+  @override
+  String get inviteLinkCode => 'Invite Code';
+
+  @override
+  String get joinCardTitle => 'Join a Household';
+
+  @override
+  String get gotInvite => 'Got an invite?';
+
+  @override
+  String get joinCardBody =>
+      'Already invited by someone? Join your family\'s existing space with an invite code.';
+
+  @override
+  String get enterInviteCode => 'Enter Household Invitation Code';
+
+  @override
+  String get codeCharacters => '16 Characters';
+
+  @override
+  String get inviteCodeHint => 'HC-XXXX-XXXX-XXXX-XXXX';
+
+  @override
+  String get paste => 'Paste';
+
+  @override
+  String get findHousehold => 'Find Household';
+
+  @override
+  String get foundLabel => 'Found';
+
+  @override
+  String membersActive(int count) {
+    return '$count members active';
+  }
+
+  @override
+  String get invalidCodeHelp =>
+      'Invalid code? Contact your household admin or verify the 16-character code.';
+
+  @override
+  String get needHelpSetup => 'Need help setting up?';
+
+  @override
+  String get askResendCode => 'Ask another member to resend the code';
+
+  @override
+  String get faq => 'FAQ';
+
+  @override
+  String get faqTitle => 'Setting up your home';
+
+  @override
+  String get faqJoinQ => 'Who should create the household?';
+
+  @override
+  String get faqJoinA =>
+      'One adult creates it and becomes the admin. Everyone else joins with an invite code.';
+
+  @override
+  String get faqCodeQ => 'Where do I get an invite code?';
+
+  @override
+  String get faqCodeA =>
+      'A household admin can generate one from Invite Family. Codes expire, so ask for a new one if yours stops working.';
+
+  @override
+  String get faqMultiQ => 'Can I belong to more than one household?';
+
+  @override
+  String get faqMultiA =>
+      'Yes. You can switch between households from your profile at any time.';
+
+  @override
+  String get createTitle => 'Create Your Household';
+
+  @override
+  String get createSubtitle => 'Give your family space a name and personality.';
+
+  @override
+  String get householdAvatar => 'Household Avatar';
+
+  @override
+  String get cozyIcon => 'Cozy Icon';
+
+  @override
+  String selectedAvatar(String name) {
+    return 'Selected: $name';
+  }
+
+  @override
+  String get avatarCottage => 'Warm Family Cottage';
+
+  @override
+  String get avatarApartment => 'City Loft & Nest';
+
+  @override
+  String get avatarForest => 'Cabin in Woods';
+
+  @override
+  String get avatarPets => 'Pet Haven Hub';
+
+  @override
+  String get avatarFavorite => 'Heart of Family';
+
+  @override
+  String get householdNameLabel => 'Household Name';
+
+  @override
+  String get householdNamePlaceholder => 'e.g., The Miller Nest, Sunny Haven';
+
+  @override
+  String get visibleToMembers => 'Visible to all invited members and guests.';
+
+  @override
+  String get householdDescriptionLabel => 'Household Description';
+
+  @override
+  String get optional => 'Optional';
+
+  @override
+  String get descriptionPlaceholder => 'What is this household for?';
+
+  @override
+  String get helpsStaySynced =>
+      'Helps everyone stay synced on routines and duties.';
+
+  @override
+  String get back => 'Back';
+
+  @override
+  String get inviteSetupBadge => 'Household Setup';
+
+  @override
+  String get inviteYourFamily => 'Invite Your Family';
+
+  @override
+  String get inviteSubtitle =>
+      'HomeCircle works better together. Keep everyone in sync on chores, groceries, and plans.';
+
+  @override
+  String createdByMembers(String name, int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count members',
+      one: '1 member',
+    );
+    return 'Created by $name • $_temp0';
+  }
+
+  @override
+  String membersCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count members',
+      one: '1 member',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String membersActiveCap(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Members Active',
+      one: '1 Member Active',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get inviteCodeTitle => 'Household Invite Code';
+
+  @override
+  String validDays(int days) {
+    return 'Valid $days days';
+  }
+
+  @override
+  String get tapToCopy => 'Tap to copy';
+
+  @override
+  String get noActiveCode => 'No code yet';
+
+  @override
+  String get codeShareHelp =>
+      'Share this code with family members so they can join your household instantly during onboarding.';
+
+  @override
+  String get inviteMessagePreview => 'Invitation Message Preview';
+
+  @override
+  String get previewPre => '“Hey! Join ';
+
+  @override
+  String get previewMid => ' on HomeCircle! Use invitation code ';
+
+  @override
+  String get previewPost => ' to link our shared chores and pantry lists.”';
+
+  @override
+  String joinedCount(int count) {
+    return '$count Joined';
+  }
+
+  @override
+  String joinedOn(String date) {
+    return 'Joined $date';
+  }
+
+  @override
+  String get joinedPill => 'Joined';
+
+  @override
+  String get revokeExisting => 'Revoke Existing Code';
+
+  @override
+  String get codeExpiryNote =>
+      'Invitation codes expire after 7 days or can be revoked by admins at any time.';
+
+  @override
+  String get doneGoDashboard => 'Done (Go to Dashboard)';
+
+  @override
+  String activeCodeExpires(String date) {
+    return 'Expires $date';
+  }
+
+  @override
+  String agoMinutes(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n minutes ago',
+      one: '1 minute ago',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String agoHours(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n hours ago',
+      one: '1 hour ago',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String agoDays(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n days ago',
+      one: '1 day ago',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String agoWeeks(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n weeks ago',
+      one: '1 week ago',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String agoMonths(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n months ago',
+      one: '1 month ago',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String agoYears(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n years ago',
+      one: '1 year ago',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get agoJustNow => 'Just now';
+
+  @override
+  String get agoYesterday => 'Yesterday';
+
+  @override
+  String get membersHeading => 'Family Members';
+
+  @override
+  String get membersSubtitle => 'Admin controls and member permissions';
+
+  @override
+  String get statusActive => 'Active';
+
+  @override
+  String createdByName(String name) {
+    return 'Created by $name';
+  }
+
+  @override
+  String get editHousehold => 'Edit Household';
+
+  @override
+  String get youBadge => 'You';
+
+  @override
+  String get creatorSoleAdmin => 'Creator • Sole Admin';
+
+  @override
+  String joinedWhen(String when) {
+    return 'Joined $when';
+  }
+
+  @override
+  String get rolesPermissions => 'Roles & Permissions';
+
+  @override
+  String get rolesAdminsLabel => 'Admins';
+
+  @override
+  String get rolesAdminsText =>
+      ' manage household details, invite or remove members, and control settings. ';
+
+  @override
+  String get rolesMembersLabel => 'Members';
+
+  @override
+  String get rolesMembersText =>
+      ' can coordinate tasks, update pantry inventory, shop, and chat freely.';
+
+  @override
+  String get householdAccess => 'Household Access';
+
+  @override
+  String get householdAccessSubtitle =>
+      'Invite family or roommates to sync in real-time';
+
+  @override
+  String get inviteNewMember => 'Invite New Member';
+
+  @override
+  String get inviteNewMemberSubtitle => 'Send a fast join code';
+
+  @override
+  String get manageInviteCodes => 'Manage Invitation Codes';
+
+  @override
+  String activeCodeDays(int days) {
+    return 'Active code valid for $days more days';
+  }
+
+  @override
+  String get noActiveCodeShort => 'No active code';
+
+  @override
+  String get dangerZone => 'Danger Zone';
+
+  @override
+  String get dangerSubtitle => 'Irreversible and destructive actions';
+
+  @override
+  String get leaveHousehold => 'Leave Household';
+
+  @override
+  String get leaveSoleAdminText =>
+      'You are currently the sole admin. You must assign another member as admin before leaving.';
+
+  @override
+  String get leaveText =>
+      'You will lose access to this household\'s lists, inventory, chores and messages.';
+
+  @override
+  String get leaveConfirm =>
+      'Leave this household? You will need a new invite to join again.';
+
+  @override
+  String get deleteHouseholdTitle => 'Delete Household';
+
+  @override
+  String get deleteHouseholdText =>
+      'Admin only. Permanently erases all lists, shared inventory items, chores, messages, and member links.';
+
+  @override
+  String get deleteHouseholdButton => 'Delete Household Permanently';
+
+  @override
+  String get deleteConfirm =>
+      'Delete this household permanently? This cannot be undone.';
+
+  @override
+  String get makeAdmin => 'Make admin';
+
+  @override
+  String get makeMember => 'Make member';
+
+  @override
+  String get removeMember => 'Remove from household';
+
+  @override
+  String removeMemberConfirm(String name) {
+    return 'Remove $name from this household?';
+  }
+
+  @override
+  String memberOptions(String name) {
+    return 'Member options for $name';
+  }
+
+  @override
+  String get editHouseholdTitle => 'Edit Household';
+
+  @override
+  String get lastAdminError =>
+      'A household needs at least one admin. Assign another admin first.';
+
+  @override
+  String get activeCodeLabel => 'Active code';
+
+  @override
+  String get noActiveCodeBody => 'Generate a code to invite your family.';
+
+  @override
+  String get hubHistory => 'History';
+
+  @override
+  String get hubFrequent => 'Frequent';
+
+  @override
+  String get hubGlanceSub => 'Synchronized in real-time';
+
+  @override
+  String hubUpdatedAgo(String when) {
+    return 'Updated $when';
+  }
+
+  @override
+  String get hubAddItemSub => 'To pantry or list';
+
+  @override
+  String get hubRequestSub => 'Ask a member';
+
+  @override
+  String get hubReportSub => 'Repairs & fixes';
+
+  @override
+  String get hubMessageSub => 'Household chat';
+
+  @override
+  String hubHighCount(int count) {
+    return '$count high';
+  }
+
+  @override
+  String get hubKindRepair => 'Repair';
+
+  @override
+  String get hubKindShopping => 'Shopping';
+
+  @override
+  String get hubKindChore => 'Chore';
+
+  @override
+  String get hubKindGeneral => 'General';
+
+  @override
+  String get hubKindInventory => 'Inventory';
+
+  @override
+  String hubAssignedTo(String name) {
+    return 'Assigned to $name';
+  }
+
+  @override
+  String hubStatusLabel(String status) {
+    return 'Status: $status';
+  }
+
+  @override
+  String hubDueOn(String date) {
+    return 'Due $date';
+  }
+
+  @override
+  String hubActivityLine(Object action, Object actor, Object title) {
+    return '$actor $action $title';
+  }
+
+  @override
+  String membersCountCap(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Members',
+      one: '1 Member',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get profileNameLabel => 'Full Name';
+
+  @override
+  String agoMinutesShort(int n) {
+    return '${n}m ago';
+  }
+
+  @override
+  String agoHoursShort(int n) {
+    return '${n}h ago';
+  }
+
+  @override
+  String agoDaysShort(int n) {
+    return '${n}d ago';
+  }
+
+  @override
+  String get hubLowStockShort => 'Low Stock';
+
+  @override
+  String get hubDueToday => 'Due today';
+
+  @override
+  String get hubDueTomorrow => 'Due tomorrow';
+
+  @override
+  String get hubShoppingShort => 'Shopping Items';
+
+  @override
+  String get profileTitle => 'Profile & Settings';
+
+  @override
+  String get profileSubtitle =>
+      'Manage your personal details and household rules';
+
+  @override
+  String get householdAdminBadge => 'Household Admin';
+
+  @override
+  String get householdMemberBadge => 'Household Member';
+
+  @override
+  String get editProfile => 'Edit Profile';
+
+  @override
+  String myHouseholdLine(int count, String role) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Members active',
+      one: '1 Member active',
+    );
+    return '$_temp0 • $role';
+  }
+
+  @override
+  String get adminControlsRole => 'Admin controls';
+
+  @override
+  String get memberAccessRole => 'Member access';
+
+  @override
+  String get manageHousehold => 'Manage Household';
+
+  @override
+  String get myActivity => 'My Activity';
+
+  @override
+  String get liveOverview => 'Live overview';
+
+  @override
+  String get myAssignedTasks => 'My Assigned Tasks';
+
+  @override
+  String get myRequests => 'My Requests';
+
+  @override
+  String get myCompletedTasks => 'My Completed Tasks';
+
+  @override
+  String countActive(int count) {
+    return '$count active';
+  }
+
+  @override
+  String countOpen(int count) {
+    return '$count open';
+  }
+
+  @override
+  String countDone(int count) {
+    return '$count done';
+  }
+
+  @override
+  String get preferencesHeading => 'Preferences';
+
+  @override
+  String get notifSubOn => 'Push & In-App enabled';
+
+  @override
+  String get notifSubOff => 'Push notifications off';
+
+  @override
+  String get appLanguage => 'App Language';
+
+  @override
+  String get languageValue => 'English (US)';
+
+  @override
+  String get appearance => 'Appearance';
+
+  @override
+  String get appearanceValue => 'System Default';
+
+  @override
+  String get highContrast => 'High Contrast Mode';
+
+  @override
+  String get highContrastOff => 'Standard text rendering';
+
+  @override
+  String get highContrastOn => 'Bold, high-contrast text';
+
+  @override
+  String get accountSecurity => 'Account & Security';
+
+  @override
+  String get changePassword => 'Change Password';
+
+  @override
+  String get newPassword => 'New Password';
+
+  @override
+  String get passwordChangedToast => 'Password updated';
+
+  @override
+  String get privacySecurity => 'Privacy & Security';
+
+  @override
+  String get privacyBody =>
+      'Your data lives in a private database. Only members of your household can see its inventory, tasks, shopping lists and messages. Photos are kept in private storage, and invitation codes are stored only as one-way hashes.';
+
+  @override
+  String get helpSupport => 'Help & Support';
+
+  @override
+  String get helpMore =>
+      'Still stuck? Ask your household admin to send a fresh invitation or check your connection and try again.';
+
+  @override
+  String get signOut => 'Sign Out';
+
+  @override
+  String get signOutTitle => 'Sign out of HomeCircle?';
+
+  @override
+  String get signOutPre => 'You will need to sign in again to access ';
+
+  @override
+  String get signOutPost => ' chores, alerts, and pantry inventory.';
+
+  @override
+  String get madeForFamily => 'Made for family harmony';
+
+  @override
+  String get quickSettings => 'Quick Settings';
+
+  @override
+  String get close => 'Close';
+
+  @override
+  String taskRequestedBy(String name) {
+    return 'Requested by $name';
+  }
+
+  @override
+  String taskDueLabel(String when) {
+    return 'Due: $when';
+  }
+
+  @override
+  String get taskToday => 'Today';
+
+  @override
+  String get taskTomorrow => 'Tomorrow';
+
+  @override
+  String get taskActionComplete => 'Mark Complete';
+
+  @override
+  String get taskActionTake => 'Take Task';
+
+  @override
+  String get taskActionUpdate => 'Update Status';
+
+  @override
+  String get taskNewTask => 'New Task';
+
+  @override
+  String get taskAllClear => 'All clear for now!';
+
+  @override
+  String get taskAllClearBody =>
+      'There are no active household tasks or requests. Everything at home is running smoothly.';
+
+  @override
+  String get taskCaughtUp => 'Household is all caught up';
+
+  @override
+  String get taskFilteredEmpty => 'Filtered view empty';
+
+  @override
+  String get taskFilteredEmptyBody => 'No requests match your current filters.';
+
+  @override
+  String get taskOfflineTitle => 'You\'re offline • Showing cached tasks';
+
+  @override
+  String get taskCouldntRefresh => 'Couldn\'t refresh tasks';
+
+  @override
+  String get taskSortBy => 'Sort by';
+
+  @override
+  String taskAssignedToName(String name) {
+    return 'Assigned to $name';
+  }
+
+  @override
+  String get taskKindRepairs => 'Repairs';
+
+  @override
+  String get taskKindChores => 'Chores';
+
+  @override
+  String get taskDetailsHeading => 'Task Details';
+
+  @override
+  String get taskCellReported => 'Reported by';
+
+  @override
+  String get taskCellAssigned => 'Assigned to';
+
+  @override
+  String get taskCellDue => 'Due by';
+
+  @override
+  String get taskCellLocation => 'Location';
+
+  @override
+  String get taskTapReassign => 'Tap to reassign';
+
+  @override
+  String get taskTapAssign => 'Tap to assign';
+
+  @override
+  String get taskUrgentTurnaround => 'Urgent turnaround';
+
+  @override
+  String get taskProgressState => 'Progress State';
+
+  @override
+  String get taskSynchronized => 'Synchronized';
+
+  @override
+  String get taskOfflineShort => 'Offline';
+
+  @override
+  String get taskSegProgress => 'Progress';
+
+  @override
+  String get taskSegDone => 'Done';
+
+  @override
+  String get taskMarkCompleted => 'Mark as Completed';
+
+  @override
+  String get taskNotifyHint =>
+      'Your household is notified when you complete a request.';
+
+  @override
+  String get taskDiscussion => 'Discussion';
+
+  @override
+  String taskCommentCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count comments',
+      one: '1 comment',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get taskSharedWithHousehold => 'Shared with household';
+
+  @override
+  String get taskWriteUpdate => 'Write an update...';
+
+  @override
+  String get taskActivityLog => 'Activity Log';
+
+  @override
+  String taskEventCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count events',
+      one: '1 event',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get taskMoreOptions => 'More options';
+
+  @override
+  String get taskLoadPhoto => 'Load photo';
+
+  @override
+  String get taskLocationNone => 'Not specified';
+
+  @override
+  String get taskFormIntro =>
+      'Let your family know what needs to be done. We\'ll alert the right household member right away!';
+
+  @override
+  String get taskStepKind => '1. What kind of request?';
+
+  @override
+  String get taskRequiredTag => 'REQUIRED';
+
+  @override
+  String get taskKindShoppingSub => 'Need to buy';
+
+  @override
+  String get taskKindRepairSub => 'Needs fixing';
+
+  @override
+  String get taskKindChoreSub => 'Routine tasks';
+
+  @override
+  String get taskKindGeneralSub => 'Other family note';
+
+  @override
+  String get taskWhatNeeds => 'What needs to be done?';
+
+  @override
+  String get taskTapEdit => 'Tap to edit';
+
+  @override
+  String get taskDescContext => 'Description & Context';
+
+  @override
+  String get taskDiagnostics => 'Repair Diagnostics';
+
+  @override
+  String get taskRepairActive => 'Repair Active';
+
+  @override
+  String get taskAffected => 'Affected Item / Room';
+
+  @override
+  String get taskLinkChange => 'Change';
+
+  @override
+  String taskLinkPrefix(String name) {
+    return 'Inventory link: $name';
+  }
+
+  @override
+  String get taskLinkNone => 'Link an inventory item';
+
+  @override
+  String get taskPhotoEvidence => 'Photo Evidence';
+
+  @override
+  String taskPhotoCount(int count) {
+    return '$count of 1 uploaded';
+  }
+
+  @override
+  String get taskAddPhotoShort => 'Add photo';
+
+  @override
+  String get taskMaxSize => 'Max 5MB';
+
+  @override
+  String get taskPriorityLevel => 'Priority Level';
+
+  @override
+  String get taskNeedsFast => 'Needs fast attention';
+
+  @override
+  String get taskAssignResp => 'Assign Responsibility';
+
+  @override
+  String get taskWhoHandles => 'Who will handle this?';
+
+  @override
+  String taskSelectedCount(int count) {
+    return '$count Selected';
+  }
+
+  @override
+  String get taskAnyone => 'Anyone';
+
+  @override
+  String get taskTargetCompletion => 'Target Completion';
+
+  @override
+  String get taskPickDate => 'Pick date';
+
+  @override
+  String get taskThisWeekend => 'This Weekend';
+
+  @override
+  String get taskDraftSaved => 'Draft saved on this device';
+
+  @override
+  String get shoppingTapCheckbox => 'Tap checkbox to mark purchased';
+
+  @override
+  String shoppingLinkedTo(String name) {
+    return 'Linked to $name';
+  }
+
+  @override
+  String get shoppingQuickHint => '+ Add something to buy...';
+
+  @override
+  String get shoppingStockNote =>
+      'Purchasing an item notifies the household without auto-updating physical stock until confirmed.';
+
+  @override
+  String get shoppingUndoShort => 'Undo';
+
+  @override
+  String get shoppingFiltersTooltip => 'Filters';
+
+  @override
+  String get shoppingAddItemTitle => 'Add Shopping Item';
+
+  @override
+  String get shoppingSheetTitle => 'Add to Shopping List';
+
+  @override
+  String get shoppingSheetSubtitle => 'What should we replenish next?';
+
+  @override
+  String get shoppingAutoSuggest => 'Fast auto-suggest';
+
+  @override
+  String get shoppingQtyMeasure => 'Quantity & Measure';
+
+  @override
+  String get shoppingAmount => 'Amount';
+
+  @override
+  String get shoppingUrgency => 'Urgency Level';
+
+  @override
+  String get shoppingLinkInventory => 'Link to Inventory';
+
+  @override
+  String get shoppingStockHint =>
+      'Asks before updating stock when marked purchased';
+
+  @override
+  String get shoppingAssignedFor => 'Assigned for trip by';
+
+  @override
+  String get shoppingFamilyShared => 'Family shared';
+
+  @override
+  String get shoppingAddShort => 'Add';
+
+  @override
+  String get assignSheetTitle => 'Assign Family Member';
+
+  @override
+  String assignedCount(int count) {
+    return '$count Assigned';
+  }
+
+  @override
+  String get unassignedPool => 'Pool';
+
+  @override
+  String get resetLabel => 'Reset';
+
+  @override
+  String get applySelection => 'Apply Selection';
+
+  @override
+  String get chatCreateTaskChip => '+ Create Task';
+
+  @override
+  String get chatAddShoppingChip => '+ Add to Shopping';
+
+  @override
+  String get chatViewTask => 'View Task';
+
+  @override
+  String chatSharedKind(String kind) {
+    return 'Household $kind Task';
+  }
+
+  @override
+  String hubUpdatesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count updates',
+      one: '1 update',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String hubNewCount(int count) {
+    return '$count new';
+  }
+
+  @override
+  String get hubStaySynced => 'Stay updated with home sync';
+
+  @override
+  String get hubViewTask => 'View Task';
+
+  @override
+  String get hubViewShopping => 'View Shopping';
+
+  @override
+  String get hubViewItem => 'View Item';
+
+  @override
+  String get hubViewDetails => 'Details';
+
+  @override
+  String get hubOpenChat => 'Open Chat';
+
+  @override
+  String get hubPeace => 'Peace of Mind';
+
+  @override
+  String get hubOlderArchives => 'Looking for older archives?';
+
+  @override
+  String get hubHistoryArchive => 'History Archive';
+
+  @override
+  String hubAllCount(int count) {
+    return 'All ($count)';
   }
 }

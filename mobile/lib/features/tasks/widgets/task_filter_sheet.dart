@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/theme/app_theme.dart';
 import '../models/household_task.dart';
 import 'task_widgets.dart';
 
@@ -52,9 +53,34 @@ class _TaskFilterSheetState extends State<TaskFilterSheet> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text(
-                l.taskFilters,
-                style: Theme.of(context).textTheme.titleLarge,
+              Center(
+                child: Container(
+                  width: 40,
+                  height: 4,
+                  margin: const EdgeInsets.only(bottom: 16),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFC4C5D7),
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                ),
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      l.taskFilters,
+                      style: AppText.headlineMd.copyWith(color: AppColors.text),
+                    ),
+                  ),
+                  IconButton(
+                    tooltip: 'Close',
+                    style: IconButton.styleFrom(
+                      backgroundColor: AppColors.surfaceContainer,
+                    ),
+                    onPressed: () => Navigator.pop(context),
+                    icon: const Icon(Icons.close, color: AppColors.text),
+                  ),
+                ],
               ),
               const SizedBox(height: 16),
               taskDropdown(
@@ -119,16 +145,46 @@ class _TaskFilterSheetState extends State<TaskFilterSheet> {
                 value: fields['overdue'] == 'true',
                 onChanged: (v) => update('overdue', '$v'),
               ),
-              Wrap(
-                spacing: 12,
+              const SizedBox(height: 12),
+              Row(
                 children: [
-                  TextButton(
-                    onPressed: () => Navigator.pop(context, <String, String>{}),
-                    child: Text(l.taskClearFilters),
+                  Expanded(
+                    flex: 2,
+                    child: SizedBox(
+                      height: 52,
+                      child: TextButton(
+                        style: TextButton.styleFrom(
+                          backgroundColor: AppColors.surfaceHigh,
+                          foregroundColor: AppColors.text,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                        ),
+                        onPressed: () =>
+                            Navigator.pop(context, <String, String>{}),
+                        child: Text(l.taskClearFilters, style: AppText.labelLg),
+                      ),
+                    ),
                   ),
-                  FilledButton(
-                    onPressed: () => Navigator.pop(context, fields),
-                    child: Text(l.taskApplyFilters),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    flex: 3,
+                    child: SizedBox(
+                      height: 52,
+                      child: FilledButton(
+                        style: FilledButton.styleFrom(
+                          backgroundColor: AppColors.primary,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                        ),
+                        onPressed: () => Navigator.pop(context, fields),
+                        child: Text(
+                          l.taskApplyFilters,
+                          style: AppText.labelLg.copyWith(color: Colors.white),
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),

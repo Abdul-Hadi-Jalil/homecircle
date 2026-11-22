@@ -407,6 +407,13 @@ Future<void> startTasks(WidgetTester tester, TestRuntime f) async {
   await tester.pumpAndSettle();
 }
 
+Future<void> menuAction(WidgetTester tester, String label) async {
+  await tester.tap(find.byTooltip('More options').first);
+  await tester.pumpAndSettle();
+  await tester.tap(find.text(label).last);
+  await tester.pumpAndSettle();
+}
+
 Future<void> tapVisible(WidgetTester tester, Finder finder) async {
   FocusManager.instance.primaryFocus?.unfocus();
   await tester.pumpAndSettle();
@@ -497,7 +504,7 @@ void main() {
     final server = TaskServer(), f = await fixture(server);
     await startTasks(tester, f);
     await tapVisible(tester, find.text('Bathroom tap leak'));
-    await tapVisible(tester, find.text('Edit'));
+    await menuAction(tester, 'Edit');
     await tester.enterText(
       find.widgetWithText(TextFormField, 'Title'),
       'Bathroom tap inspection',
@@ -524,11 +531,11 @@ void main() {
       await tester.pumpAndSettle();
       expect(server.rows['repair']!['status'], 'open');
       expect(server.rows['repair']!['completed_at'], null);
-      await tapVisible(tester, find.text('Archive'));
+      await menuAction(tester, 'Archive');
       await tester.tap(find.text('Confirm'));
       await tester.pumpAndSettle();
       expect(server.rows['repair']!['deleted_at'], isNotNull);
-      await tapVisible(tester, find.text('Restore'));
+      await menuAction(tester, 'Restore');
       await tester.tap(find.text('Confirm'));
       await tester.pumpAndSettle();
       expect(server.rows['repair']!['deleted_at'], null);
@@ -741,7 +748,8 @@ void main() {
       expect(find.text('Open'), findsWidgets);
       expect(find.text('1'), findsWidgets);
       await captureTask(tester, f, 'overview');
-      await tapVisible(tester, find.text('Filters'));
+      await tester.tap(find.byTooltip('Filters'));
+      await tester.pumpAndSettle();
       expect(find.text('Priority'), findsOneWidget);
       await tester.tap(find.text('Apply'));
       await tester.pumpAndSettle();
@@ -771,7 +779,7 @@ void main() {
       addTearDown(tester.view.resetDevicePixelRatio);
       final server = TaskServer(), f = await fixture(server);
       await startTasks(tester, f);
-      await tapVisible(tester, find.text('Create Task'));
+      await tapVisible(tester, find.text('New Task'));
       await tester.pumpAndSettle();
       await tester.enterText(
         find.widgetWithText(TextFormField, 'Title'),
@@ -779,12 +787,12 @@ void main() {
       );
       await tapVisible(tester, find.text('Repair').last);
       await tester.pumpAndSettle();
-      await tapVisible(tester, find.text('Linked inventory item'));
+      await tapVisible(tester, find.text('Change'));
       await tester.pumpAndSettle();
       await tester.tap(find.text('Bathroom tap').last);
       await tester.pumpAndSettle();
       await captureTask(tester, f, 'form');
-      await tapVisible(tester, find.text('Save request'));
+      await tapVisible(tester, find.text('Create Request').last);
       final posted = server.requests.lastWhere(
         (r) => r.method == 'POST' && r.url.path.endsWith('/tasks'),
       );
@@ -806,10 +814,8 @@ void main() {
       await startTasks(tester, f);
       await tapVisible(tester, find.text('Bathroom tap leak'));
       await captureTask(tester, f, 'details');
-      await tapVisible(tester, find.text('Mark Completed'));
-      await tester.tap(
-        find.widgetWithText(FilledButton, 'Mark Completed').last,
-      );
+      await tapVisible(tester, find.text('Mark as Completed'));
+      await tester.tap(find.text('Mark Completed').last);
       await tester.pumpAndSettle();
       expect(
         find.text("Would you also like to update this item's condition?"),
@@ -830,10 +836,8 @@ void main() {
       final f = await fixture(server);
       await startTasks(tester, f);
       await tapVisible(tester, find.text('Bathroom tap leak'));
-      await tapVisible(tester, find.text('Mark Completed'));
-      await tester.tap(
-        find.widgetWithText(FilledButton, 'Mark Completed').last,
-      );
+      await tapVisible(tester, find.text('Mark as Completed'));
+      await tester.tap(find.text('Mark Completed').last);
       await tester.pumpAndSettle();
       await tester.tap(find.text('Mark as Working'));
       await tester.pumpAndSettle();
@@ -854,10 +858,8 @@ void main() {
       final server = TaskServer(), f = await fixture(server);
       await startTasks(tester, f);
       await tapVisible(tester, find.text('Bathroom tap leak'));
-      await tapVisible(tester, find.text('Mark Completed'));
-      await tester.tap(
-        find.widgetWithText(FilledButton, 'Mark Completed').last,
-      );
+      await tapVisible(tester, find.text('Mark as Completed'));
+      await tester.tap(find.text('Mark Completed').last);
       await tester.pumpAndSettle();
       expect(server.inventoryWrites, 0);
       await tester.tap(find.text('Mark as Working'));
@@ -875,29 +877,35 @@ void main() {
       final server = TaskServer(), f = await fixture(server);
       await startTasks(tester, f);
       await tapVisible(tester, find.text('Bathroom tap leak'));
-      await tapVisible(tester, find.text('Change Priority'));
-      await tester.tap(find.text('High').last);
-      await tester.pumpAndSettle();
+      await menuAction(tester, 'Change Priority: High');
       expect(server.rows['repair']!['priority'], 'high');
-      await tapVisible(tester, find.text('Change Status'));
-      await tester.tap(find.text('In Progress').last);
+      await tapVisible(tester, find.text('Progress'));
       await tester.pumpAndSettle();
       expect(server.rows['repair']!['status'], 'in_progress');
       await tapVisible(tester, find.text('Take Ownership'));
       expect(server.rows['repair']!['assigned_to'], 'user-a');
-      await tapVisible(tester, find.text('Assign / Reassign'));
+      await tester.scrollUntilVisible(
+        find.text('Tap to reassign'),
+        -300,
+        scrollable: find.byType(Scrollable).first,
+      );
+      await tester.tap(find.text('Tap to reassign'));
+      await tester.pumpAndSettle();
       await tester.tap(find.text('Father').last);
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Apply Selection'));
       await tester.pumpAndSettle();
       expect(server.rows['repair']!['assigned_to'], 'father');
       await tapVisible(
         tester,
-        find.widgetWithText(TextField, 'Write a comment…'),
+        find.widgetWithText(TextField, 'Write an update...'),
       );
       await tester.enterText(
-        find.widgetWithText(TextField, 'Write a comment…'),
+        find.widgetWithText(TextField, 'Write an update...'),
         'The replacement part is here.',
       );
-      await tapVisible(tester, find.text('Send'));
+      await tester.tap(find.byTooltip('Send'));
+      await tester.pumpAndSettle();
       expect(server.comments.single['body'], 'The replacement part is here.');
       expect(tester.takeException(), null);
       await close(tester, f);

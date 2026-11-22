@@ -113,9 +113,9 @@ void main() {
       final fixture = await createTestRuntime();
       await tester.pumpWidget(HomeCircleApp(runtime: fixture.runtime));
       await tester.pumpAndSettle();
-      await tester.tap(find.text('Log in'));
+      await tester.tap(find.text('Sign In'));
       await tester.pumpAndSettle();
-      await tester.tap(find.text('Create account').first);
+      await tester.tap(find.text('Create Account').first);
       await tester.pumpAndSettle();
       expect(find.text('Confirm password'), findsOneWidget);
       final fields = find.byType(TextFormField);
@@ -123,7 +123,7 @@ void main() {
       await tester.enterText(fields.at(1), 'person@example.test');
       await tester.enterText(fields.at(2), 'long-enough');
       await tester.enterText(fields.at(3), 'different-password');
-      final submit = find.widgetWithText(FilledButton, 'Create account');
+      final submit = find.byKey(const Key('auth-submit'));
       await tester.ensureVisible(submit);
       await tester.tap(submit);
       await tester.pumpAndSettle();

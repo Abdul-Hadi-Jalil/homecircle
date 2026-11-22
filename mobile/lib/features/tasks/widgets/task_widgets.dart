@@ -3,7 +3,10 @@ import 'package:intl/intl.dart';
 
 import '../../../core/localization/generated/app_localizations.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../../core/widgets/app_dialogs.dart';
 import '../models/household_task.dart';
+
+export 'task_cards.dart';
 
 extension TaskCopy on BuildContext {
   AppLocalizations get taskCopy => AppLocalizations.of(this)!;
@@ -69,176 +72,6 @@ class TaskNotice extends StatelessWidget {
       style: TextStyle(color: Theme.of(context).colorScheme.primary),
     ),
   );
-}
-
-class PriorityBadge extends StatelessWidget {
-  const PriorityBadge(this.priority, {super.key});
-  final TaskPriority priority;
-  @override
-  Widget build(BuildContext context) {
-    final color = switch (priority) {
-      TaskPriority.urgent => AppColors.danger,
-      TaskPriority.high => AppColors.warning,
-      TaskPriority.normal => AppColors.primary,
-      TaskPriority.low => AppColors.muted,
-    };
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: .12),
-        borderRadius: BorderRadius.circular(24),
-      ),
-      child: Text(
-        taskLabel(context, priority.name),
-        style: TextStyle(color: color, fontWeight: FontWeight.w600),
-      ),
-    );
-  }
-}
-
-class StatusBadge extends StatelessWidget {
-  const StatusBadge(this.status, {super.key});
-  final TaskStatus status;
-  @override
-  Widget build(BuildContext context) {
-    final color = status == TaskStatus.completed
-        ? AppColors.success
-        : status == TaskStatus.blocked
-        ? AppColors.danger
-        : status == TaskStatus.inProgress
-        ? AppColors.warning
-        : AppColors.primary;
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: .1),
-        borderRadius: BorderRadius.circular(24),
-      ),
-      child: Text(
-        taskLabel(context, statusWire(status)),
-        style: TextStyle(
-          color: color,
-          fontSize: 12,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
-    );
-  }
-}
-
-class TaskCard extends StatelessWidget {
-  const TaskCard({required this.task, required this.onTap, super.key});
-  final HouseholdTask task;
-  final VoidCallback onTap;
-  @override
-  Widget build(BuildContext context) {
-    final l = context.taskCopy;
-    return Card(
-      child: InkWell(
-        borderRadius: BorderRadius.circular(16),
-        onTap: onTap,
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      color: AppColors.lightBlue,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Icon(
-                      taskKindIcon(task.kind),
-                      color: AppColors.primary,
-                      size: 22,
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          task.title,
-                          style: Theme.of(context).textTheme.titleMedium
-                              ?.copyWith(fontWeight: FontWeight.w700),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          taskLabel(context, task.kind.name),
-                          style: Theme.of(context).textTheme.bodySmall,
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  PriorityBadge(task.priority),
-                ],
-              ),
-              const SizedBox(height: 20),
-              Row(
-                children: [
-                  const CircleAvatar(
-                    radius: 14,
-                    backgroundColor: AppColors.lightBlue,
-                    child: Icon(
-                      Icons.person_outline,
-                      size: 18,
-                      color: AppColors.primary,
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: Text(
-                      task.assigneeName?.isNotEmpty == true
-                          ? task.assigneeName!
-                          : task.assignedTo == null
-                          ? l.taskUnassigned
-                          : l.taskFormerMember,
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
-                  ),
-                  if (task.dueDate != null)
-                    Text(
-                      task.dueDate!,
-                      style: TextStyle(
-                        color: task.overdue()
-                            ? AppColors.danger
-                            : AppColors.muted,
-                        fontSize: 12,
-                      ),
-                    ),
-                ],
-              ),
-              const Divider(height: 28),
-              Row(
-                children: [
-                  StatusBadge(task.status),
-                  const Spacer(),
-                  const Icon(
-                    Icons.arrow_forward,
-                    size: 18,
-                    color: AppColors.primary,
-                  ),
-                ],
-              ),
-              if (task.overdue())
-                Text(
-                  l.taskOverdue,
-                  style: const TextStyle(
-                    color: AppColors.danger,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
 }
 
 IconData taskKindIcon(TaskKind kind) => switch (kind) {
@@ -363,22 +196,11 @@ Future<bool> confirmTask(
   BuildContext context,
   String title, {
   String? message,
-}) async =>
-    await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(title),
-        content: message == null ? null : Text(message),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: Text(context.taskCopy.taskDismiss),
-          ),
-          FilledButton(
-            onPressed: () => Navigator.pop(context, true),
-            child: Text(context.taskCopy.taskConfirm),
-          ),
-        ],
-      ),
-    ) ??
-    false;
+}) => showConfirmDialog(
+  context,
+  title: title,
+  message: message,
+  confirmLabel: context.taskCopy.taskConfirm,
+  cancelLabel: context.taskCopy.taskDismiss,
+  icon: Icons.help_outline,
+);

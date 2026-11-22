@@ -53,7 +53,7 @@ def task_filters(
     task_type: Literal["repair", "chore", "general", "shopping"] | None = None,
     priority: Priority | None = None,
     status: Status | None = None,
-    assignment: Literal["all", "me", "unassigned"] = "all",
+    assignment: Literal["all", "me", "unassigned", "requested"] = "all",
     assigned_to: UUID | None = None,
     due_before: date | None = None,
     due_after: date | None = None,

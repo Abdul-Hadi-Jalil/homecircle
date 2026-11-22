@@ -279,19 +279,13 @@ void main() {
       find.widgetWithText(TextFormField, 'Item name'),
       'Washing machine',
     );
-    await tester.ensureVisible(
-      find.widgetWithText(DropdownButtonFormField<String>, 'Item type'),
-    );
-    await tester.tap(
-      find.widgetWithText(DropdownButtonFormField<String>, 'Item type'),
-    );
-    await tester.pumpAndSettle();
-    await tester.tap(find.text('Durable').last);
+    await tester.ensureVisible(find.text('Durable Asset'));
+    await tester.tap(find.text('Durable Asset'));
     await tester.pumpAndSettle();
     expect(find.widgetWithText(TextFormField, 'Quantity'), findsNothing);
-    await tester.ensureVisible(find.text('Save item'));
+    await tester.ensureVisible(find.text('Save Item Changes'));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('Save item'));
+    await tester.tap(find.text('Save Item Changes'));
     await tester.pumpAndSettle();
     final request = server.requests.singleWhere(
       (r) => r.method == 'POST' && r.url.path.endsWith('/inventory'),
@@ -479,7 +473,7 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Rice'), findsOneWidget);
     await captureInventory(tester, captureKey, 'overview');
-    await tester.tap(find.text('Filters'));
+    await tester.tap(find.byTooltip('Filters'));
     await tester.pumpAndSettle();
     await tester.enterText(
       find.widgetWithText(TextFormField, 'Storage location (exact match)'),
@@ -517,8 +511,8 @@ void main() {
       await tester.tap(find.text('Rice'));
       await tester.pumpAndSettle();
       expect(actual.runtime.inventory.activity.single['actor_name'], 'Alex');
-      await tester.ensureVisible(find.text('Update quantity'));
-      await tester.tap(find.text('Update quantity'));
+      await tester.ensureVisible(find.text('Tap to adjust'));
+      await tester.tap(find.text('Tap to adjust'));
       await tester.pumpAndSettle();
       await tester.enterText(find.byType(TextFormField).last, '-1');
       await tester.tap(find.text('Save quantity'));
@@ -564,7 +558,7 @@ void main() {
       ),
       isEmpty,
     );
-    await tester.pageBack();
+    await tester.tap(find.byTooltip('Back'));
     await tester.pumpAndSettle();
     await tester.tap(find.byTooltip('Add inventory item'));
     await tester.pumpAndSettle();

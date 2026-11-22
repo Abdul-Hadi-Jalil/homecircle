@@ -363,7 +363,7 @@ void main() {
     await startHub(tester, f);
     await tester.tap(find.text('Profile').last);
     await tester.pumpAndSettle();
-    await tapVisible(tester, find.text('Notification Settings'));
+    await tapVisible(tester, find.text('Notifications'));
     expect(
       find.textContaining('In-app notifications are saved'),
       findsOneWidget,
@@ -617,7 +617,7 @@ void main() {
     addTearDown(tester.view.resetDevicePixelRatio);
     final server = HubServer(), f = await hubFixture(server);
     await startHub(tester, f);
-    await tapVisible(tester, find.text('Family Activity'));
+    await tapVisible(tester, find.text('History'));
     await captureTask(tester, f, 'family-activity');
     expect(find.text("See what's been happening at home."), findsOneWidget);
     await tester.tap(find.text('Inventory').last);

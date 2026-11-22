@@ -215,14 +215,22 @@ class SessionViewModel extends ChangeNotifier {
     }
   }
 
-  Future<void> createHousehold(String name, {String? description}) async {
+  Future<void> createHousehold(
+    String name, {
+    String? description,
+    String? avatarKey,
+  }) async {
     if (switching || restoring || user == null) return;
     switching = true;
     errorCode = null;
     _notify();
     final generation = _generation;
     try {
-      final created = await repository.create(name, description);
+      final created = await repository.create(
+        name,
+        description,
+        avatarKey: avatarKey,
+      );
       if (!_current(generation)) return;
       switching = false;
       await selectHousehold(created.id, inviteAfterCreation: true);

@@ -1,6 +1,6 @@
 from uuid import UUID
 
-from psycopg.errors import InsufficientPrivilege
+from psycopg.errors import CheckViolation, InsufficientPrivilege, NoDataFound
 
 from app.core.exceptions import AppError
 from app.models.auth import AuthenticatedUser
@@ -25,7 +25,7 @@ class HouseholdService:
 
     async def create_household(self, user: AuthenticatedUser, data: HouseholdCreate) -> Household:
         return Household.model_validate(
-            await self.repository.create(user.id, data.name, data.description)
+            await self.repository.create(user.id, data.name, data.description, data.avatar_key)
         )
 
     async def me(self, user: AuthenticatedUser) -> Me:
@@ -51,10 +51,52 @@ class HouseholdService:
     async def update_household(self, user, household_id, data):
         await self.require_admin(user, household_id)
         if not await self.repository.update_household(
-            user.id, household_id, data.name, data.description
+            user.id, household_id, data.name, data.description, data.avatar_key
         ):
             raise AppError(403, "forbidden", "Household administrator access is required.")
         return await self.get_household(user, household_id)
+
+    async def set_member_role(self, user, household_id, target, role):
+        await self.require_admin(user, household_id)
+        try:
+            await self.repository.set_member_role(user.id, household_id, target, role)
+        except InsufficientPrivilege:
+            raise AppError(
+                403, "forbidden", "Household administrator access is required."
+            ) from None
+        except CheckViolation:
+            raise AppError(
+                409, "last_admin", "A household needs at least one administrator."
+            ) from None
+
+    async def remove_member(self, user, household_id, target):
+        await self.require_admin(user, household_id)
+        try:
+            await self.repository.remove_member(user.id, household_id, target)
+        except InsufficientPrivilege:
+            raise AppError(
+                403, "forbidden", "Household administrator access is required."
+            ) from None
+        except CheckViolation:
+            raise AppError(
+                409, "last_admin", "A household needs at least one administrator."
+            ) from None
+
+    async def leave(self, user, household_id):
+        await self.get_household(user, household_id)
+        try:
+            await self.repository.leave(user.id, household_id)
+        except CheckViolation:
+            raise AppError(
+                409, "last_admin", "Transfer admin rights or delete the household before leaving."
+            ) from None
+        except NoDataFound:
+            raise AppError(404, "not_found", "Household not found.") from None
+
+    async def delete_household(self, user, household_id):
+        await self.require_admin(user, household_id)
+        if not await self.repository.delete_household(user.id, household_id):
+            raise AppError(403, "forbidden", "Household administrator access is required.")
 
     async def members(self, user, household_id, limit, offset):
         await self.get_household(user, household_id)

@@ -154,11 +154,11 @@
   "configurationMessage": "Set API_BASE_URL, SUPABASE_URL and a public SUPABASE_PUBLISHABLE_KEY using --dart-define-from-file. See docs/setup.md. If values are set, check your connection and device secure storage, then restart.",
   "bootstrap": "Getting your home ready…",
   "welcome": "Welcome",
-  "login": "Log in",
-  "register": "Create account",
+  "login": "Sign In",
+  "register": "Create Account",
   "forgotPassword": "Forgot password",
   "resetPassword": "Set a new password",
-  "email": "Email",
+  "email": "Email Address",
   "password": "Password",
   "displayName": "Display name",
   "requiredField": "This field is required.",
@@ -168,9 +168,9 @@
   "authSuccess": "Request completed. Check your email if confirmation is required.",
   "passwordUpdated": "Your password has been updated.",
   "selectHousehold": "Select household",
-  "createHousehold": "Create household",
-  "joinHousehold": "Join household",
-  "inviteFamily": "Invite family",
+  "createHousehold": "Create Household",
+  "joinHousehold": "Join Household",
+  "inviteFamily": "Invite Family Members",
   "householdName": "Household name",
   "noHouseholds": "Create a household or join your family using an invitation code.",
   "householdError": "Household access could not be verified. Reconnect and try again.",
@@ -198,11 +198,11 @@
   "apiUnavailable": "API is unavailable. Check your connection and configuration.",
   "checkProfile": "Check authenticated profile",
   "profileConnected": "Your authenticated API profile is available.",
-  "onboardTeamTitle": "A little teamwork makes home easier.",
-  "onboardSyncTitle": "Your family, always in sync.",
-  "onboardItems": "Keep track of household items, supplies, and everything your family needs.",
-  "onboardTeam": "Create tasks, report issues, and keep everyone informed.",
-  "onboardSync": "Share messages, manage shopping lists, and stay updated.",
+  "onboardTeamTitle": "Share responsibilities without the friction.",
+  "onboardSyncTitle": "Your whole household, effortlessly in sync.",
+  "onboardItems": "Keep track of household items, supplies, and everything your family needs before you run out.",
+  "onboardTeam": "A little teamwork makes home easier. Create tasks, report issues, and keep everyone informed.",
+  "onboardSync": "Share messages, collaborate on shopping lists in real-time, and celebrate getting things done together.",
   "next": "Next",
   "skip": "Skip",
   "getStarted": "Get Started",
@@ -222,15 +222,15 @@
   "invalidCredentials": "Check your email and password, and confirm your email before signing in.",
   "authRateLimit": "Too many attempts. Please wait a moment and try again.",
   "weakPassword": "Choose a stronger password that meets the project’s requirements.",
-  "householdConnection": "Household connection",
-  "householdConnectionDescription": "Create your account first, then choose a household or join with an invitation.",
+  "householdConnection": "Household Connection",
+  "householdConnectionDescription": "New to HomeCircle? Creating an account connects you to your family household in the next step with an invite code.",
   "prepareHome": "Let’s set up your home",
   "createHomeDescription": "Start a family space, become its admin, and invite everyone to join.",
   "joinHomeDescription": "Already invited? Use your family’s invitation code to join their shared space.",
   "description": "Description",
   "optionalImage": "A default household avatar is provided. Photo uploads are optional and will be available later.",
-  "adminNotice": "You’ll be the Household Admin",
-  "adminDescription": "Manage household details and invite family members.",
+  "adminNotice": "You'll be the Household Admin",
+  "adminDescription": "You can invite family members, assign roles, and manage household settings anytime.",
   "invitationCode": "Invitation code",
   "previewInvitation": "Check invitation",
   "joinConfirmation": "Join this household?",
@@ -243,7 +243,7 @@
   "generateCode": "Generate New Code",
   "revokeCode": "Revoke Code",
   "copyCode": "Copy Code",
-  "shareInvitation": "Share Invitation",
+  "shareInvitation": "Share Invite",
   "codeShownOnce": "Codes are shown only when generated. Generate a replacement to copy or share a code again.",
   "replaceCodeQuestion": "Generate a new invitation? Existing active codes will be revoked.",
   "revokeCodeQuestion": "Revoke this invitation? It will no longer accept new members.",
@@ -268,7 +268,7 @@
       }
     }
   },
-  "memberSummary": "{count} members · {role}",
+  "memberSummary": "{count, plural, =1{1 member} other{{count} members}} · {role}",
   "@memberSummary": {
     "placeholders": {
       "count": {
@@ -293,7 +293,7 @@
   "householdSaved": "Household created.",
   "selectHome": "Choose your household",
   "sendResetLink": "Send reset link",
-  "fullName": "Full name",
+  "fullName": "Family Member Name",
   "householdNameHint": "e.g. Our Family Home",
   "shoppingSubtitle": "Everything your family needs.",
   "shoppingAdd": "Add Item",
@@ -422,7 +422,7 @@
   },
   "chatSave": "Save",
   "chatFailed": "Failed to send",
-  "hubMorning": "Good morning, {name}!",
+  "hubMorning": "Good morning, {name} 👋",
   "@hubMorning": {
     "placeholders": {
       "name": {
@@ -430,7 +430,7 @@
       }
     }
   },
-  "hubAfternoon": "Good afternoon, {name}!",
+  "hubAfternoon": "Good afternoon, {name} 👋",
   "@hubAfternoon": {
     "placeholders": {
       "name": {
@@ -438,7 +438,7 @@
       }
     }
   },
-  "hubEvening": "Good evening, {name}!",
+  "hubEvening": "Good evening, {name} 👋",
   "@hubEvening": {
     "placeholders": {
       "name": {
@@ -457,13 +457,13 @@
   "hubOverdue": "Overdue Tasks",
   "hubMine": "My Tasks",
   "hubAddItem": "Add Item",
-  "hubRequest": "Request Something",
+  "hubRequest": "Request Item",
   "hubReport": "Report Issue",
   "hubMessage": "Send Message",
   "hubAttention": "Needs Attention",
   "hubUpcoming": "Upcoming Tasks",
-  "hubRecent": "Recent Family Activity",
-  "hubViewAll": "View All",
+  "hubRecent": "Recent Activity",
+  "hubViewAll": "See All",
   "hubEmptyTitle": "Your home starts here!",
   "hubEmptyBody": "Add your first item or task to start organizing your family.",
   "hubFirstItem": "Add First Item",
@@ -560,6 +560,685 @@
   "hubMemberRemoved": "Removed member",
   "hubUnreadCount": "{count, plural, one{1 unread} other{{count} unread}}",
   "@hubUnreadCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "onboardBrandTag": "Family Sync",
+  "onboardTab1": "1. Organize",
+  "onboardTab2": "2. Share",
+  "onboardTab3": "3. Connect",
+  "onboardStepCounter": "Step {step} of 3",
+  "@onboardStepCounter": {
+    "placeholders": {
+      "step": {
+        "type": "int"
+      }
+    }
+  },
+  "onboardHaveAccount": "Already have an account?",
+  "onboardSignIn": "Sign In",
+  "demoPantry": "Pantry & Supplies",
+  "demoRestocked": "Restocked",
+  "demoOatMilk": "Oat Milk & Coffee",
+  "demoDetergent": "Eco Detergent",
+  "demoTwoLeft": "2 Left",
+  "demoSmartAlert": "Smart Low Alert",
+  "demoMomUpdated": "Mom updated shelf",
+  "demoChores": "Household Chore Rotation",
+  "demoFairSplit": "Fair Split",
+  "demoBins": "Take Out Bins",
+  "demoDone": "Done",
+  "demoPlants": "Water Balcony Plants",
+  "demoToday": "Today",
+  "demoNoNagging": "No More Nagging",
+  "demoStream": "Shared Family Stream",
+  "demoDadMarket": "Dad • Market",
+  "demoTwoMin": "2m ago",
+  "demoSourdough": "Grabbed the sourdough! Anything else?",
+  "demoEmma": "Emma",
+  "demoJustNow": "Just now",
+  "demoAvocados": "Avocados are on the kitchen list! 🥑",
+  "demoInstantSync": "Instant Family Sync",
+  "authBrandTag": "Household Sync",
+  "forgotPasswordLink": "Forgot Password?",
+  "noAccount": "Don't have an account?",
+  "authFailedTitle": "Something went wrong",
+  "invalidCredentialsTitle": "Invalid credentials",
+  "dismiss": "Dismiss",
+  "householdConnectionStep": "Step 1 of 2",
+  "fullNameHint": "e.g. Abu Bakr",
+  "emailHint": "example@email.com",
+  "setupBadge": "Welcome to HomeCircle",
+  "setupTitle": "Let's set up your home",
+  "setupSubtitle": "Create a space for your family or join one they've already created.",
+  "familyTip": "Family Tip",
+  "familyTipBody": "Family members living together should join the same household rather than creating separate spaces.",
+  "createCardTitle": "Create a Household",
+  "recommendedHeads": "Recommended for Heads",
+  "createCardBody": "Start a new family space, become admin, and invite everyone to coordinate chores, groceries, and shared plans.",
+  "adminControls": "Admin Controls",
+  "inviteLinkCode": "Invite Code",
+  "joinCardTitle": "Join a Household",
+  "gotInvite": "Got an invite?",
+  "joinCardBody": "Already invited by someone? Join your family's existing space with an invite code.",
+  "enterInviteCode": "Enter Household Invitation Code",
+  "codeCharacters": "16 Characters",
+  "inviteCodeHint": "HC-XXXX-XXXX-XXXX-XXXX",
+  "paste": "Paste",
+  "findHousehold": "Find Household",
+  "foundLabel": "Found",
+  "membersActive": "{count} members active",
+  "@membersActive": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "invalidCodeHelp": "Invalid code? Contact your household admin or verify the 16-character code.",
+  "needHelpSetup": "Need help setting up?",
+  "askResendCode": "Ask another member to resend the code",
+  "faq": "FAQ",
+  "faqTitle": "Setting up your home",
+  "faqJoinQ": "Who should create the household?",
+  "faqJoinA": "One adult creates it and becomes the admin. Everyone else joins with an invite code.",
+  "faqCodeQ": "Where do I get an invite code?",
+  "faqCodeA": "A household admin can generate one from Invite Family. Codes expire, so ask for a new one if yours stops working.",
+  "faqMultiQ": "Can I belong to more than one household?",
+  "faqMultiA": "Yes. You can switch between households from your profile at any time.",
+  "createTitle": "Create Your Household",
+  "createSubtitle": "Give your family space a name and personality.",
+  "householdAvatar": "Household Avatar",
+  "cozyIcon": "Cozy Icon",
+  "selectedAvatar": "Selected: {name}",
+  "@selectedAvatar": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "avatarCottage": "Warm Family Cottage",
+  "avatarApartment": "City Loft & Nest",
+  "avatarForest": "Cabin in Woods",
+  "avatarPets": "Pet Haven Hub",
+  "avatarFavorite": "Heart of Family",
+  "householdNameLabel": "Household Name",
+  "householdNamePlaceholder": "e.g., The Miller Nest, Sunny Haven",
+  "visibleToMembers": "Visible to all invited members and guests.",
+  "householdDescriptionLabel": "Household Description",
+  "optional": "Optional",
+  "descriptionPlaceholder": "What is this household for?",
+  "helpsStaySynced": "Helps everyone stay synced on routines and duties.",
+  "back": "Back",
+  "inviteSetupBadge": "Household Setup",
+  "inviteYourFamily": "Invite Your Family",
+  "inviteSubtitle": "HomeCircle works better together. Keep everyone in sync on chores, groceries, and plans.",
+  "createdByMembers": "Created by {name} • {count, plural, =1{1 member} other{{count} members}}",
+  "@createdByMembers": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "membersCount": "{count, plural, =1{1 member} other{{count} members}}",
+  "@membersCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "membersActiveCap": "{count, plural, =1{1 Member Active} other{{count} Members Active}}",
+  "@membersActiveCap": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "inviteCodeTitle": "Household Invite Code",
+  "validDays": "Valid {days} days",
+  "@validDays": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "tapToCopy": "Tap to copy",
+  "noActiveCode": "No code yet",
+  "codeShareHelp": "Share this code with family members so they can join your household instantly during onboarding.",
+  "inviteMessagePreview": "Invitation Message Preview",
+  "previewPre": "“Hey! Join ",
+  "previewMid": " on HomeCircle! Use invitation code ",
+  "previewPost": " to link our shared chores and pantry lists.”",
+  "joinedCount": "{count} Joined",
+  "@joinedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "joinedOn": "Joined {date}",
+  "@joinedOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "joinedPill": "Joined",
+  "revokeExisting": "Revoke Existing Code",
+  "codeExpiryNote": "Invitation codes expire after 7 days or can be revoked by admins at any time.",
+  "doneGoDashboard": "Done (Go to Dashboard)",
+  "activeCodeExpires": "Expires {date}",
+  "@activeCodeExpires": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "agoMinutes": "{n, plural, =1{1 minute ago} other{{n} minutes ago}}",
+  "@agoMinutes": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "agoHours": "{n, plural, =1{1 hour ago} other{{n} hours ago}}",
+  "@agoHours": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "agoDays": "{n, plural, =1{1 day ago} other{{n} days ago}}",
+  "@agoDays": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "agoWeeks": "{n, plural, =1{1 week ago} other{{n} weeks ago}}",
+  "@agoWeeks": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "agoMonths": "{n, plural, =1{1 month ago} other{{n} months ago}}",
+  "@agoMonths": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "agoYears": "{n, plural, =1{1 year ago} other{{n} years ago}}",
+  "@agoYears": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "agoJustNow": "Just now",
+  "agoYesterday": "Yesterday",
+  "membersHeading": "Family Members",
+  "membersSubtitle": "Admin controls and member permissions",
+  "statusActive": "Active",
+  "createdByName": "Created by {name}",
+  "@createdByName": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "editHousehold": "Edit Household",
+  "youBadge": "You",
+  "creatorSoleAdmin": "Creator • Sole Admin",
+  "joinedWhen": "Joined {when}",
+  "@joinedWhen": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "rolesPermissions": "Roles & Permissions",
+  "rolesAdminsLabel": "Admins",
+  "rolesAdminsText": " manage household details, invite or remove members, and control settings. ",
+  "rolesMembersLabel": "Members",
+  "rolesMembersText": " can coordinate tasks, update pantry inventory, shop, and chat freely.",
+  "householdAccess": "Household Access",
+  "householdAccessSubtitle": "Invite family or roommates to sync in real-time",
+  "inviteNewMember": "Invite New Member",
+  "inviteNewMemberSubtitle": "Send a fast join code",
+  "manageInviteCodes": "Manage Invitation Codes",
+  "activeCodeDays": "Active code valid for {days} more days",
+  "@activeCodeDays": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "noActiveCodeShort": "No active code",
+  "dangerZone": "Danger Zone",
+  "dangerSubtitle": "Irreversible and destructive actions",
+  "leaveHousehold": "Leave Household",
+  "leaveSoleAdminText": "You are currently the sole admin. You must assign another member as admin before leaving.",
+  "leaveText": "You will lose access to this household's lists, inventory, chores and messages.",
+  "leaveConfirm": "Leave this household? You will need a new invite to join again.",
+  "deleteHouseholdTitle": "Delete Household",
+  "deleteHouseholdText": "Admin only. Permanently erases all lists, shared inventory items, chores, messages, and member links.",
+  "deleteHouseholdButton": "Delete Household Permanently",
+  "deleteConfirm": "Delete this household permanently? This cannot be undone.",
+  "makeAdmin": "Make admin",
+  "makeMember": "Make member",
+  "removeMember": "Remove from household",
+  "removeMemberConfirm": "Remove {name} from this household?",
+  "@removeMemberConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "memberOptions": "Member options for {name}",
+  "@memberOptions": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "editHouseholdTitle": "Edit Household",
+  "lastAdminError": "A household needs at least one admin. Assign another admin first.",
+  "activeCodeLabel": "Active code",
+  "noActiveCodeBody": "Generate a code to invite your family.",
+  "hubHistory": "History",
+  "hubFrequent": "Frequent",
+  "hubGlanceSub": "Synchronized in real-time",
+  "hubUpdatedAgo": "Updated {when}",
+  "@hubUpdatedAgo": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "hubAddItemSub": "To pantry or list",
+  "hubRequestSub": "Ask a member",
+  "hubReportSub": "Repairs & fixes",
+  "hubMessageSub": "Household chat",
+  "hubHighCount": "{count} high",
+  "@hubHighCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "hubKindRepair": "Repair",
+  "hubKindShopping": "Shopping",
+  "hubKindChore": "Chore",
+  "hubKindGeneral": "General",
+  "hubKindInventory": "Inventory",
+  "hubAssignedTo": "Assigned to {name}",
+  "@hubAssignedTo": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hubStatusLabel": "Status: {status}",
+  "@hubStatusLabel": {
+    "placeholders": {
+      "status": {
+        "type": "String"
+      }
+    }
+  },
+  "hubDueOn": "Due {date}",
+  "@hubDueOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "hubActivityLine": "{actor} {action} {title}",
+  "membersCountCap": "{count, plural, =1{1 Member} other{{count} Members}}",
+  "@membersCountCap": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "profileNameLabel": "Full Name",
+  "agoMinutesShort": "{n}m ago",
+  "@agoMinutesShort": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "agoHoursShort": "{n}h ago",
+  "@agoHoursShort": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "agoDaysShort": "{n}d ago",
+  "@agoDaysShort": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "hubLowStockShort": "Low Stock",
+  "hubDueToday": "Due today",
+  "hubDueTomorrow": "Due tomorrow",
+  "hubShoppingShort": "Shopping Items",
+  "profileTitle": "Profile & Settings",
+  "profileSubtitle": "Manage your personal details and household rules",
+  "householdAdminBadge": "Household Admin",
+  "householdMemberBadge": "Household Member",
+  "editProfile": "Edit Profile",
+  "myHouseholdLine": "{count, plural, =1{1 Member active} other{{count} Members active}} • {role}",
+  "@myHouseholdLine": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "role": {
+        "type": "String"
+      }
+    }
+  },
+  "adminControlsRole": "Admin controls",
+  "memberAccessRole": "Member access",
+  "manageHousehold": "Manage Household",
+  "myActivity": "My Activity",
+  "liveOverview": "Live overview",
+  "myAssignedTasks": "My Assigned Tasks",
+  "myRequests": "My Requests",
+  "myCompletedTasks": "My Completed Tasks",
+  "countActive": "{count} active",
+  "@countActive": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "countOpen": "{count} open",
+  "@countOpen": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "countDone": "{count} done",
+  "@countDone": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "preferencesHeading": "Preferences",
+  "notifSubOn": "Push & In-App enabled",
+  "notifSubOff": "Push notifications off",
+  "appLanguage": "App Language",
+  "languageValue": "English (US)",
+  "appearance": "Appearance",
+  "appearanceValue": "System Default",
+  "highContrast": "High Contrast Mode",
+  "highContrastOff": "Standard text rendering",
+  "highContrastOn": "Bold, high-contrast text",
+  "accountSecurity": "Account & Security",
+  "changePassword": "Change Password",
+  "newPassword": "New Password",
+  "passwordChangedToast": "Password updated",
+  "privacySecurity": "Privacy & Security",
+  "privacyBody": "Your data lives in a private database. Only members of your household can see its inventory, tasks, shopping lists and messages. Photos are kept in private storage, and invitation codes are stored only as one-way hashes.",
+  "helpSupport": "Help & Support",
+  "helpMore": "Still stuck? Ask your household admin to send a fresh invitation or check your connection and try again.",
+  "signOut": "Sign Out",
+  "signOutTitle": "Sign out of HomeCircle?",
+  "signOutPre": "You will need to sign in again to access ",
+  "signOutPost": " chores, alerts, and pantry inventory.",
+  "madeForFamily": "Made for family harmony",
+  "quickSettings": "Quick Settings",
+  "close": "Close",
+  "taskRequestedBy": "Requested by {name}",
+  "@taskRequestedBy": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "taskDueLabel": "Due: {when}",
+  "@taskDueLabel": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "taskToday": "Today",
+  "taskTomorrow": "Tomorrow",
+  "taskActionComplete": "Mark Complete",
+  "taskActionTake": "Take Task",
+  "taskActionUpdate": "Update Status",
+  "taskNewTask": "New Task",
+  "taskAllClear": "All clear for now!",
+  "taskAllClearBody": "There are no active household tasks or requests. Everything at home is running smoothly.",
+  "taskCaughtUp": "Household is all caught up",
+  "taskFilteredEmpty": "Filtered view empty",
+  "taskFilteredEmptyBody": "No requests match your current filters.",
+  "taskOfflineTitle": "You're offline • Showing cached tasks",
+  "taskCouldntRefresh": "Couldn't refresh tasks",
+  "taskSortBy": "Sort by",
+  "taskAssignedToName": "Assigned to {name}",
+  "@taskAssignedToName": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "taskKindRepairs": "Repairs",
+  "taskKindChores": "Chores",
+  "taskDetailsHeading": "Task Details",
+  "taskCellReported": "Reported by",
+  "taskCellAssigned": "Assigned to",
+  "taskCellDue": "Due by",
+  "taskCellLocation": "Location",
+  "taskTapReassign": "Tap to reassign",
+  "taskTapAssign": "Tap to assign",
+  "taskUrgentTurnaround": "Urgent turnaround",
+  "taskProgressState": "Progress State",
+  "taskSynchronized": "Synchronized",
+  "taskOfflineShort": "Offline",
+  "taskSegProgress": "Progress",
+  "taskSegDone": "Done",
+  "taskMarkCompleted": "Mark as Completed",
+  "taskNotifyHint": "Your household is notified when you complete a request.",
+  "taskDiscussion": "Discussion",
+  "taskCommentCount": "{count, plural, =1{1 comment} other{{count} comments}}",
+  "@taskCommentCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "taskSharedWithHousehold": "Shared with household",
+  "taskWriteUpdate": "Write an update...",
+  "taskActivityLog": "Activity Log",
+  "taskEventCount": "{count, plural, =1{1 event} other{{count} events}}",
+  "@taskEventCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "taskMoreOptions": "More options",
+  "taskLoadPhoto": "Load photo",
+  "taskLocationNone": "Not specified",
+  "taskFormIntro": "Let your family know what needs to be done. We'll alert the right household member right away!",
+  "taskStepKind": "1. What kind of request?",
+  "taskRequiredTag": "REQUIRED",
+  "taskKindShoppingSub": "Need to buy",
+  "taskKindRepairSub": "Needs fixing",
+  "taskKindChoreSub": "Routine tasks",
+  "taskKindGeneralSub": "Other family note",
+  "taskWhatNeeds": "What needs to be done?",
+  "taskTapEdit": "Tap to edit",
+  "taskDescContext": "Description & Context",
+  "taskDiagnostics": "Repair Diagnostics",
+  "taskRepairActive": "Repair Active",
+  "taskAffected": "Affected Item / Room",
+  "taskLinkChange": "Change",
+  "taskLinkPrefix": "Inventory link: {name}",
+  "@taskLinkPrefix": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "taskLinkNone": "Link an inventory item",
+  "taskPhotoEvidence": "Photo Evidence",
+  "taskPhotoCount": "{count} of 1 uploaded",
+  "@taskPhotoCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "taskAddPhotoShort": "Add photo",
+  "taskMaxSize": "Max 5MB",
+  "taskPriorityLevel": "Priority Level",
+  "taskNeedsFast": "Needs fast attention",
+  "taskAssignResp": "Assign Responsibility",
+  "taskWhoHandles": "Who will handle this?",
+  "taskSelectedCount": "{count} Selected",
+  "@taskSelectedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "taskAnyone": "Anyone",
+  "taskTargetCompletion": "Target Completion",
+  "taskPickDate": "Pick date",
+  "taskThisWeekend": "This Weekend",
+  "taskDraftSaved": "Draft saved on this device",
+  "shoppingTapCheckbox": "Tap checkbox to mark purchased",
+  "shoppingLinkedTo": "Linked to {name}",
+  "@shoppingLinkedTo": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "shoppingQuickHint": "+ Add something to buy...",
+  "shoppingStockNote": "Purchasing an item notifies the household without auto-updating physical stock until confirmed.",
+  "shoppingUndoShort": "Undo",
+  "shoppingFiltersTooltip": "Filters",
+  "shoppingAddItemTitle": "Add Shopping Item",
+  "shoppingSheetTitle": "Add to Shopping List",
+  "shoppingSheetSubtitle": "What should we replenish next?",
+  "shoppingAutoSuggest": "Fast auto-suggest",
+  "shoppingQtyMeasure": "Quantity & Measure",
+  "shoppingAmount": "Amount",
+  "shoppingUrgency": "Urgency Level",
+  "shoppingLinkInventory": "Link to Inventory",
+  "shoppingStockHint": "Asks before updating stock when marked purchased",
+  "shoppingAssignedFor": "Assigned for trip by",
+  "shoppingFamilyShared": "Family shared",
+  "shoppingAddShort": "Add",
+  "assignSheetTitle": "Assign Family Member",
+  "assignedCount": "{count} Assigned",
+  "@assignedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "unassignedPool": "Pool",
+  "resetLabel": "Reset",
+  "applySelection": "Apply Selection",
+  "chatCreateTaskChip": "+ Create Task",
+  "chatAddShoppingChip": "+ Add to Shopping",
+  "chatViewTask": "View Task",
+  "chatSharedKind": "Household {kind} Task",
+  "@chatSharedKind": {
+    "placeholders": {
+      "kind": {
+        "type": "String"
+      }
+    }
+  },
+  "hubUpdatesCount": "{count, plural, =1{1 update} other{{count} updates}}",
+  "@hubUpdatesCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "hubNewCount": "{count} new",
+  "@hubNewCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "hubStaySynced": "Stay updated with home sync",
+  "hubViewTask": "View Task",
+  "hubViewShopping": "View Shopping",
+  "hubViewItem": "View Item",
+  "hubViewDetails": "Details",
+  "hubOpenChat": "Open Chat",
+  "hubPeace": "Peace of Mind",
+  "hubOlderArchives": "Looking for older archives?",
+  "hubHistoryArchive": "History Archive",
+  "hubAllCount": "All ({count})",
+  "@hubAllCount": {
     "placeholders": {
       "count": {
         "type": "int"
