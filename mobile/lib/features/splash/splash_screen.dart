@@ -667,7 +667,7 @@ class _Bottom extends StatelessWidget {
             const SizedBox(width: 6),
             Flexible(
               child: Text(
-                'v1.0.0 • End-to-End Encrypted Household',
+                'v1.0.0 • Private & Secure Household',
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: AppText.labelSm.copyWith(

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/appearance/appearance_model.dart';
 import '../../../core/localization/generated/app_localizations.dart';
@@ -16,6 +17,8 @@ import '../viewmodels/household_actions.dart';
 import '../viewmodels/session_view_model.dart';
 
 const _outlineVariant = Color(0xFFC4C5D7);
+const _deleteAccountUrl =
+    'https://abdul-hadi-jalil.github.io/homecircle/delete-account.html';
 
 /// "Profile & Settings" screen (UI/profile_settings).
 class ProfileView extends StatefulWidget {
@@ -619,6 +622,17 @@ class _ProfileViewState extends State<ProfileView> {
                       color: AppColors.danger,
                     ),
                     onTap: () => _signOut(session),
+                  ),
+                  _Row(
+                    icon: Icons.person_remove_outlined,
+                    iconBg: const Color(0xFFFFDAD6),
+                    iconFg: AppColors.danger,
+                    title: 'Delete account',
+                    titleColor: AppColors.danger,
+                    onTap: () => launchUrl(
+                      Uri.parse(_deleteAccountUrl),
+                      mode: LaunchMode.externalApplication,
+                    ),
                   ),
                 ],
               ),
