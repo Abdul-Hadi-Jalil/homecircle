@@ -29,3 +29,5 @@ class InvitationPreview(BaseModel):
     household_id: UUID
     name: str
     already_member: bool
+    member_count: int = 0
+    avatar_key: str | None = None

@@ -216,7 +216,7 @@ Future<void> startShopping(WidgetTester tester, TestRuntime f) async {
   await startTasks(tester, f);
   await tester.tap(find.text('Home').last);
   await tester.pumpAndSettle();
-  await tapVisible(tester, find.text('Shopping'));
+  await tapVisible(tester, find.text('Shopping Items'));
 }
 
 Future<void> closeShopping(WidgetTester tester, TestRuntime f) async {
@@ -430,7 +430,7 @@ void main() {
       expect(find.text('Cooking Oil'), findsOneWidget);
       expect(find.text('0 of 1 items purchased'), findsOneWidget);
       await captureTask(tester, f, 'shopping-list');
-      await tester.tap(find.byType(Checkbox).first);
+      await tester.tap(find.byKey(const ValueKey('shopping-check')));
       await tester.pumpAndSettle();
       await captureTask(tester, f, 'shopping-purchase');
       await tapVisible(tester, find.text('Mark Purchased').last);
@@ -439,7 +439,7 @@ void main() {
       await tester.pumpAndSettle();
       expect(server.stock, .5);
       expect(find.text('1 of 1 items purchased'), findsOneWidget);
-      await tapVisible(tester, find.byType(Checkbox).first);
+      await tapVisible(tester, find.byKey(const ValueKey('shopping-check')));
       await tester.tap(find.text('Confirm'));
       await tester.pumpAndSettle();
       expect(server.shopping['oil']!['status'], 'open');
@@ -504,7 +504,7 @@ void main() {
     await tester.pump(const Duration(milliseconds: 400));
     await tester.pumpAndSettle();
     expect(find.text('Cooking Oil'), findsOneWidget);
-    await tapVisible(tester, find.widgetWithText(ChoiceChip, 'Purchased'));
+    await tapVisible(tester, find.text('Purchased'));
     expect(find.text('Cooking Oil'), findsNothing);
     expect(
       server.requests.any((r) => r.url.queryParameters['view'] == 'purchased'),
@@ -520,8 +520,7 @@ void main() {
       final server = ShoppingServer()..failInventory = true,
           f = await fixture(server);
       await startShopping(tester, f);
-      await tester.tap(find.byType(Checkbox).first);
-      await tester.pumpAndSettle();
+      await tapVisible(tester, find.byKey(const ValueKey('shopping-check')));
       await tapVisible(tester, find.text('Mark Purchased').last);
       await tester.tap(find.text('Update Inventory'));
       await tester.pumpAndSettle();
@@ -546,16 +545,16 @@ void main() {
     await tester.tap(find.text('Home').last);
     await tester.pumpAndSettle();
     await tester.scrollUntilVisible(
-      find.text('Shopping'),
+      find.text('Shopping Items'),
       120,
       scrollable: find.byType(Scrollable).first,
     );
     await Scrollable.ensureVisible(
-      tester.element(find.text('Shopping')),
+      tester.element(find.text('Shopping Items')),
       alignment: 0.5,
     );
     await tester.pumpAndSettle();
-    await tester.tap(find.text('Shopping'));
+    await tester.tap(find.text('Shopping Items'));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 100));
     expect(find.byType(LinearProgressIndicator), findsWidgets);

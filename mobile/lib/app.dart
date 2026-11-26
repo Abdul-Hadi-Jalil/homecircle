@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
+import 'core/appearance/appearance_model.dart';
 import 'core/config/app_runtime.dart';
 import 'core/localization/generated/app_localizations.dart';
 import 'core/router/app_router.dart';
@@ -22,6 +23,9 @@ class _HomeCircleAppState extends State<HomeCircleApp>
   late final GoRouter _router;
   int _scopeRevision = 0;
   final _messenger = GlobalKey<ScaffoldMessengerState>();
+  late final AppearanceModel _appearance = AppearanceModel(
+    widget.runtime.store,
+  );
   void _notificationsChanged() {
     final vm = widget.runtime.notifications, session = widget.runtime.session;
     final target = vm.takeDestination(),
@@ -84,6 +88,7 @@ class _HomeCircleAppState extends State<HomeCircleApp>
       Provider.value(value: widget.runtime.auth),
       Provider.value(value: widget.runtime.households),
       Provider.value(value: widget.runtime.store),
+      ChangeNotifierProvider.value(value: _appearance),
       ChangeNotifierProvider.value(value: widget.runtime.session),
       ChangeNotifierProvider.value(value: widget.runtime.network),
       ChangeNotifierProvider.value(value: widget.runtime.diagnostics),
@@ -97,9 +102,19 @@ class _HomeCircleAppState extends State<HomeCircleApp>
     ],
     child: MaterialApp.router(
       scaffoldMessengerKey: _messenger,
-      builder: (context, child) => Consumer<NotificationsViewModel>(
+      builder: (context, routed) => Consumer<NotificationsViewModel>(
         builder: (context, vm, _) {
-          if (!vm.banner || !vm.ready) return child!;
+          final child = ListenableBuilder(
+            listenable: _appearance,
+            builder: (context, _) => MediaQuery(
+              data: MediaQuery.of(context).copyWith(
+                boldText:
+                    MediaQuery.of(context).boldText || _appearance.highContrast,
+              ),
+              child: routed!,
+            ),
+          );
+          if (!vm.banner || !vm.ready) return child;
           final l = AppLocalizations.of(context)!,
               actor = vm.user,
               id = vm.foregroundId;
@@ -136,7 +151,7 @@ class _HomeCircleAppState extends State<HomeCircleApp>
                 child: MediaQuery.removePadding(
                   context: context,
                   removeTop: true,
-                  child: child!,
+                  child: child,
                 ),
               ),
             ],

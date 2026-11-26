@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/theme/app_theme.dart';
+import '../../../core/widgets/mock_widgets.dart';
 import '../../tasks/models/household_task.dart';
 import '../../tasks/widgets/task_widgets.dart';
 import '../models/shopping_item.dart';
@@ -27,61 +28,69 @@ String shoppingStatus(BuildContext context, TaskStatus status) =>
       TaskStatus.blocked => context.taskCopy.taskBlocked,
     };
 
+/// Progress summary card (UI/shared_shopping_list).
 class ShoppingProgressCard extends StatelessWidget {
   const ShoppingProgressCard(this.summary, {super.key});
   final ShoppingSummary summary;
   @override
   Widget build(BuildContext context) {
     final l = context.taskCopy;
-    return TaskSection(
-      children: [
-        Row(
-          children: [
-            const CircleAvatar(
-              backgroundColor: Color(0xFFD6F8E9),
-              foregroundColor: AppColors.success,
-              child: Icon(Icons.shopping_cart_outlined),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Text(
-                l.shoppingProgress(summary.purchased, summary.total),
-                style: Theme.of(context).textTheme.titleMedium
-                    ?.copyWith(fontWeight: FontWeight.w700),
+    return AppCard(
+      radius: 16,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            children: [
+              const IconTile(
+                icon: Icons.shopping_cart_outlined,
+                bg: AppColors.secondaryContainer,
+                fg: AppColors.secondary,
+                size: 40,
+                radius: 20,
               ),
-            ),
-            Text(
-              '${(summary.progress * 100).round()}%',
-              style: const TextStyle(
-                color: AppColors.success,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+              const SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  l.shoppingProgress(summary.purchased, summary.total),
+                  style: AppText.titleMd.copyWith(color: AppColors.text),
+                ),
               ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 16),
-        LinearProgressIndicator(
-          value: summary.progress,
-          minHeight: 10,
-          borderRadius: BorderRadius.circular(12),
-          color: AppColors.success,
-          backgroundColor: AppColors.lightBlue,
-        ),
-        const SizedBox(height: 12),
-        Text(
-          l.shoppingOutstanding(
-            summary.active,
-            summary.highPriority,
-            summary.assignedToMe,
+              Text(
+                '${(summary.progress * 100).round()}%',
+                style: AppText.headlineMd.copyWith(color: AppColors.secondary),
+              ),
+            ],
           ),
-          style: Theme.of(context).textTheme.bodySmall,
-        ),
-      ],
+          const SizedBox(height: 12),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(9999),
+            child: LinearProgressIndicator(
+              value: summary.progress,
+              minHeight: 8,
+              color: AppColors.secondary,
+              backgroundColor: AppColors.surfaceContainer,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            l.shoppingOutstanding(
+              summary.active,
+              summary.highPriority,
+              summary.assignedToMe,
+            ),
+            style: AppText.labelMd.copyWith(
+              color: AppColors.muted,
+              letterSpacing: 0,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
 
+/// A list row: unchecked card or checked/struck-through purchased card.
 class ShoppingItemTile extends StatelessWidget {
   const ShoppingItemTile({
     required this.item,
@@ -96,29 +105,56 @@ class ShoppingItemTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l = context.taskCopy;
-    return Card(
-      color: item.purchased
-          ? AppColors.lightBlue.withValues(alpha: .65)
-          : Colors.white,
+    final disabled =
+        busy || item.archived || item.status == TaskStatus.cancelled;
+    final who =
+        '${item.data[item.purchased ? 'purchaser_name' : 'creator_name'] ?? l.taskFormerMember}';
+    final line =
+        '${item.amount}${item.amount.isEmpty ? '' : ' • '}${item.purchased ? l.shoppingPurchasedBy : l.shoppingRequestedBy} $who';
+    final bg = item.purchased
+        ? AppColors.surfaceLow.withAlpha(200)
+        : Colors.white;
+    return Material(
+      color: bg,
+      borderRadius: BorderRadius.circular(16),
       child: InkWell(
-        onTap: onTap,
         borderRadius: BorderRadius.circular(16),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 8),
+        onTap: onTap,
+        child: Ink(
+          padding: const EdgeInsetsDirectional.all(16),
+          decoration: BoxDecoration(
+            color: bg,
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: item.purchased ? null : AppShadows.sm,
+          ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Checkbox(
-                value: item.purchased,
-                onChanged:
-                    busy || item.archived || item.status == TaskStatus.cancelled
-                    ? null
-                    : (_) => onCheck(),
-                semanticLabel: item.purchased
+              Semantics(
+                button: true,
+                label: item.purchased
                     ? l.shoppingUndo
                     : l.shoppingMarkPurchased,
-                activeColor: AppColors.success,
+                child: InkWell(
+                  key: const ValueKey('shopping-check'),
+                  borderRadius: BorderRadius.circular(10),
+                  onTap: disabled ? null : onCheck,
+                  child: Container(
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: item.purchased
+                          ? AppColors.secondary
+                          : AppColors.surfaceContainer,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: item.purchased
+                        ? const Icon(Icons.check, color: Colors.white, size: 24)
+                        : null,
+                  ),
+                ),
               ),
+              const SizedBox(width: 16),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -128,49 +164,72 @@ class ShoppingItemTile extends StatelessWidget {
                         Expanded(
                           child: Text(
                             item.title,
-                            style: Theme.of(context).textTheme.titleMedium
-                                ?.copyWith(
-                                  fontWeight: FontWeight.w700,
-                                  decoration: item.purchased
-                                      ? TextDecoration.lineThrough
-                                      : null,
-                                ),
+                            style: AppText.headlineSm.copyWith(
+                              color: item.purchased
+                                  ? AppColors.muted
+                                  : AppColors.text,
+                              decoration: item.purchased
+                                  ? TextDecoration.lineThrough
+                                  : null,
+                            ),
                           ),
                         ),
-                        const SizedBox(width: 6),
-                        PriorityBadge(item.priority),
+                        if (!item.purchased) ...[
+                          const SizedBox(width: 6),
+                          PriorityBadge(item.priority),
+                        ],
                       ],
                     ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 2),
                     Text(
-                      '${item.amount}${item.amount.isEmpty ? '' : ' · '}${item.purchased ? l.shoppingPurchasedBy : l.shoppingRequestedBy} ${item.data[item.purchased ? 'purchaser_name' : 'creator_name'] ?? l.taskFormerMember}',
-                      style: Theme.of(context).textTheme.bodySmall,
+                      line,
+                      style: AppText.bodyMd.copyWith(
+                        color: item.purchased
+                            ? AppColors.secondary
+                            : AppColors.muted,
+                      ),
                     ),
                     if (item.assignedTo != null && !item.purchased)
                       Text(
                         '${l.taskAssignedTo}: ${item.assigneeName ?? l.taskFormerMember}',
-                        style: Theme.of(context).textTheme.bodySmall,
+                        style: AppText.bodySm.copyWith(color: AppColors.muted),
                       ),
                     if (item.purchased)
                       Text(
                         taskTimestamp(context, item.data['purchased_at']),
-                        style: Theme.of(context).textTheme.bodySmall,
+                        style: AppText.bodySm.copyWith(color: AppColors.muted),
                       ),
-                    if (item.linkedItemId != null)
+                    if (item.linkedItemId != null && !item.purchased)
                       Padding(
-                        padding: const EdgeInsets.only(top: 8),
-                        child: Text(
-                          '↗ ${item.linkedItemName ?? l.taskLinkedItem}',
-                          style: const TextStyle(
-                            color: AppColors.primary,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
+                        padding: const EdgeInsetsDirectional.only(top: 8),
+                        child: AppPill(
+                          l.shoppingLinkedTo(
+                            item.linkedItemName ?? l.taskLinkedItem,
+                          ),
+                          icon: Icons.inventory_2_outlined,
+                          bg: AppColors.surfaceContainer,
+                          fg: AppColors.muted,
+                          radius: 8,
+                          padding: const EdgeInsetsDirectional.symmetric(
+                            horizontal: 8,
+                            vertical: 4,
                           ),
                         ),
                       ),
                   ],
                 ),
               ),
+              if (item.purchased) ...[
+                const SizedBox(width: 8),
+                TextButton.icon(
+                  onPressed: disabled ? null : onCheck,
+                  icon: const Icon(Icons.undo, size: 18),
+                  label: Text(
+                    l.shoppingUndoShort,
+                    style: AppText.labelLg.copyWith(color: AppColors.primary),
+                  ),
+                ),
+              ],
             ],
           ),
         ),

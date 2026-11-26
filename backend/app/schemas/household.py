@@ -4,11 +4,14 @@ from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
+AvatarKey = Literal["cottage", "apartment", "forest", "pets", "favorite"]
+
 
 class HouseholdCreate(BaseModel):
     model_config = ConfigDict(extra="forbid")
     name: str = Field(min_length=1, max_length=100)
     description: str | None = Field(default=None, max_length=1000)
+    avatar_key: AvatarKey | None = None
 
     @field_validator("name")
     @classmethod
@@ -24,6 +27,7 @@ class Household(BaseModel):
     name: str
     description: str | None
     image_path: str | None
+    avatar_key: AvatarKey | None = None
     created_by: UUID | None
     created_at: datetime
     updated_at: datetime
@@ -48,6 +52,12 @@ class HouseholdUpdate(BaseModel):
     model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
     name: str = Field(min_length=1, max_length=100)
     description: str | None = Field(default=None, max_length=1000)
+    avatar_key: AvatarKey | None = None
+
+
+class MemberRoleUpdate(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    role: Literal["admin", "member"]
 
 
 class Member(BaseModel):

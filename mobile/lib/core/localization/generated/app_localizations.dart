@@ -1021,13 +1021,13 @@ abstract class AppLocalizations {
   /// No description provided for @login.
   ///
   /// In en, this message translates to:
-  /// **'Log in'**
+  /// **'Sign In'**
   String get login;
 
   /// No description provided for @register.
   ///
   /// In en, this message translates to:
-  /// **'Create account'**
+  /// **'Create Account'**
   String get register;
 
   /// No description provided for @forgotPassword.
@@ -1045,7 +1045,7 @@ abstract class AppLocalizations {
   /// No description provided for @email.
   ///
   /// In en, this message translates to:
-  /// **'Email'**
+  /// **'Email Address'**
   String get email;
 
   /// No description provided for @password.
@@ -1105,19 +1105,19 @@ abstract class AppLocalizations {
   /// No description provided for @createHousehold.
   ///
   /// In en, this message translates to:
-  /// **'Create household'**
+  /// **'Create Household'**
   String get createHousehold;
 
   /// No description provided for @joinHousehold.
   ///
   /// In en, this message translates to:
-  /// **'Join household'**
+  /// **'Join Household'**
   String get joinHousehold;
 
   /// No description provided for @inviteFamily.
   ///
   /// In en, this message translates to:
-  /// **'Invite family'**
+  /// **'Invite Family Members'**
   String get inviteFamily;
 
   /// No description provided for @householdName.
@@ -1285,31 +1285,31 @@ abstract class AppLocalizations {
   /// No description provided for @onboardTeamTitle.
   ///
   /// In en, this message translates to:
-  /// **'A little teamwork makes home easier.'**
+  /// **'Share responsibilities without the friction.'**
   String get onboardTeamTitle;
 
   /// No description provided for @onboardSyncTitle.
   ///
   /// In en, this message translates to:
-  /// **'Your family, always in sync.'**
+  /// **'Your whole household, effortlessly in sync.'**
   String get onboardSyncTitle;
 
   /// No description provided for @onboardItems.
   ///
   /// In en, this message translates to:
-  /// **'Keep track of household items, supplies, and everything your family needs.'**
+  /// **'Keep track of household items, supplies, and everything your family needs before you run out.'**
   String get onboardItems;
 
   /// No description provided for @onboardTeam.
   ///
   /// In en, this message translates to:
-  /// **'Create tasks, report issues, and keep everyone informed.'**
+  /// **'A little teamwork makes home easier. Create tasks, report issues, and keep everyone informed.'**
   String get onboardTeam;
 
   /// No description provided for @onboardSync.
   ///
   /// In en, this message translates to:
-  /// **'Share messages, manage shopping lists, and stay updated.'**
+  /// **'Share messages, collaborate on shopping lists in real-time, and celebrate getting things done together.'**
   String get onboardSync;
 
   /// No description provided for @next.
@@ -1429,13 +1429,13 @@ abstract class AppLocalizations {
   /// No description provided for @householdConnection.
   ///
   /// In en, this message translates to:
-  /// **'Household connection'**
+  /// **'Household Connection'**
   String get householdConnection;
 
   /// No description provided for @householdConnectionDescription.
   ///
   /// In en, this message translates to:
-  /// **'Create your account first, then choose a household or join with an invitation.'**
+  /// **'New to HomeCircle? Creating an account connects you to your family household in the next step with an invite code.'**
   String get householdConnectionDescription;
 
   /// No description provided for @prepareHome.
@@ -1471,13 +1471,13 @@ abstract class AppLocalizations {
   /// No description provided for @adminNotice.
   ///
   /// In en, this message translates to:
-  /// **'You’ll be the Household Admin'**
+  /// **'You\'ll be the Household Admin'**
   String get adminNotice;
 
   /// No description provided for @adminDescription.
   ///
   /// In en, this message translates to:
-  /// **'Manage household details and invite family members.'**
+  /// **'You can invite family members, assign roles, and manage household settings anytime.'**
   String get adminDescription;
 
   /// No description provided for @invitationCode.
@@ -1555,7 +1555,7 @@ abstract class AppLocalizations {
   /// No description provided for @shareInvitation.
   ///
   /// In en, this message translates to:
-  /// **'Share Invitation'**
+  /// **'Share Invite'**
   String get shareInvitation;
 
   /// No description provided for @codeShownOnce.
@@ -1645,7 +1645,7 @@ abstract class AppLocalizations {
   /// No description provided for @memberSummary.
   ///
   /// In en, this message translates to:
-  /// **'{count} members · {role}'**
+  /// **'{count, plural, =1{1 member} other{{count} members}} · {role}'**
   String memberSummary(int count, String role);
 
   /// No description provided for @adminRole.
@@ -1735,7 +1735,7 @@ abstract class AppLocalizations {
   /// No description provided for @fullName.
   ///
   /// In en, this message translates to:
-  /// **'Full name'**
+  /// **'Family Member Name'**
   String get fullName;
 
   /// No description provided for @householdNameHint.
@@ -2287,19 +2287,19 @@ abstract class AppLocalizations {
   /// No description provided for @hubMorning.
   ///
   /// In en, this message translates to:
-  /// **'Good morning, {name}!'**
+  /// **'Good morning, {name} 👋'**
   String hubMorning(String name);
 
   /// No description provided for @hubAfternoon.
   ///
   /// In en, this message translates to:
-  /// **'Good afternoon, {name}!'**
+  /// **'Good afternoon, {name} 👋'**
   String hubAfternoon(String name);
 
   /// No description provided for @hubEvening.
   ///
   /// In en, this message translates to:
-  /// **'Good evening, {name}!'**
+  /// **'Good evening, {name} 👋'**
   String hubEvening(String name);
 
   /// No description provided for @hubMember.
@@ -2371,7 +2371,7 @@ abstract class AppLocalizations {
   /// No description provided for @hubRequest.
   ///
   /// In en, this message translates to:
-  /// **'Request Something'**
+  /// **'Request Item'**
   String get hubRequest;
 
   /// No description provided for @hubReport.
@@ -2401,13 +2401,13 @@ abstract class AppLocalizations {
   /// No description provided for @hubRecent.
   ///
   /// In en, this message translates to:
-  /// **'Recent Family Activity'**
+  /// **'Recent Activity'**
   String get hubRecent;
 
   /// No description provided for @hubViewAll.
   ///
   /// In en, this message translates to:
-  /// **'View All'**
+  /// **'See All'**
   String get hubViewAll;
 
   /// No description provided for @hubEmptyTitle.
@@ -2835,6 +2835,2028 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{count, plural, one{1 unread} other{{count} unread}}'**
   String hubUnreadCount(int count);
+
+  /// No description provided for @onboardBrandTag.
+  ///
+  /// In en, this message translates to:
+  /// **'Family Sync'**
+  String get onboardBrandTag;
+
+  /// No description provided for @onboardTab1.
+  ///
+  /// In en, this message translates to:
+  /// **'1. Organize'**
+  String get onboardTab1;
+
+  /// No description provided for @onboardTab2.
+  ///
+  /// In en, this message translates to:
+  /// **'2. Share'**
+  String get onboardTab2;
+
+  /// No description provided for @onboardTab3.
+  ///
+  /// In en, this message translates to:
+  /// **'3. Connect'**
+  String get onboardTab3;
+
+  /// No description provided for @onboardStepCounter.
+  ///
+  /// In en, this message translates to:
+  /// **'Step {step} of 3'**
+  String onboardStepCounter(int step);
+
+  /// No description provided for @onboardHaveAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Already have an account?'**
+  String get onboardHaveAccount;
+
+  /// No description provided for @onboardSignIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign In'**
+  String get onboardSignIn;
+
+  /// No description provided for @demoPantry.
+  ///
+  /// In en, this message translates to:
+  /// **'Pantry & Supplies'**
+  String get demoPantry;
+
+  /// No description provided for @demoRestocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Restocked'**
+  String get demoRestocked;
+
+  /// No description provided for @demoOatMilk.
+  ///
+  /// In en, this message translates to:
+  /// **'Oat Milk & Coffee'**
+  String get demoOatMilk;
+
+  /// No description provided for @demoDetergent.
+  ///
+  /// In en, this message translates to:
+  /// **'Eco Detergent'**
+  String get demoDetergent;
+
+  /// No description provided for @demoTwoLeft.
+  ///
+  /// In en, this message translates to:
+  /// **'2 Left'**
+  String get demoTwoLeft;
+
+  /// No description provided for @demoSmartAlert.
+  ///
+  /// In en, this message translates to:
+  /// **'Smart Low Alert'**
+  String get demoSmartAlert;
+
+  /// No description provided for @demoMomUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Mom updated shelf'**
+  String get demoMomUpdated;
+
+  /// No description provided for @demoChores.
+  ///
+  /// In en, this message translates to:
+  /// **'Household Chore Rotation'**
+  String get demoChores;
+
+  /// No description provided for @demoFairSplit.
+  ///
+  /// In en, this message translates to:
+  /// **'Fair Split'**
+  String get demoFairSplit;
+
+  /// No description provided for @demoBins.
+  ///
+  /// In en, this message translates to:
+  /// **'Take Out Bins'**
+  String get demoBins;
+
+  /// No description provided for @demoDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get demoDone;
+
+  /// No description provided for @demoPlants.
+  ///
+  /// In en, this message translates to:
+  /// **'Water Balcony Plants'**
+  String get demoPlants;
+
+  /// No description provided for @demoToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get demoToday;
+
+  /// No description provided for @demoNoNagging.
+  ///
+  /// In en, this message translates to:
+  /// **'No More Nagging'**
+  String get demoNoNagging;
+
+  /// No description provided for @demoStream.
+  ///
+  /// In en, this message translates to:
+  /// **'Shared Family Stream'**
+  String get demoStream;
+
+  /// No description provided for @demoDadMarket.
+  ///
+  /// In en, this message translates to:
+  /// **'Dad • Market'**
+  String get demoDadMarket;
+
+  /// No description provided for @demoTwoMin.
+  ///
+  /// In en, this message translates to:
+  /// **'2m ago'**
+  String get demoTwoMin;
+
+  /// No description provided for @demoSourdough.
+  ///
+  /// In en, this message translates to:
+  /// **'Grabbed the sourdough! Anything else?'**
+  String get demoSourdough;
+
+  /// No description provided for @demoEmma.
+  ///
+  /// In en, this message translates to:
+  /// **'Emma'**
+  String get demoEmma;
+
+  /// No description provided for @demoJustNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Just now'**
+  String get demoJustNow;
+
+  /// No description provided for @demoAvocados.
+  ///
+  /// In en, this message translates to:
+  /// **'Avocados are on the kitchen list! 🥑'**
+  String get demoAvocados;
+
+  /// No description provided for @demoInstantSync.
+  ///
+  /// In en, this message translates to:
+  /// **'Instant Family Sync'**
+  String get demoInstantSync;
+
+  /// No description provided for @authBrandTag.
+  ///
+  /// In en, this message translates to:
+  /// **'Household Sync'**
+  String get authBrandTag;
+
+  /// No description provided for @forgotPasswordLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot Password?'**
+  String get forgotPasswordLink;
+
+  /// No description provided for @noAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t have an account?'**
+  String get noAccount;
+
+  /// No description provided for @authFailedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong'**
+  String get authFailedTitle;
+
+  /// No description provided for @invalidCredentialsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid credentials'**
+  String get invalidCredentialsTitle;
+
+  /// No description provided for @dismiss.
+  ///
+  /// In en, this message translates to:
+  /// **'Dismiss'**
+  String get dismiss;
+
+  /// No description provided for @householdConnectionStep.
+  ///
+  /// In en, this message translates to:
+  /// **'Step 1 of 2'**
+  String get householdConnectionStep;
+
+  /// No description provided for @fullNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Abu Bakr'**
+  String get fullNameHint;
+
+  /// No description provided for @emailHint.
+  ///
+  /// In en, this message translates to:
+  /// **'example@email.com'**
+  String get emailHint;
+
+  /// No description provided for @setupBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to HomeCircle'**
+  String get setupBadge;
+
+  /// No description provided for @setupTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Let\'s set up your home'**
+  String get setupTitle;
+
+  /// No description provided for @setupSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a space for your family or join one they\'ve already created.'**
+  String get setupSubtitle;
+
+  /// No description provided for @familyTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Family Tip'**
+  String get familyTip;
+
+  /// No description provided for @familyTipBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Family members living together should join the same household rather than creating separate spaces.'**
+  String get familyTipBody;
+
+  /// No description provided for @createCardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a Household'**
+  String get createCardTitle;
+
+  /// No description provided for @recommendedHeads.
+  ///
+  /// In en, this message translates to:
+  /// **'Recommended for Heads'**
+  String get recommendedHeads;
+
+  /// No description provided for @createCardBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Start a new family space, become admin, and invite everyone to coordinate chores, groceries, and shared plans.'**
+  String get createCardBody;
+
+  /// No description provided for @adminControls.
+  ///
+  /// In en, this message translates to:
+  /// **'Admin Controls'**
+  String get adminControls;
+
+  /// No description provided for @inviteLinkCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Invite Code'**
+  String get inviteLinkCode;
+
+  /// No description provided for @joinCardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Join a Household'**
+  String get joinCardTitle;
+
+  /// No description provided for @gotInvite.
+  ///
+  /// In en, this message translates to:
+  /// **'Got an invite?'**
+  String get gotInvite;
+
+  /// No description provided for @joinCardBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Already invited by someone? Join your family\'s existing space with an invite code.'**
+  String get joinCardBody;
+
+  /// No description provided for @enterInviteCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Household Invitation Code'**
+  String get enterInviteCode;
+
+  /// No description provided for @codeCharacters.
+  ///
+  /// In en, this message translates to:
+  /// **'16 Characters'**
+  String get codeCharacters;
+
+  /// No description provided for @inviteCodeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'HC-XXXX-XXXX-XXXX-XXXX'**
+  String get inviteCodeHint;
+
+  /// No description provided for @paste.
+  ///
+  /// In en, this message translates to:
+  /// **'Paste'**
+  String get paste;
+
+  /// No description provided for @findHousehold.
+  ///
+  /// In en, this message translates to:
+  /// **'Find Household'**
+  String get findHousehold;
+
+  /// No description provided for @foundLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Found'**
+  String get foundLabel;
+
+  /// No description provided for @membersActive.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} members active'**
+  String membersActive(int count);
+
+  /// No description provided for @invalidCodeHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid code? Contact your household admin or verify the 16-character code.'**
+  String get invalidCodeHelp;
+
+  /// No description provided for @needHelpSetup.
+  ///
+  /// In en, this message translates to:
+  /// **'Need help setting up?'**
+  String get needHelpSetup;
+
+  /// No description provided for @askResendCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask another member to resend the code'**
+  String get askResendCode;
+
+  /// No description provided for @faq.
+  ///
+  /// In en, this message translates to:
+  /// **'FAQ'**
+  String get faq;
+
+  /// No description provided for @faqTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Setting up your home'**
+  String get faqTitle;
+
+  /// No description provided for @faqJoinQ.
+  ///
+  /// In en, this message translates to:
+  /// **'Who should create the household?'**
+  String get faqJoinQ;
+
+  /// No description provided for @faqJoinA.
+  ///
+  /// In en, this message translates to:
+  /// **'One adult creates it and becomes the admin. Everyone else joins with an invite code.'**
+  String get faqJoinA;
+
+  /// No description provided for @faqCodeQ.
+  ///
+  /// In en, this message translates to:
+  /// **'Where do I get an invite code?'**
+  String get faqCodeQ;
+
+  /// No description provided for @faqCodeA.
+  ///
+  /// In en, this message translates to:
+  /// **'A household admin can generate one from Invite Family. Codes expire, so ask for a new one if yours stops working.'**
+  String get faqCodeA;
+
+  /// No description provided for @faqMultiQ.
+  ///
+  /// In en, this message translates to:
+  /// **'Can I belong to more than one household?'**
+  String get faqMultiQ;
+
+  /// No description provided for @faqMultiA.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes. You can switch between households from your profile at any time.'**
+  String get faqMultiA;
+
+  /// No description provided for @createTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Your Household'**
+  String get createTitle;
+
+  /// No description provided for @createSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Give your family space a name and personality.'**
+  String get createSubtitle;
+
+  /// No description provided for @householdAvatar.
+  ///
+  /// In en, this message translates to:
+  /// **'Household Avatar'**
+  String get householdAvatar;
+
+  /// No description provided for @cozyIcon.
+  ///
+  /// In en, this message translates to:
+  /// **'Cozy Icon'**
+  String get cozyIcon;
+
+  /// No description provided for @selectedAvatar.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected: {name}'**
+  String selectedAvatar(String name);
+
+  /// No description provided for @avatarCottage.
+  ///
+  /// In en, this message translates to:
+  /// **'Warm Family Cottage'**
+  String get avatarCottage;
+
+  /// No description provided for @avatarApartment.
+  ///
+  /// In en, this message translates to:
+  /// **'City Loft & Nest'**
+  String get avatarApartment;
+
+  /// No description provided for @avatarForest.
+  ///
+  /// In en, this message translates to:
+  /// **'Cabin in Woods'**
+  String get avatarForest;
+
+  /// No description provided for @avatarPets.
+  ///
+  /// In en, this message translates to:
+  /// **'Pet Haven Hub'**
+  String get avatarPets;
+
+  /// No description provided for @avatarFavorite.
+  ///
+  /// In en, this message translates to:
+  /// **'Heart of Family'**
+  String get avatarFavorite;
+
+  /// No description provided for @householdNameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Household Name'**
+  String get householdNameLabel;
+
+  /// No description provided for @householdNamePlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g., The Miller Nest, Sunny Haven'**
+  String get householdNamePlaceholder;
+
+  /// No description provided for @visibleToMembers.
+  ///
+  /// In en, this message translates to:
+  /// **'Visible to all invited members and guests.'**
+  String get visibleToMembers;
+
+  /// No description provided for @householdDescriptionLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Household Description'**
+  String get householdDescriptionLabel;
+
+  /// No description provided for @optional.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional'**
+  String get optional;
+
+  /// No description provided for @descriptionPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'What is this household for?'**
+  String get descriptionPlaceholder;
+
+  /// No description provided for @helpsStaySynced.
+  ///
+  /// In en, this message translates to:
+  /// **'Helps everyone stay synced on routines and duties.'**
+  String get helpsStaySynced;
+
+  /// No description provided for @back.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get back;
+
+  /// No description provided for @inviteSetupBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Household Setup'**
+  String get inviteSetupBadge;
+
+  /// No description provided for @inviteYourFamily.
+  ///
+  /// In en, this message translates to:
+  /// **'Invite Your Family'**
+  String get inviteYourFamily;
+
+  /// No description provided for @inviteSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'HomeCircle works better together. Keep everyone in sync on chores, groceries, and plans.'**
+  String get inviteSubtitle;
+
+  /// No description provided for @createdByMembers.
+  ///
+  /// In en, this message translates to:
+  /// **'Created by {name} • {count, plural, =1{1 member} other{{count} members}}'**
+  String createdByMembers(String name, int count);
+
+  /// No description provided for @membersCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 member} other{{count} members}}'**
+  String membersCount(int count);
+
+  /// No description provided for @membersActiveCap.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 Member Active} other{{count} Members Active}}'**
+  String membersActiveCap(int count);
+
+  /// No description provided for @inviteCodeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Household Invite Code'**
+  String get inviteCodeTitle;
+
+  /// No description provided for @validDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Valid {days} days'**
+  String validDays(int days);
+
+  /// No description provided for @tapToCopy.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to copy'**
+  String get tapToCopy;
+
+  /// No description provided for @noActiveCode.
+  ///
+  /// In en, this message translates to:
+  /// **'No code yet'**
+  String get noActiveCode;
+
+  /// No description provided for @codeShareHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Share this code with family members so they can join your household instantly during onboarding.'**
+  String get codeShareHelp;
+
+  /// No description provided for @inviteMessagePreview.
+  ///
+  /// In en, this message translates to:
+  /// **'Invitation Message Preview'**
+  String get inviteMessagePreview;
+
+  /// No description provided for @previewPre.
+  ///
+  /// In en, this message translates to:
+  /// **'“Hey! Join '**
+  String get previewPre;
+
+  /// No description provided for @previewMid.
+  ///
+  /// In en, this message translates to:
+  /// **' on HomeCircle! Use invitation code '**
+  String get previewMid;
+
+  /// No description provided for @previewPost.
+  ///
+  /// In en, this message translates to:
+  /// **' to link our shared chores and pantry lists.”'**
+  String get previewPost;
+
+  /// No description provided for @joinedCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} Joined'**
+  String joinedCount(int count);
+
+  /// No description provided for @joinedOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Joined {date}'**
+  String joinedOn(String date);
+
+  /// No description provided for @joinedPill.
+  ///
+  /// In en, this message translates to:
+  /// **'Joined'**
+  String get joinedPill;
+
+  /// No description provided for @revokeExisting.
+  ///
+  /// In en, this message translates to:
+  /// **'Revoke Existing Code'**
+  String get revokeExisting;
+
+  /// No description provided for @codeExpiryNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Invitation codes expire after 7 days or can be revoked by admins at any time.'**
+  String get codeExpiryNote;
+
+  /// No description provided for @doneGoDashboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Done (Go to Dashboard)'**
+  String get doneGoDashboard;
+
+  /// No description provided for @activeCodeExpires.
+  ///
+  /// In en, this message translates to:
+  /// **'Expires {date}'**
+  String activeCodeExpires(String date);
+
+  /// No description provided for @agoMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'{n, plural, =1{1 minute ago} other{{n} minutes ago}}'**
+  String agoMinutes(int n);
+
+  /// No description provided for @agoHours.
+  ///
+  /// In en, this message translates to:
+  /// **'{n, plural, =1{1 hour ago} other{{n} hours ago}}'**
+  String agoHours(int n);
+
+  /// No description provided for @agoDays.
+  ///
+  /// In en, this message translates to:
+  /// **'{n, plural, =1{1 day ago} other{{n} days ago}}'**
+  String agoDays(int n);
+
+  /// No description provided for @agoWeeks.
+  ///
+  /// In en, this message translates to:
+  /// **'{n, plural, =1{1 week ago} other{{n} weeks ago}}'**
+  String agoWeeks(int n);
+
+  /// No description provided for @agoMonths.
+  ///
+  /// In en, this message translates to:
+  /// **'{n, plural, =1{1 month ago} other{{n} months ago}}'**
+  String agoMonths(int n);
+
+  /// No description provided for @agoYears.
+  ///
+  /// In en, this message translates to:
+  /// **'{n, plural, =1{1 year ago} other{{n} years ago}}'**
+  String agoYears(int n);
+
+  /// No description provided for @agoJustNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Just now'**
+  String get agoJustNow;
+
+  /// No description provided for @agoYesterday.
+  ///
+  /// In en, this message translates to:
+  /// **'Yesterday'**
+  String get agoYesterday;
+
+  /// No description provided for @membersHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Family Members'**
+  String get membersHeading;
+
+  /// No description provided for @membersSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Admin controls and member permissions'**
+  String get membersSubtitle;
+
+  /// No description provided for @statusActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get statusActive;
+
+  /// No description provided for @createdByName.
+  ///
+  /// In en, this message translates to:
+  /// **'Created by {name}'**
+  String createdByName(String name);
+
+  /// No description provided for @editHousehold.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Household'**
+  String get editHousehold;
+
+  /// No description provided for @youBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'You'**
+  String get youBadge;
+
+  /// No description provided for @creatorSoleAdmin.
+  ///
+  /// In en, this message translates to:
+  /// **'Creator • Sole Admin'**
+  String get creatorSoleAdmin;
+
+  /// No description provided for @joinedWhen.
+  ///
+  /// In en, this message translates to:
+  /// **'Joined {when}'**
+  String joinedWhen(String when);
+
+  /// No description provided for @rolesPermissions.
+  ///
+  /// In en, this message translates to:
+  /// **'Roles & Permissions'**
+  String get rolesPermissions;
+
+  /// No description provided for @rolesAdminsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Admins'**
+  String get rolesAdminsLabel;
+
+  /// No description provided for @rolesAdminsText.
+  ///
+  /// In en, this message translates to:
+  /// **' manage household details, invite or remove members, and control settings. '**
+  String get rolesAdminsText;
+
+  /// No description provided for @rolesMembersLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Members'**
+  String get rolesMembersLabel;
+
+  /// No description provided for @rolesMembersText.
+  ///
+  /// In en, this message translates to:
+  /// **' can coordinate tasks, update pantry inventory, shop, and chat freely.'**
+  String get rolesMembersText;
+
+  /// No description provided for @householdAccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Household Access'**
+  String get householdAccess;
+
+  /// No description provided for @householdAccessSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Invite family or roommates to sync in real-time'**
+  String get householdAccessSubtitle;
+
+  /// No description provided for @inviteNewMember.
+  ///
+  /// In en, this message translates to:
+  /// **'Invite New Member'**
+  String get inviteNewMember;
+
+  /// No description provided for @inviteNewMemberSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Send a fast join code'**
+  String get inviteNewMemberSubtitle;
+
+  /// No description provided for @manageInviteCodes.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage Invitation Codes'**
+  String get manageInviteCodes;
+
+  /// No description provided for @activeCodeDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Active code valid for {days} more days'**
+  String activeCodeDays(int days);
+
+  /// No description provided for @noActiveCodeShort.
+  ///
+  /// In en, this message translates to:
+  /// **'No active code'**
+  String get noActiveCodeShort;
+
+  /// No description provided for @dangerZone.
+  ///
+  /// In en, this message translates to:
+  /// **'Danger Zone'**
+  String get dangerZone;
+
+  /// No description provided for @dangerSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Irreversible and destructive actions'**
+  String get dangerSubtitle;
+
+  /// No description provided for @leaveHousehold.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave Household'**
+  String get leaveHousehold;
+
+  /// No description provided for @leaveSoleAdminText.
+  ///
+  /// In en, this message translates to:
+  /// **'You are currently the sole admin. You must assign another member as admin before leaving.'**
+  String get leaveSoleAdminText;
+
+  /// No description provided for @leaveText.
+  ///
+  /// In en, this message translates to:
+  /// **'You will lose access to this household\'s lists, inventory, chores and messages.'**
+  String get leaveText;
+
+  /// No description provided for @leaveConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave this household? You will need a new invite to join again.'**
+  String get leaveConfirm;
+
+  /// No description provided for @deleteHouseholdTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Household'**
+  String get deleteHouseholdTitle;
+
+  /// No description provided for @deleteHouseholdText.
+  ///
+  /// In en, this message translates to:
+  /// **'Admin only. Permanently erases all lists, shared inventory items, chores, messages, and member links.'**
+  String get deleteHouseholdText;
+
+  /// No description provided for @deleteHouseholdButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Household Permanently'**
+  String get deleteHouseholdButton;
+
+  /// No description provided for @deleteConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this household permanently? This cannot be undone.'**
+  String get deleteConfirm;
+
+  /// No description provided for @makeAdmin.
+  ///
+  /// In en, this message translates to:
+  /// **'Make admin'**
+  String get makeAdmin;
+
+  /// No description provided for @makeMember.
+  ///
+  /// In en, this message translates to:
+  /// **'Make member'**
+  String get makeMember;
+
+  /// No description provided for @removeMember.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove from household'**
+  String get removeMember;
+
+  /// No description provided for @removeMemberConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove {name} from this household?'**
+  String removeMemberConfirm(String name);
+
+  /// No description provided for @memberOptions.
+  ///
+  /// In en, this message translates to:
+  /// **'Member options for {name}'**
+  String memberOptions(String name);
+
+  /// No description provided for @editHouseholdTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Household'**
+  String get editHouseholdTitle;
+
+  /// No description provided for @lastAdminError.
+  ///
+  /// In en, this message translates to:
+  /// **'A household needs at least one admin. Assign another admin first.'**
+  String get lastAdminError;
+
+  /// No description provided for @activeCodeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Active code'**
+  String get activeCodeLabel;
+
+  /// No description provided for @noActiveCodeBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Generate a code to invite your family.'**
+  String get noActiveCodeBody;
+
+  /// No description provided for @hubHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'History'**
+  String get hubHistory;
+
+  /// No description provided for @hubFrequent.
+  ///
+  /// In en, this message translates to:
+  /// **'Frequent'**
+  String get hubFrequent;
+
+  /// No description provided for @hubGlanceSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Synchronized in real-time'**
+  String get hubGlanceSub;
+
+  /// No description provided for @hubUpdatedAgo.
+  ///
+  /// In en, this message translates to:
+  /// **'Updated {when}'**
+  String hubUpdatedAgo(String when);
+
+  /// No description provided for @hubAddItemSub.
+  ///
+  /// In en, this message translates to:
+  /// **'To pantry or list'**
+  String get hubAddItemSub;
+
+  /// No description provided for @hubRequestSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask a member'**
+  String get hubRequestSub;
+
+  /// No description provided for @hubReportSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Repairs & fixes'**
+  String get hubReportSub;
+
+  /// No description provided for @hubMessageSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Household chat'**
+  String get hubMessageSub;
+
+  /// No description provided for @hubHighCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} high'**
+  String hubHighCount(int count);
+
+  /// No description provided for @hubKindRepair.
+  ///
+  /// In en, this message translates to:
+  /// **'Repair'**
+  String get hubKindRepair;
+
+  /// No description provided for @hubKindShopping.
+  ///
+  /// In en, this message translates to:
+  /// **'Shopping'**
+  String get hubKindShopping;
+
+  /// No description provided for @hubKindChore.
+  ///
+  /// In en, this message translates to:
+  /// **'Chore'**
+  String get hubKindChore;
+
+  /// No description provided for @hubKindGeneral.
+  ///
+  /// In en, this message translates to:
+  /// **'General'**
+  String get hubKindGeneral;
+
+  /// No description provided for @hubKindInventory.
+  ///
+  /// In en, this message translates to:
+  /// **'Inventory'**
+  String get hubKindInventory;
+
+  /// No description provided for @hubAssignedTo.
+  ///
+  /// In en, this message translates to:
+  /// **'Assigned to {name}'**
+  String hubAssignedTo(String name);
+
+  /// No description provided for @hubStatusLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Status: {status}'**
+  String hubStatusLabel(String status);
+
+  /// No description provided for @hubDueOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Due {date}'**
+  String hubDueOn(String date);
+
+  /// No description provided for @hubActivityLine.
+  ///
+  /// In en, this message translates to:
+  /// **'{actor} {action} {title}'**
+  String hubActivityLine(Object action, Object actor, Object title);
+
+  /// No description provided for @membersCountCap.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 Member} other{{count} Members}}'**
+  String membersCountCap(int count);
+
+  /// No description provided for @profileNameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Full Name'**
+  String get profileNameLabel;
+
+  /// No description provided for @agoMinutesShort.
+  ///
+  /// In en, this message translates to:
+  /// **'{n}m ago'**
+  String agoMinutesShort(int n);
+
+  /// No description provided for @agoHoursShort.
+  ///
+  /// In en, this message translates to:
+  /// **'{n}h ago'**
+  String agoHoursShort(int n);
+
+  /// No description provided for @agoDaysShort.
+  ///
+  /// In en, this message translates to:
+  /// **'{n}d ago'**
+  String agoDaysShort(int n);
+
+  /// No description provided for @hubLowStockShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Low Stock'**
+  String get hubLowStockShort;
+
+  /// No description provided for @hubDueToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Due today'**
+  String get hubDueToday;
+
+  /// No description provided for @hubDueTomorrow.
+  ///
+  /// In en, this message translates to:
+  /// **'Due tomorrow'**
+  String get hubDueTomorrow;
+
+  /// No description provided for @hubShoppingShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Shopping Items'**
+  String get hubShoppingShort;
+
+  /// No description provided for @profileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile & Settings'**
+  String get profileTitle;
+
+  /// No description provided for @profileSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage your personal details and household rules'**
+  String get profileSubtitle;
+
+  /// No description provided for @householdAdminBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Household Admin'**
+  String get householdAdminBadge;
+
+  /// No description provided for @householdMemberBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Household Member'**
+  String get householdMemberBadge;
+
+  /// No description provided for @editProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Profile'**
+  String get editProfile;
+
+  /// No description provided for @myHouseholdLine.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 Member active} other{{count} Members active}} • {role}'**
+  String myHouseholdLine(int count, String role);
+
+  /// No description provided for @adminControlsRole.
+  ///
+  /// In en, this message translates to:
+  /// **'Admin controls'**
+  String get adminControlsRole;
+
+  /// No description provided for @memberAccessRole.
+  ///
+  /// In en, this message translates to:
+  /// **'Member access'**
+  String get memberAccessRole;
+
+  /// No description provided for @manageHousehold.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage Household'**
+  String get manageHousehold;
+
+  /// No description provided for @myActivity.
+  ///
+  /// In en, this message translates to:
+  /// **'My Activity'**
+  String get myActivity;
+
+  /// No description provided for @liveOverview.
+  ///
+  /// In en, this message translates to:
+  /// **'Live overview'**
+  String get liveOverview;
+
+  /// No description provided for @myAssignedTasks.
+  ///
+  /// In en, this message translates to:
+  /// **'My Assigned Tasks'**
+  String get myAssignedTasks;
+
+  /// No description provided for @myRequests.
+  ///
+  /// In en, this message translates to:
+  /// **'My Requests'**
+  String get myRequests;
+
+  /// No description provided for @myCompletedTasks.
+  ///
+  /// In en, this message translates to:
+  /// **'My Completed Tasks'**
+  String get myCompletedTasks;
+
+  /// No description provided for @countActive.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} active'**
+  String countActive(int count);
+
+  /// No description provided for @countOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} open'**
+  String countOpen(int count);
+
+  /// No description provided for @countDone.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} done'**
+  String countDone(int count);
+
+  /// No description provided for @preferencesHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Preferences'**
+  String get preferencesHeading;
+
+  /// No description provided for @notifSubOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Push & In-App enabled'**
+  String get notifSubOn;
+
+  /// No description provided for @notifSubOff.
+  ///
+  /// In en, this message translates to:
+  /// **'Push notifications off'**
+  String get notifSubOff;
+
+  /// No description provided for @appLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'App Language'**
+  String get appLanguage;
+
+  /// No description provided for @languageValue.
+  ///
+  /// In en, this message translates to:
+  /// **'English (US)'**
+  String get languageValue;
+
+  /// No description provided for @appearance.
+  ///
+  /// In en, this message translates to:
+  /// **'Appearance'**
+  String get appearance;
+
+  /// No description provided for @appearanceValue.
+  ///
+  /// In en, this message translates to:
+  /// **'System Default'**
+  String get appearanceValue;
+
+  /// No description provided for @highContrast.
+  ///
+  /// In en, this message translates to:
+  /// **'High Contrast Mode'**
+  String get highContrast;
+
+  /// No description provided for @highContrastOff.
+  ///
+  /// In en, this message translates to:
+  /// **'Standard text rendering'**
+  String get highContrastOff;
+
+  /// No description provided for @highContrastOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Bold, high-contrast text'**
+  String get highContrastOn;
+
+  /// No description provided for @accountSecurity.
+  ///
+  /// In en, this message translates to:
+  /// **'Account & Security'**
+  String get accountSecurity;
+
+  /// No description provided for @changePassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Change Password'**
+  String get changePassword;
+
+  /// No description provided for @newPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'New Password'**
+  String get newPassword;
+
+  /// No description provided for @passwordChangedToast.
+  ///
+  /// In en, this message translates to:
+  /// **'Password updated'**
+  String get passwordChangedToast;
+
+  /// No description provided for @privacySecurity.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy & Security'**
+  String get privacySecurity;
+
+  /// No description provided for @privacyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your data lives in a private database. Only members of your household can see its inventory, tasks, shopping lists and messages. Photos are kept in private storage, and invitation codes are stored only as one-way hashes.'**
+  String get privacyBody;
+
+  /// No description provided for @helpSupport.
+  ///
+  /// In en, this message translates to:
+  /// **'Help & Support'**
+  String get helpSupport;
+
+  /// No description provided for @helpMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Still stuck? Ask your household admin to send a fresh invitation or check your connection and try again.'**
+  String get helpMore;
+
+  /// No description provided for @signOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign Out'**
+  String get signOut;
+
+  /// No description provided for @signOutTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign out of HomeCircle?'**
+  String get signOutTitle;
+
+  /// No description provided for @signOutPre.
+  ///
+  /// In en, this message translates to:
+  /// **'You will need to sign in again to access '**
+  String get signOutPre;
+
+  /// No description provided for @signOutPost.
+  ///
+  /// In en, this message translates to:
+  /// **' chores, alerts, and pantry inventory.'**
+  String get signOutPost;
+
+  /// No description provided for @madeForFamily.
+  ///
+  /// In en, this message translates to:
+  /// **'Made for family harmony'**
+  String get madeForFamily;
+
+  /// No description provided for @quickSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick Settings'**
+  String get quickSettings;
+
+  /// No description provided for @close.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get close;
+
+  /// No description provided for @taskRequestedBy.
+  ///
+  /// In en, this message translates to:
+  /// **'Requested by {name}'**
+  String taskRequestedBy(String name);
+
+  /// No description provided for @taskDueLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Due: {when}'**
+  String taskDueLabel(String when);
+
+  /// No description provided for @taskToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get taskToday;
+
+  /// No description provided for @taskTomorrow.
+  ///
+  /// In en, this message translates to:
+  /// **'Tomorrow'**
+  String get taskTomorrow;
+
+  /// No description provided for @taskActionComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark Complete'**
+  String get taskActionComplete;
+
+  /// No description provided for @taskActionTake.
+  ///
+  /// In en, this message translates to:
+  /// **'Take Task'**
+  String get taskActionTake;
+
+  /// No description provided for @taskActionUpdate.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Status'**
+  String get taskActionUpdate;
+
+  /// No description provided for @taskNewTask.
+  ///
+  /// In en, this message translates to:
+  /// **'New Task'**
+  String get taskNewTask;
+
+  /// No description provided for @taskAllClear.
+  ///
+  /// In en, this message translates to:
+  /// **'All clear for now!'**
+  String get taskAllClear;
+
+  /// No description provided for @taskAllClearBody.
+  ///
+  /// In en, this message translates to:
+  /// **'There are no active household tasks or requests. Everything at home is running smoothly.'**
+  String get taskAllClearBody;
+
+  /// No description provided for @taskCaughtUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Household is all caught up'**
+  String get taskCaughtUp;
+
+  /// No description provided for @taskFilteredEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Filtered view empty'**
+  String get taskFilteredEmpty;
+
+  /// No description provided for @taskFilteredEmptyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'No requests match your current filters.'**
+  String get taskFilteredEmptyBody;
+
+  /// No description provided for @taskOfflineTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re offline • Showing cached tasks'**
+  String get taskOfflineTitle;
+
+  /// No description provided for @taskCouldntRefresh.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t refresh tasks'**
+  String get taskCouldntRefresh;
+
+  /// No description provided for @taskSortBy.
+  ///
+  /// In en, this message translates to:
+  /// **'Sort by'**
+  String get taskSortBy;
+
+  /// No description provided for @taskAssignedToName.
+  ///
+  /// In en, this message translates to:
+  /// **'Assigned to {name}'**
+  String taskAssignedToName(String name);
+
+  /// No description provided for @taskKindRepairs.
+  ///
+  /// In en, this message translates to:
+  /// **'Repairs'**
+  String get taskKindRepairs;
+
+  /// No description provided for @taskKindChores.
+  ///
+  /// In en, this message translates to:
+  /// **'Chores'**
+  String get taskKindChores;
+
+  /// No description provided for @taskDetailsHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Task Details'**
+  String get taskDetailsHeading;
+
+  /// No description provided for @taskCellReported.
+  ///
+  /// In en, this message translates to:
+  /// **'Reported by'**
+  String get taskCellReported;
+
+  /// No description provided for @taskCellAssigned.
+  ///
+  /// In en, this message translates to:
+  /// **'Assigned to'**
+  String get taskCellAssigned;
+
+  /// No description provided for @taskCellDue.
+  ///
+  /// In en, this message translates to:
+  /// **'Due by'**
+  String get taskCellDue;
+
+  /// No description provided for @taskCellLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Location'**
+  String get taskCellLocation;
+
+  /// No description provided for @taskTapReassign.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to reassign'**
+  String get taskTapReassign;
+
+  /// No description provided for @taskTapAssign.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to assign'**
+  String get taskTapAssign;
+
+  /// No description provided for @taskUrgentTurnaround.
+  ///
+  /// In en, this message translates to:
+  /// **'Urgent turnaround'**
+  String get taskUrgentTurnaround;
+
+  /// No description provided for @taskProgressState.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress State'**
+  String get taskProgressState;
+
+  /// No description provided for @taskSynchronized.
+  ///
+  /// In en, this message translates to:
+  /// **'Synchronized'**
+  String get taskSynchronized;
+
+  /// No description provided for @taskOfflineShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Offline'**
+  String get taskOfflineShort;
+
+  /// No description provided for @taskSegProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress'**
+  String get taskSegProgress;
+
+  /// No description provided for @taskSegDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get taskSegDone;
+
+  /// No description provided for @taskMarkCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark as Completed'**
+  String get taskMarkCompleted;
+
+  /// No description provided for @taskNotifyHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Your household is notified when you complete a request.'**
+  String get taskNotifyHint;
+
+  /// No description provided for @taskDiscussion.
+  ///
+  /// In en, this message translates to:
+  /// **'Discussion'**
+  String get taskDiscussion;
+
+  /// No description provided for @taskCommentCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 comment} other{{count} comments}}'**
+  String taskCommentCount(int count);
+
+  /// No description provided for @taskSharedWithHousehold.
+  ///
+  /// In en, this message translates to:
+  /// **'Shared with household'**
+  String get taskSharedWithHousehold;
+
+  /// No description provided for @taskWriteUpdate.
+  ///
+  /// In en, this message translates to:
+  /// **'Write an update...'**
+  String get taskWriteUpdate;
+
+  /// No description provided for @taskActivityLog.
+  ///
+  /// In en, this message translates to:
+  /// **'Activity Log'**
+  String get taskActivityLog;
+
+  /// No description provided for @taskEventCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 event} other{{count} events}}'**
+  String taskEventCount(int count);
+
+  /// No description provided for @taskMoreOptions.
+  ///
+  /// In en, this message translates to:
+  /// **'More options'**
+  String get taskMoreOptions;
+
+  /// No description provided for @taskLoadPhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Load photo'**
+  String get taskLoadPhoto;
+
+  /// No description provided for @taskLocationNone.
+  ///
+  /// In en, this message translates to:
+  /// **'Not specified'**
+  String get taskLocationNone;
+
+  /// No description provided for @taskFormIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Let your family know what needs to be done. We\'ll alert the right household member right away!'**
+  String get taskFormIntro;
+
+  /// No description provided for @taskStepKind.
+  ///
+  /// In en, this message translates to:
+  /// **'1. What kind of request?'**
+  String get taskStepKind;
+
+  /// No description provided for @taskRequiredTag.
+  ///
+  /// In en, this message translates to:
+  /// **'REQUIRED'**
+  String get taskRequiredTag;
+
+  /// No description provided for @taskKindShoppingSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Need to buy'**
+  String get taskKindShoppingSub;
+
+  /// No description provided for @taskKindRepairSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Needs fixing'**
+  String get taskKindRepairSub;
+
+  /// No description provided for @taskKindChoreSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Routine tasks'**
+  String get taskKindChoreSub;
+
+  /// No description provided for @taskKindGeneralSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Other family note'**
+  String get taskKindGeneralSub;
+
+  /// No description provided for @taskWhatNeeds.
+  ///
+  /// In en, this message translates to:
+  /// **'What needs to be done?'**
+  String get taskWhatNeeds;
+
+  /// No description provided for @taskTapEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to edit'**
+  String get taskTapEdit;
+
+  /// No description provided for @taskDescContext.
+  ///
+  /// In en, this message translates to:
+  /// **'Description & Context'**
+  String get taskDescContext;
+
+  /// No description provided for @taskDiagnostics.
+  ///
+  /// In en, this message translates to:
+  /// **'Repair Diagnostics'**
+  String get taskDiagnostics;
+
+  /// No description provided for @taskRepairActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Repair Active'**
+  String get taskRepairActive;
+
+  /// No description provided for @taskAffected.
+  ///
+  /// In en, this message translates to:
+  /// **'Affected Item / Room'**
+  String get taskAffected;
+
+  /// No description provided for @taskLinkChange.
+  ///
+  /// In en, this message translates to:
+  /// **'Change'**
+  String get taskLinkChange;
+
+  /// No description provided for @taskLinkPrefix.
+  ///
+  /// In en, this message translates to:
+  /// **'Inventory link: {name}'**
+  String taskLinkPrefix(String name);
+
+  /// No description provided for @taskLinkNone.
+  ///
+  /// In en, this message translates to:
+  /// **'Link an inventory item'**
+  String get taskLinkNone;
+
+  /// No description provided for @taskPhotoEvidence.
+  ///
+  /// In en, this message translates to:
+  /// **'Photo Evidence'**
+  String get taskPhotoEvidence;
+
+  /// No description provided for @taskPhotoCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} of 1 uploaded'**
+  String taskPhotoCount(int count);
+
+  /// No description provided for @taskAddPhotoShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Add photo'**
+  String get taskAddPhotoShort;
+
+  /// No description provided for @taskMaxSize.
+  ///
+  /// In en, this message translates to:
+  /// **'Max 5MB'**
+  String get taskMaxSize;
+
+  /// No description provided for @taskPriorityLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Priority Level'**
+  String get taskPriorityLevel;
+
+  /// No description provided for @taskNeedsFast.
+  ///
+  /// In en, this message translates to:
+  /// **'Needs fast attention'**
+  String get taskNeedsFast;
+
+  /// No description provided for @taskAssignResp.
+  ///
+  /// In en, this message translates to:
+  /// **'Assign Responsibility'**
+  String get taskAssignResp;
+
+  /// No description provided for @taskWhoHandles.
+  ///
+  /// In en, this message translates to:
+  /// **'Who will handle this?'**
+  String get taskWhoHandles;
+
+  /// No description provided for @taskSelectedCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} Selected'**
+  String taskSelectedCount(int count);
+
+  /// No description provided for @taskAnyone.
+  ///
+  /// In en, this message translates to:
+  /// **'Anyone'**
+  String get taskAnyone;
+
+  /// No description provided for @taskTargetCompletion.
+  ///
+  /// In en, this message translates to:
+  /// **'Target Completion'**
+  String get taskTargetCompletion;
+
+  /// No description provided for @taskPickDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick date'**
+  String get taskPickDate;
+
+  /// No description provided for @taskThisWeekend.
+  ///
+  /// In en, this message translates to:
+  /// **'This Weekend'**
+  String get taskThisWeekend;
+
+  /// No description provided for @taskDraftSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Draft saved on this device'**
+  String get taskDraftSaved;
+
+  /// No description provided for @shoppingTapCheckbox.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap checkbox to mark purchased'**
+  String get shoppingTapCheckbox;
+
+  /// No description provided for @shoppingLinkedTo.
+  ///
+  /// In en, this message translates to:
+  /// **'Linked to {name}'**
+  String shoppingLinkedTo(String name);
+
+  /// No description provided for @shoppingQuickHint.
+  ///
+  /// In en, this message translates to:
+  /// **'+ Add something to buy...'**
+  String get shoppingQuickHint;
+
+  /// No description provided for @shoppingStockNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchasing an item notifies the household without auto-updating physical stock until confirmed.'**
+  String get shoppingStockNote;
+
+  /// No description provided for @shoppingUndoShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Undo'**
+  String get shoppingUndoShort;
+
+  /// No description provided for @shoppingFiltersTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Filters'**
+  String get shoppingFiltersTooltip;
+
+  /// No description provided for @shoppingAddItemTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Shopping Item'**
+  String get shoppingAddItemTitle;
+
+  /// No description provided for @shoppingSheetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to Shopping List'**
+  String get shoppingSheetTitle;
+
+  /// No description provided for @shoppingSheetSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What should we replenish next?'**
+  String get shoppingSheetSubtitle;
+
+  /// No description provided for @shoppingAutoSuggest.
+  ///
+  /// In en, this message translates to:
+  /// **'Fast auto-suggest'**
+  String get shoppingAutoSuggest;
+
+  /// No description provided for @shoppingQtyMeasure.
+  ///
+  /// In en, this message translates to:
+  /// **'Quantity & Measure'**
+  String get shoppingQtyMeasure;
+
+  /// No description provided for @shoppingAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount'**
+  String get shoppingAmount;
+
+  /// No description provided for @shoppingUrgency.
+  ///
+  /// In en, this message translates to:
+  /// **'Urgency Level'**
+  String get shoppingUrgency;
+
+  /// No description provided for @shoppingLinkInventory.
+  ///
+  /// In en, this message translates to:
+  /// **'Link to Inventory'**
+  String get shoppingLinkInventory;
+
+  /// No description provided for @shoppingStockHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Asks before updating stock when marked purchased'**
+  String get shoppingStockHint;
+
+  /// No description provided for @shoppingAssignedFor.
+  ///
+  /// In en, this message translates to:
+  /// **'Assigned for trip by'**
+  String get shoppingAssignedFor;
+
+  /// No description provided for @shoppingFamilyShared.
+  ///
+  /// In en, this message translates to:
+  /// **'Family shared'**
+  String get shoppingFamilyShared;
+
+  /// No description provided for @shoppingAddShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Add'**
+  String get shoppingAddShort;
+
+  /// No description provided for @assignSheetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Assign Family Member'**
+  String get assignSheetTitle;
+
+  /// No description provided for @assignedCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} Assigned'**
+  String assignedCount(int count);
+
+  /// No description provided for @unassignedPool.
+  ///
+  /// In en, this message translates to:
+  /// **'Pool'**
+  String get unassignedPool;
+
+  /// No description provided for @resetLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get resetLabel;
+
+  /// No description provided for @applySelection.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply Selection'**
+  String get applySelection;
+
+  /// No description provided for @chatCreateTaskChip.
+  ///
+  /// In en, this message translates to:
+  /// **'+ Create Task'**
+  String get chatCreateTaskChip;
+
+  /// No description provided for @chatAddShoppingChip.
+  ///
+  /// In en, this message translates to:
+  /// **'+ Add to Shopping'**
+  String get chatAddShoppingChip;
+
+  /// No description provided for @chatViewTask.
+  ///
+  /// In en, this message translates to:
+  /// **'View Task'**
+  String get chatViewTask;
+
+  /// No description provided for @chatSharedKind.
+  ///
+  /// In en, this message translates to:
+  /// **'Household {kind} Task'**
+  String chatSharedKind(String kind);
+
+  /// No description provided for @hubUpdatesCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 update} other{{count} updates}}'**
+  String hubUpdatesCount(int count);
+
+  /// No description provided for @hubNewCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} new'**
+  String hubNewCount(int count);
+
+  /// No description provided for @hubStaySynced.
+  ///
+  /// In en, this message translates to:
+  /// **'Stay updated with home sync'**
+  String get hubStaySynced;
+
+  /// No description provided for @hubViewTask.
+  ///
+  /// In en, this message translates to:
+  /// **'View Task'**
+  String get hubViewTask;
+
+  /// No description provided for @hubViewShopping.
+  ///
+  /// In en, this message translates to:
+  /// **'View Shopping'**
+  String get hubViewShopping;
+
+  /// No description provided for @hubViewItem.
+  ///
+  /// In en, this message translates to:
+  /// **'View Item'**
+  String get hubViewItem;
+
+  /// No description provided for @hubViewDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Details'**
+  String get hubViewDetails;
+
+  /// No description provided for @hubOpenChat.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Chat'**
+  String get hubOpenChat;
+
+  /// No description provided for @hubPeace.
+  ///
+  /// In en, this message translates to:
+  /// **'Peace of Mind'**
+  String get hubPeace;
+
+  /// No description provided for @hubOlderArchives.
+  ///
+  /// In en, this message translates to:
+  /// **'Looking for older archives?'**
+  String get hubOlderArchives;
+
+  /// No description provided for @hubHistoryArchive.
+  ///
+  /// In en, this message translates to:
+  /// **'History Archive'**
+  String get hubHistoryArchive;
+
+  /// No description provided for @hubAllCount.
+  ///
+  /// In en, this message translates to:
+  /// **'All ({count})'**
+  String hubAllCount(int count);
 }
 
 class _AppLocalizationsDelegate

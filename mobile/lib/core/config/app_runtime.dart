@@ -144,6 +144,7 @@ class AppRuntime {
         store: store,
         realtime: RealtimeScope(supabase),
         loadProfile: households.profile,
+        minSplash: const Duration(milliseconds: 2400),
       ),
       diagnostics: DiagnosticsViewModel(
         DiagnosticsRepository(api, householdApi),

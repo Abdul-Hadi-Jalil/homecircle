@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Same vertical gradient as the Flutter splash screen (UI/splash screen). -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <gradient
+        android:angle="270"
+        android:startColor="#1B3BB8"
+        android:centerColor="#2248D1"
+        android:endColor="#12246B"
+        android:type="linear" />
+</shape>

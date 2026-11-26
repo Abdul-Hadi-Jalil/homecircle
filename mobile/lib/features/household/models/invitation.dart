@@ -27,22 +27,39 @@ class IssuedInvitation {
 }
 
 class InvitationPreview {
-  const InvitationPreview(this.householdId, this.name, this.alreadyMember);
+  const InvitationPreview(
+    this.householdId,
+    this.name,
+    this.alreadyMember, {
+    this.memberCount = 0,
+    this.avatarKey,
+  });
   final String householdId;
   final String name;
   final bool alreadyMember;
+  final int memberCount;
+  final String? avatarKey;
   factory InvitationPreview.fromJson(Map<String, dynamic> value) =>
       InvitationPreview(
         value['household_id'] as String,
         value['name'] as String,
         value['already_member'] as bool,
+        memberCount: (value['member_count'] as num?)?.toInt() ?? 0,
+        avatarKey: value['avatar_key'] as String?,
       );
 }
 
 class HouseholdMember {
-  const HouseholdMember(this.name, this.role);
+  const HouseholdMember(this.name, this.role, {this.userId, this.joinedAt});
   final String name;
   final String role;
+  final String? userId;
+  final DateTime? joinedAt;
   factory HouseholdMember.fromJson(Map<String, dynamic> value) =>
-      HouseholdMember(value['display_name'] as String, value['role'] as String);
+      HouseholdMember(
+        value['display_name'] as String,
+        value['role'] as String,
+        userId: value['user_id'] as String?,
+        joinedAt: DateTime.tryParse(value['joined_at'] as String? ?? ''),
+      );
 }

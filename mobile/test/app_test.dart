@@ -4,6 +4,7 @@ import 'package:homecircle/app.dart';
 import 'package:homecircle/core/config/app_config.dart';
 import 'package:homecircle/core/router/route_guard.dart';
 import 'package:homecircle/core/theme/app_theme.dart';
+import 'package:homecircle/core/widgets/mock_widgets.dart';
 import 'package:homecircle/features/auth/models/auth_identity.dart';
 
 import 'support/fakes.dart';
@@ -103,7 +104,7 @@ void main() {
       find.text('Everything your home needs, in one place.'),
       findsOneWidget,
     );
-    await tester.tap(find.text('Log in'));
+    await tester.tap(find.text('Sign In'));
     await tester.pumpAndSettle();
     expect(find.byType(TextFormField), findsNWidgets(2));
     await tester.pumpWidget(const SizedBox());
@@ -118,8 +119,8 @@ void main() {
     );
     await tester.pumpWidget(HomeCircleApp(runtime: fixture.runtime));
     await tester.pumpAndSettle();
-    expect(find.text('Select household'), findsOneWidget);
-    expect(find.byType(NavigationBar), findsNothing);
+    expect(find.text("Let's set up your home"), findsOneWidget);
+    expect(find.byType(AppBottomNav), findsNothing);
     await tester.pumpWidget(const SizedBox());
     await fixture.auth.events.close();
   });
@@ -134,7 +135,7 @@ void main() {
     await tester.pumpWidget(HomeCircleApp(runtime: fixture.runtime));
     await tester.pumpAndSettle();
     expect(find.text('Home a'), findsOneWidget);
-    expect(find.byType(NavigationDestination), findsNWidgets(5));
+    expect(find.byType(AppBottomNav), findsOneWidget);
     await tester.tap(find.text('Inventory'));
     await tester.pumpAndSettle();
     expect(find.text('Inventory'), findsNWidgets(2));

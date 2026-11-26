@@ -272,3 +272,53 @@ def test_rate_counter_persists_across_transactions(database):
     for _ in range(20):
         assert database.execute("SELECT public.consume_invite_attempt() AS ok").fetchone()["ok"]
     assert not database.execute("SELECT public.consume_invite_attempt() AS ok").fetchone()["ok"]
+
+
+def test_avatar_key_is_admin_only_and_constrained(database):
+    admin, member = user(database), user(database)
+    household_id = create(database, admin)
+    database.execute(
+        "INSERT INTO public.household_members(household_id, user_id, role) "
+        "VALUES (%s, %s, 'member')",
+        (household_id, member),
+    )
+    as_actor(database, admin, "homecircle_api")
+    updated = database.execute(
+        "UPDATE public.households SET avatar_key = 'forest' WHERE id = %s RETURNING avatar_key",
+        (household_id,),
+    ).fetchone()
+    assert updated["avatar_key"] == "forest"
+    with pytest.raises(psycopg.errors.CheckViolation), database.transaction():
+        database.execute(
+            "UPDATE public.households SET avatar_key = 'not-a-preset' WHERE id = %s",
+            (household_id,),
+        )
+    as_actor(database, member, "homecircle_api")
+    denied = database.execute(
+        "UPDATE public.households SET avatar_key = 'pets' WHERE id = %s RETURNING id",
+        (household_id,),
+    ).fetchone()
+    assert denied is None
+
+
+def test_members_can_leave_but_the_last_admin_cannot(database):
+    admin, member = user(database), user(database)
+    household_id = create(database, admin)
+    database.execute(
+        "INSERT INTO public.household_members(household_id, user_id, role) "
+        "VALUES (%s, %s, 'member')",
+        (household_id, member),
+    )
+    as_actor(database, admin, "homecircle_api")
+    with pytest.raises(psycopg.errors.CheckViolation), database.transaction():
+        database.execute("SELECT public.leave_household(%s)", (household_id,))
+    as_actor(database, member, "homecircle_api")
+    database.execute("SELECT public.leave_household(%s)", (household_id,))
+    as_actor(database, admin, "homecircle_api")
+    remaining = database.execute(
+        "SELECT user_id FROM public.household_members WHERE household_id = %s", (household_id,)
+    ).fetchall()
+    assert [row["user_id"] for row in remaining] == [admin]
+    as_actor(database, member, "homecircle_api")
+    with pytest.raises(psycopg.errors.NoDataFound), database.transaction():
+        database.execute("SELECT public.leave_household(%s)", (household_id,))

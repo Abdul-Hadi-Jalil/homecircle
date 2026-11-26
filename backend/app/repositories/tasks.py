@@ -81,6 +81,9 @@ class TaskRepository:
             args.append(actor)
         elif filters.get("assignment") == "unassigned":
             clauses.append("t.assigned_to IS NULL")
+        elif filters.get("assignment") == "requested":
+            clauses.append("t.created_by=%s")
+            args.append(actor)
         for key, expression in [("due_before", "t.due_date<=%s"), ("due_after", "t.due_date>=%s")]:
             if filters.get(key):
                 clauses.append(expression)

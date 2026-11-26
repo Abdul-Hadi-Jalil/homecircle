@@ -7,7 +7,9 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/theme/app_theme.dart';
+import '../../../core/localization/generated/app_localizations.dart';
 import '../../../core/widgets/app_widgets.dart';
+import '../../../core/widgets/mock_widgets.dart';
 import '../../tasks/models/household_task.dart';
 import '../../tasks/viewmodels/tasks_view_model.dart';
 import '../../tasks/widgets/task_widgets.dart';
@@ -309,6 +311,22 @@ class _FamilyChatScreenState extends State<FamilyChatScreen>
     }
   }
 
+  Future<void> convertTo(ChatMessage message, TaskKind type) async {
+    final vm = model!, captured = model!.scope;
+    final source = ChatTaskSource(
+      messageId: message.id,
+      household: message.household,
+      body: message.body,
+      revision: message.revision,
+    );
+    await context.pushNamed(
+      type == TaskKind.shopping ? 'addShopping' : 'createTask',
+      queryParameters: type == TaskKind.shopping ? {} : {'type': type.name},
+      extra: source,
+    );
+    if (mounted && vm.current(captured)) await vm.load();
+  }
+
   @override
   Widget build(BuildContext context) {
     final vm = context.watch<FamilyChatViewModel>(),
@@ -318,71 +336,116 @@ class _FamilyChatScreenState extends State<FamilyChatScreen>
     final compactComposer =
         MediaQuery.sizeOf(context).width < 360 ||
         MediaQuery.textScalerOf(context).scale(14) > 21;
+    Widget composerButton(String tip, IconData icon, VoidCallback? onTap) =>
+        IconButton(
+          tooltip: tip,
+          onPressed: onTap,
+          icon: Icon(icon, size: 26, color: AppColors.muted),
+        );
     final composerActions = [
-      IconButton(
-        tooltip: l.chatAttach,
-        onPressed: vm.sending ? null : chooseImage,
-        icon: const Icon(Icons.photo_camera_outlined),
+      composerButton(
+        l.chatShareTask,
+        Icons.add_circle_outline,
+        vm.sending ? null : shareTask,
       ),
-      IconButton(
-        tooltip: l.hubMention,
-        onPressed: vm.sending ? null : chooseMention,
-        icon: const Icon(Icons.alternate_email),
+      composerButton(
+        l.chatAttach,
+        Icons.photo_camera_outlined,
+        vm.sending ? null : chooseImage,
       ),
-      IconButton(
-        tooltip: l.chatShareTask,
-        onPressed: vm.sending ? null : shareTask,
-        icon: const Icon(Icons.add_circle_outline),
+      composerButton(
+        l.hubMention,
+        Icons.alternate_email,
+        vm.sending ? null : chooseMention,
       ),
     ];
     return AppScaffold(
       title: l.chatTitle,
-      actions: [
-        IconButton(
-          tooltip: l.taskRefresh,
-          onPressed: vm.loading ? null : () => vm.load(),
-          icon: const Icon(Icons.refresh),
-        ),
-      ],
+      appBar: BrandAppBar(
+        title: l.appName,
+        onProfile: () => context.goNamed('profile'),
+        actions: [
+          IconButton(
+            tooltip: l.taskRefresh,
+            onPressed: vm.loading ? null : () => vm.load(),
+            icon: const Icon(Icons.refresh, color: AppColors.text),
+          ),
+        ],
+      ),
       body: Column(
         children: [
-          ListTile(
-            leading: CircleAvatar(
-              child: Text(
-                (home?.name.isNotEmpty == true ? home!.name : '?')
-                    .characters
-                    .first,
-              ),
-            ),
-            title: Text(
-              home?.name ?? '',
-              style: const TextStyle(fontWeight: FontWeight.w700),
-            ),
-            subtitle: Text(l.chatMembers(home?.memberCount ?? 0)),
-            trailing: IconButton(
-              tooltip: l.familyMembers,
-              onPressed: () => context.pushNamed('members'),
-              icon: const Icon(Icons.info_outline),
+          Container(
+            color: Colors.white,
+            padding: const EdgeInsetsDirectional.fromSTEB(16, 8, 8, 8),
+            child: Row(
+              children: [
+                Container(
+                  width: 44,
+                  height: 44,
+                  decoration: const BoxDecoration(
+                    color: AppColors.surfaceHigh,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    HouseholdAvatars.icon(home?.avatarKey),
+                    size: 24,
+                    color: AppColors.primaryContainer,
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        home?.name ?? '',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: AppText.headlineSm.copyWith(
+                          color: AppColors.text,
+                        ),
+                      ),
+                      Text(
+                        l.chatMembers(home?.memberCount ?? 0),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: AppText.labelMd.copyWith(
+                          color: AppColors.muted,
+                          letterSpacing: 0,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                IconButton(
+                  tooltip: l.familyMembers,
+                  onPressed: () => context.pushNamed('members'),
+                  icon: const Icon(Icons.info_outline, color: AppColors.muted),
+                ),
+              ],
             ),
           ),
-          if (vm.loading) const LinearProgressIndicator(),
+          if (vm.loading) const LinearProgressIndicator(minHeight: 2),
           Expanded(
             child: ListView(
               controller: scroll,
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsetsDirectional.fromSTEB(16, 8, 16, 16),
               children: [
                 if (!vm.connected)
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 4),
+                    padding: const EdgeInsetsDirectional.symmetric(vertical: 4),
                     child: Text(
                       l.chatReconnecting,
-                      style: Theme.of(context).textTheme.bodySmall,
+                      style: AppText.bodySm.copyWith(color: AppColors.muted),
                     ),
                   ),
                 if (vm.cached)
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: Text(l.chatCached),
+                    child: Text(
+                      l.chatCached,
+                      style: AppText.bodySm.copyWith(color: AppColors.primary),
+                    ),
                   ),
                 if (vm.cacheError)
                   Padding(
@@ -392,26 +455,39 @@ class _FamilyChatScreenState extends State<FamilyChatScreen>
                 if (vm.error != null)
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: Text(chatError(context, vm.error)),
+                    child: Text(
+                      chatError(context, vm.error),
+                      style: AppText.bodySm.copyWith(color: AppColors.danger),
+                    ),
                   ),
                 if (vm.hasOlder)
                   TextButton(
                     onPressed: vm.olderLoading ? null : older,
                     child: Text(l.chatOlder),
                   ),
-                if (vm.olderLoading) const LinearProgressIndicator(),
+                if (vm.olderLoading)
+                  const LinearProgressIndicator(minHeight: 2),
                 if (rows.isEmpty && vm.pending.isEmpty && !vm.loading)
                   Padding(
                     padding: const EdgeInsets.all(24),
                     child: Column(
                       children: [
-                        const Icon(
-                          Icons.forum_outlined,
-                          size: 56,
-                          color: AppColors.primary,
+                        const IconTile(
+                          icon: Icons.forum_outlined,
+                          bg: AppColors.surfaceContainer,
+                          fg: AppColors.primary,
+                          size: 64,
+                          iconSize: 32,
+                          radius: 32,
                         ),
                         const SizedBox(height: 16),
-                        Text(l.chatEmpty, textAlign: TextAlign.center),
+                        Text(
+                          l.chatEmpty,
+                          textAlign: TextAlign.center,
+                          style: AppText.bodyMd.copyWith(
+                            color: AppColors.muted,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -421,13 +497,18 @@ class _FamilyChatScreenState extends State<FamilyChatScreen>
                           DateUtils.dateOnly(rows[i].created.toLocal()))
                     Center(
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        child: Chip(
-                          label: Text(
-                            DateFormat.yMMMd().format(
-                              rows[i].created.toLocal(),
-                            ),
+                        padding: const EdgeInsetsDirectional.symmetric(
+                          vertical: 12,
+                        ),
+                        child: AppPill(
+                          _dayLabel(l, rows[i].created.toLocal()),
+                          bg: AppColors.surfaceContainer,
+                          fg: AppColors.muted,
+                          padding: const EdgeInsetsDirectional.symmetric(
+                            horizontal: 16,
+                            vertical: 6,
                           ),
+                          style: AppText.labelMd.copyWith(letterSpacing: 0),
                         ),
                       ),
                     ),
@@ -435,6 +516,8 @@ class _FamilyChatScreenState extends State<FamilyChatScreen>
                     message: rows[i],
                     mine: rows[i].sender == vm.user,
                     onLongPress: () => actions(rows[i]),
+                    onCreateTask: () => convert(rows[i]),
+                    onAddShopping: () => convertTo(rows[i], TaskKind.shopping),
                   ),
                 ],
                 for (final pending in vm.pending.values)
@@ -453,54 +536,92 @@ class _FamilyChatScreenState extends State<FamilyChatScreen>
             child: SafeArea(
               top: false,
               child: Padding(
-                padding: const EdgeInsets.all(12),
+                padding: const EdgeInsetsDirectional.fromSTEB(8, 8, 12, 8),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     if (vm.mentions.isNotEmpty)
-                      Wrap(
-                        spacing: 6,
-                        children: [
-                          for (final entry in vm.mentions.entries)
-                            InputChip(
-                              label: Text('@${entry.value}'),
-                              onDeleted: () => vm.removeMention(entry.key),
-                            ),
-                        ],
+                      Align(
+                        alignment: AlignmentDirectional.centerStart,
+                        child: Wrap(
+                          spacing: 6,
+                          children: [
+                            for (final entry in vm.mentions.entries)
+                              InputChip(
+                                label: Text('@${entry.value}'),
+                                onDeleted: () => vm.removeMention(entry.key),
+                              ),
+                          ],
+                        ),
                       ),
                     if (vm.replyId != null)
-                      ListTile(
-                        dense: true,
-                        leading: const Icon(Icons.reply),
-                        title: Text(vm.replying?.senderName ?? l.chatReply),
-                        subtitle: Text(
-                          vm.replying?.body ?? l.chatReplyUnavailable,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
+                      Container(
+                        margin: const EdgeInsetsDirectional.only(
+                          start: 8,
+                          bottom: 8,
                         ),
-                        trailing: IconButton(
-                          tooltip: l.taskDismiss,
-                          onPressed: () => vm.reply(null),
-                          icon: const Icon(Icons.close),
+                        padding: const EdgeInsetsDirectional.all(8),
+                        decoration: BoxDecoration(
+                          color: AppColors.surfaceLow,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Row(
+                          children: [
+                            const Icon(Icons.reply, color: AppColors.primary),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    vm.replying?.senderName ?? l.chatReply,
+                                    style: AppText.labelMd.copyWith(
+                                      color: AppColors.text,
+                                    ),
+                                  ),
+                                  Text(
+                                    vm.replying?.body ?? l.chatReplyUnavailable,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: AppText.bodySm.copyWith(
+                                      color: AppColors.muted,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            IconButton(
+                              tooltip: l.taskDismiss,
+                              onPressed: () => vm.reply(null),
+                              icon: const Icon(Icons.close),
+                            ),
+                          ],
                         ),
                       ),
                     if (vm.selectedImage != null)
-                      Row(
-                        children: [
-                          Image.memory(
-                            vm.selectedImage!,
-                            height: 72,
-                            width: 72,
-                            fit: BoxFit.cover,
-                            errorBuilder: (_, _, _) =>
-                                const Icon(Icons.broken_image_outlined),
-                          ),
-                          IconButton(
-                            tooltip: l.taskRemovePhoto,
-                            onPressed: () => vm.photo(null),
-                            icon: const Icon(Icons.close),
-                          ),
-                        ],
+                      Align(
+                        alignment: AlignmentDirectional.centerStart,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              child: Image.memory(
+                                vm.selectedImage!,
+                                height: 72,
+                                width: 72,
+                                fit: BoxFit.cover,
+                                errorBuilder: (_, _, _) =>
+                                    const Icon(Icons.broken_image_outlined),
+                              ),
+                            ),
+                            IconButton(
+                              tooltip: l.taskRemovePhoto,
+                              onPressed: () => vm.photo(null),
+                              icon: const Icon(Icons.close),
+                            ),
+                          ],
+                        ),
                       ),
                     if (compactComposer)
                       Align(
@@ -517,6 +638,9 @@ class _FamilyChatScreenState extends State<FamilyChatScreen>
                             minLines: 1,
                             maxLines: 4,
                             maxLength: 4000,
+                            style: AppText.bodyLg.copyWith(
+                              color: AppColors.text,
+                            ),
                             onChanged: (body) {
                               vm.changeDraft(body);
                               setState(() {});
@@ -524,23 +648,54 @@ class _FamilyChatScreenState extends State<FamilyChatScreen>
                             decoration: InputDecoration(
                               hintText: l.chatComposer,
                               counterText: '',
+                              fillColor: AppColors.surfaceContainer,
+                              contentPadding:
+                                  const EdgeInsetsDirectional.symmetric(
+                                    horizontal: 20,
+                                    vertical: 14,
+                                  ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(9999),
+                                borderSide: BorderSide.none,
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(9999),
+                                borderSide: BorderSide.none,
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(9999),
+                                borderSide: BorderSide.none,
+                              ),
                             ),
                           ),
                         ),
                         const SizedBox(width: 8),
-                        IconButton.filled(
-                          tooltip: l.chatSend,
-                          onPressed:
+                        Material(
+                          color:
                               !vm.ready ||
                                   vm.sending ||
                                   (composer.text.trim().isEmpty &&
                                       vm.selectedImage == null)
-                              ? null
-                              : () {
-                                  vm.send();
-                                  bottom();
-                                },
-                          icon: const Icon(Icons.send_outlined),
+                              ? AppColors.surfaceHighest
+                              : AppColors.primary,
+                          shape: const CircleBorder(),
+                          child: IconButton(
+                            tooltip: l.chatSend,
+                            onPressed:
+                                !vm.ready ||
+                                    vm.sending ||
+                                    (composer.text.trim().isEmpty &&
+                                        vm.selectedImage == null)
+                                ? null
+                                : () {
+                                    vm.send();
+                                    bottom();
+                                  },
+                            icon: const Icon(
+                              Icons.send_outlined,
+                              color: Colors.white,
+                            ),
+                          ),
                         ),
                       ],
                     ),
@@ -553,6 +708,14 @@ class _FamilyChatScreenState extends State<FamilyChatScreen>
       ),
     );
   }
+}
+
+String _dayLabel(AppLocalizations l, DateTime day) {
+  final today = DateUtils.dateOnly(DateTime.now());
+  final d = DateUtils.dateOnly(day);
+  if (d == today) return l.taskToday;
+  if (d == today.subtract(const Duration(days: 1))) return l.hubYesterday;
+  return DateFormat.yMMMd().format(day);
 }
 
 String chatError(BuildContext context, String? code) {
@@ -576,131 +739,274 @@ class _ChatBubble extends StatelessWidget {
     required this.message,
     required this.mine,
     required this.onLongPress,
+    required this.onCreateTask,
+    required this.onAddShopping,
   });
   final ChatMessage message;
   final bool mine;
   final VoidCallback onLongPress;
+  final VoidCallback onCreateTask;
+  final VoidCallback onAddShopping;
   @override
   Widget build(BuildContext context) {
     final l = context.taskCopy;
-    return Align(
-      alignment: mine ? Alignment.centerRight : Alignment.centerLeft,
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 16),
-        child: ConstrainedBox(
-          constraints: BoxConstraints(
-            maxWidth: MediaQuery.sizeOf(context).width * .82,
+    final name = message.senderName?.isNotEmpty == true
+        ? message.senderName!
+        : l.taskFormerMember;
+    final (avBg, avFg) = taskAvatarColors(name);
+    final text = message.deleted ? l.chatDeleted : message.body;
+    final time =
+        '${DateFormat.jm().format(message.created.toLocal())}${message.edited ? ' · ${l.chatEdited}' : ''}';
+    final bubble = Material(
+      color: mine ? AppColors.primary : Colors.white,
+      elevation: 0,
+      borderRadius: BorderRadius.only(
+        topLeft: const Radius.circular(16),
+        topRight: const Radius.circular(16),
+        bottomLeft: Radius.circular(mine ? 16 : 4),
+        bottomRight: Radius.circular(mine ? 4 : 16),
+      ),
+      child: InkWell(
+        onLongPress: message.deleted ? null : onLongPress,
+        borderRadius: BorderRadius.only(
+          topLeft: const Radius.circular(16),
+          topRight: const Radius.circular(16),
+          bottomLeft: Radius.circular(mine ? 16 : 4),
+          bottomRight: Radius.circular(mine ? 4 : 16),
+        ),
+        child: Ink(
+          padding: const EdgeInsetsDirectional.symmetric(
+            horizontal: 16,
+            vertical: 12,
+          ),
+          decoration: BoxDecoration(
+            color: mine ? AppColors.primary : Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: const Radius.circular(16),
+              topRight: const Radius.circular(16),
+              bottomLeft: Radius.circular(mine ? 16 : 4),
+              bottomRight: Radius.circular(mine ? 4 : 16),
+            ),
+            boxShadow: mine ? null : AppShadows.sm,
           ),
           child: Column(
-            crossAxisAlignment: mine
-                ? CrossAxisAlignment.end
-                : CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (!mine)
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 6),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      CircleAvatar(
-                        radius: 14,
-                        child: Text(
-                          (message.senderName?.isNotEmpty == true
-                                  ? message.senderName!
-                                  : '?')
-                              .characters
-                              .first,
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      Flexible(
-                        child: Text(
-                          message.senderName ?? l.taskFormerMember,
-                          style: const TextStyle(fontWeight: FontWeight.w600),
-                        ),
-                      ),
-                    ],
+              if (message.reply != null)
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  margin: const EdgeInsets.only(bottom: 10),
+                  decoration: BoxDecoration(
+                    color: mine
+                        ? Colors.white.withValues(alpha: .15)
+                        : AppColors.surfaceLow,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Text(
+                    message.reply!['deleted'] == true
+                        ? l.chatReplyUnavailable
+                        : '${message.reply!['sender_name'] ?? l.taskFormerMember}\n${message.reply!['body'] ?? ''}',
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                    style: AppText.bodySm.copyWith(
+                      color: mine ? Colors.white : AppColors.text,
+                    ),
                   ),
                 ),
-              Material(
-                color: mine ? AppColors.primary : Colors.white,
-                borderRadius: BorderRadius.circular(20),
-                child: InkWell(
-                  onLongPress: message.deleted ? null : onLongPress,
-                  borderRadius: BorderRadius.circular(20),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16),
+              if (message.deleted || message.body.isNotEmpty)
+                Text(
+                  text,
+                  style: AppText.bodyLg.copyWith(
+                    color: mine ? Colors.white : AppColors.text,
+                    fontStyle: message.deleted
+                        ? FontStyle.italic
+                        : FontStyle.normal,
+                  ),
+                ),
+              for (final attachment in message.attachments)
+                _ChatImage(message: message, attachment: attachment),
+            ],
+          ),
+        ),
+      ),
+    );
+    final shared = [for (final task in message.tasks) _SharedTask(task)];
+    return Padding(
+      padding: const EdgeInsetsDirectional.only(bottom: 16),
+      child: mine
+          ? Align(
+              alignment: AlignmentDirectional.centerEnd,
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxWidth: MediaQuery.sizeOf(context).width * .82,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    bubble,
+                    ...shared,
+                    Padding(
+                      padding: const EdgeInsetsDirectional.only(top: 4),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            time,
+                            style: AppText.labelSm.copyWith(
+                              color: AppColors.muted,
+                              letterSpacing: 0,
+                            ),
+                          ),
+                          const SizedBox(width: 6),
+                          const Icon(
+                            Icons.done_all,
+                            size: 16,
+                            color: AppColors.secondary,
+                          ),
+                          const SizedBox(width: 4),
+                          Text(
+                            l.chatSent,
+                            style: AppText.labelSm.copyWith(
+                              color: AppColors.muted,
+                              letterSpacing: 0,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    _Reactions(message: message, alignEnd: true),
+                  ],
+                ),
+              ),
+            )
+          : Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                InitialsAvatar(name, size: 36, bg: avBg, fg: avFg),
+                const SizedBox(width: 8),
+                Flexible(
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      maxWidth: MediaQuery.sizeOf(context).width * .75,
+                    ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        if (message.reply != null)
-                          Container(
-                            padding: const EdgeInsets.all(10),
-                            margin: const EdgeInsets.only(bottom: 10),
-                            decoration: BoxDecoration(
-                              color: mine
-                                  ? Colors.white.withValues(alpha: .15)
-                                  : AppColors.lightBlue,
-                              borderRadius: BorderRadius.circular(10),
+                        Padding(
+                          padding: const EdgeInsetsDirectional.only(bottom: 4),
+                          child: Text(
+                            name,
+                            style: AppText.labelMd.copyWith(
+                              color: AppColors.muted,
+                              letterSpacing: 0,
                             ),
-                            child: Text(
-                              message.reply!['deleted'] == true
-                                  ? l.chatReplyUnavailable
-                                  : '${message.reply!['sender_name'] ?? l.taskFormerMember}\n${message.reply!['body'] ?? ''}',
-                              maxLines: 3,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                color: mine ? Colors.white : AppColors.text,
+                          ),
+                        ),
+                        bubble,
+                        ...shared,
+                        Padding(
+                          padding: const EdgeInsetsDirectional.only(top: 4),
+                          child: Wrap(
+                            crossAxisAlignment: WrapCrossAlignment.center,
+                            spacing: 8,
+                            children: [
+                              Text(
+                                time,
+                                style: AppText.labelSm.copyWith(
+                                  color: AppColors.muted,
+                                  letterSpacing: 0,
+                                ),
                               ),
-                            ),
+                              if (!message.deleted &&
+                                  message.body.isNotEmpty) ...[
+                                _ActionChip(
+                                  icon: Icons.add_task,
+                                  label: l.chatCreateTaskChip,
+                                  onTap: onCreateTask,
+                                ),
+                                _ActionChip(
+                                  icon: Icons.add_shopping_cart,
+                                  label: l.chatAddShoppingChip,
+                                  onTap: onAddShopping,
+                                ),
+                              ],
+                            ],
                           ),
-                        if (message.deleted || message.body.isNotEmpty)
-                          Text(
-                            message.deleted ? l.chatDeleted : message.body,
-                            style: TextStyle(
-                              color: mine ? Colors.white : AppColors.text,
-                              fontSize: 16,
-                              fontStyle: message.deleted
-                                  ? FontStyle.italic
-                                  : FontStyle.normal,
-                            ),
-                          ),
-                        for (final attachment in message.attachments)
-                          _ChatImage(message: message, attachment: attachment),
-                        for (final task in message.tasks) _SharedTask(task),
+                        ),
+                        _Reactions(message: message, alignEnd: false),
                       ],
                     ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 6),
-                child: Text(
-                  '${DateFormat.jm().format(message.created.toLocal())}${message.edited ? ' · ${l.chatEdited}' : ''}${mine ? ' · ${l.chatSent}' : ''}',
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
-              ),
-              if (message.reactions.isNotEmpty)
-                Wrap(
-                  spacing: 6,
-                  children: [
-                    for (final reaction in message.reactions)
-                      ActionChip(
-                        label: Text(
-                          '${reaction['emoji']} ${reaction['count']}',
-                        ),
-                        onPressed: () =>
-                            context.read<FamilyChatViewModel>().react(
-                              message,
-                              reaction['emoji'] as String,
-                              reaction['mine'] == true,
-                            ),
-                      ),
-                  ],
-                ),
-            ],
-          ),
+              ],
+            ),
+    );
+  }
+}
+
+class _ActionChip extends StatelessWidget {
+  const _ActionChip({
+    required this.icon,
+    required this.label,
+    required this.onTap,
+  });
+  final IconData icon;
+  final String label;
+  final VoidCallback onTap;
+  @override
+  Widget build(BuildContext context) => Material(
+    color: AppColors.surfaceContainer,
+    borderRadius: BorderRadius.circular(9999),
+    child: InkWell(
+      borderRadius: BorderRadius.circular(9999),
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsetsDirectional.symmetric(
+          horizontal: 10,
+          vertical: 4,
         ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icon, size: 14, color: AppColors.primary),
+            const SizedBox(width: 4),
+            Text(
+              label,
+              style: AppText.labelSm.copyWith(
+                color: AppColors.primary,
+                letterSpacing: 0,
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+class _Reactions extends StatelessWidget {
+  const _Reactions({required this.message, required this.alignEnd});
+  final ChatMessage message;
+  final bool alignEnd;
+  @override
+  Widget build(BuildContext context) {
+    if (message.reactions.isEmpty) return const SizedBox.shrink();
+    return Padding(
+      padding: const EdgeInsetsDirectional.only(top: 6),
+      child: Wrap(
+        alignment: alignEnd ? WrapAlignment.end : WrapAlignment.start,
+        spacing: 6,
+        children: [
+          for (final reaction in message.reactions)
+            ActionChip(
+              label: Text('${reaction['emoji']} ${reaction['count']}'),
+              onPressed: () => context.read<FamilyChatViewModel>().react(
+                message,
+                reaction['emoji'] as String,
+                reaction['mine'] == true,
+              ),
+            ),
+        ],
       ),
     );
   }
@@ -750,28 +1056,124 @@ class _SharedTaskState extends State<_SharedTask> {
                 .watch<FamilyChatViewModel>()
                 .taskPreviews[widget.task['id']] ??
             widget.task;
-    return Card(
-      child: ListTile(
-        leading: const Icon(Icons.task_alt, color: AppColors.primary),
-        title: Text(
-          task['unavailable'] == true
-              ? l.chatTaskUnavailable
-              : task['title'] as String,
+    final unavailable = task['unavailable'] == true;
+    final type = task['task_type'] as String?;
+    final priority = task['priority'] as String?;
+    final status = task['status'] as String?;
+    final urgent = priority == 'urgent';
+    return Padding(
+      padding: const EdgeInsetsDirectional.only(top: 8),
+      child: Material(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(16),
+          onTap: unavailable
+              ? null
+              : () => context.pushNamed(
+                  type == 'shopping' ? 'shoppingDetails' : 'taskDetails',
+                  pathParameters: {'id': task['id'] as String},
+                ),
+          child: Ink(
+            padding: const EdgeInsetsDirectional.all(16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(16),
+              boxShadow: AppShadows.sm,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (unavailable)
+                  Text(
+                    l.chatTaskUnavailable,
+                    style: AppText.titleMd.copyWith(color: AppColors.text),
+                  )
+                else ...[
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Row(
+                          children: [
+                            Icon(
+                              taskKindIcon(
+                                TaskKind.values.byName(type ?? 'general'),
+                              ),
+                              size: 18,
+                              color: AppColors.primary,
+                            ),
+                            const SizedBox(width: 6),
+                            Flexible(
+                              child: Text(
+                                l.chatSharedKind(
+                                  taskLabel(context, type ?? 'general'),
+                                ),
+                                style: AppText.labelMd.copyWith(
+                                  color: AppColors.primary,
+                                  letterSpacing: 0,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      if (priority != null)
+                        AppPill(
+                          taskLabel(context, priority),
+                          bg: urgent
+                              ? const Color(0xFFFFDAD6)
+                              : AppColors.primaryFixed,
+                          fg: urgent ? AppColors.danger : AppColors.primary,
+                          padding: const EdgeInsetsDirectional.symmetric(
+                            horizontal: 8,
+                            vertical: 2,
+                          ),
+                        ),
+                      if (status != null) ...[
+                        const SizedBox(width: 4),
+                        AppPill(
+                          taskLabel(context, status),
+                          bg: AppColors.surfaceContainer,
+                          fg: AppColors.primary,
+                          padding: const EdgeInsetsDirectional.symmetric(
+                            horizontal: 8,
+                            vertical: 2,
+                          ),
+                        ),
+                      ],
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    task['title'] as String,
+                    style: AppText.headlineSm.copyWith(color: AppColors.text),
+                  ),
+                  const SizedBox(height: 8),
+                  Align(
+                    alignment: AlignmentDirectional.centerEnd,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          l.chatViewTask,
+                          style: AppText.labelLg.copyWith(
+                            color: AppColors.primary,
+                          ),
+                        ),
+                        const SizedBox(width: 4),
+                        const Icon(
+                          Icons.arrow_forward,
+                          size: 18,
+                          color: AppColors.primary,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ],
+            ),
+          ),
         ),
-        subtitle: task['unavailable'] == true
-            ? null
-            : Text(
-                '${taskLabel(context, task['task_type'] as String)} · ${taskLabel(context, task['priority'] as String)} · ${taskLabel(context, task['status'] as String)}',
-              ),
-        trailing: const Icon(Icons.chevron_right),
-        onTap: task['unavailable'] == true
-            ? null
-            : () => context.pushNamed(
-                task['task_type'] == 'shopping'
-                    ? 'shoppingDetails'
-                    : 'taskDetails',
-                pathParameters: {'id': task['id'] as String},
-              ),
       ),
     );
   }

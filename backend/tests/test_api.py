@@ -121,3 +121,31 @@ def test_internal_errors_do_not_expose_secrets(client, service):
     assert response.json() == {
         "error": {"code": "internal_error", "message": "An unexpected error occurred."}
     }
+
+
+def test_member_management_endpoints_validate_input_and_return_no_content(client, service):
+    headers = {"Authorization": "Bearer valid-token"}
+    base = f"/api/v1/households/{HOUSEHOLD_ID}"
+    member = f"{base}/members/{USER_ID}"
+    assert client.patch(member, json={"role": "admin"}, headers=headers).status_code == 204
+    service.set_member_role.assert_awaited_once()
+    for payload in ({"role": "owner"}, {"role": "admin", "extra": 1}, {}):
+        assert client.patch(member, json=payload, headers=headers).status_code == 422
+    assert (
+        client.patch(
+            f"{base}/members/not-a-uuid", json={"role": "admin"}, headers=headers
+        ).status_code
+        == 422
+    )
+    assert client.delete(member, headers=headers).status_code == 204
+    assert client.post(f"{base}/leave", headers=headers).status_code == 204
+    assert client.delete(base, headers=headers).status_code == 204
+    service.remove_member.assert_awaited_once()
+    service.leave.assert_awaited_once()
+    service.delete_household.assert_awaited_once()
+
+
+def test_member_management_requires_authentication(client):
+    base = f"/api/v1/households/{HOUSEHOLD_ID}"
+    assert client.post(f"{base}/leave").status_code == 401
+    assert client.delete(base).status_code == 401

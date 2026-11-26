@@ -5,12 +5,14 @@ class Household {
     required this.role,
     this.description,
     this.memberCount = 1,
+    this.avatarKey,
   });
   final String id;
   final String name;
   final String role;
   final String? description;
   final int memberCount;
+  final String? avatarKey;
 
   factory Household.fromJson(Map<String, dynamic> json) {
     final role = json['role'] as String;
@@ -23,6 +25,7 @@ class Household {
       role: role,
       description: json['description'] as String?,
       memberCount: (json['member_count'] as num?)?.toInt() ?? 1,
+      avatarKey: json['avatar_key'] as String?,
     );
   }
 
@@ -32,5 +35,6 @@ class Household {
     'role': role,
     'description': description,
     'member_count': memberCount,
+    'avatar_key': avatarKey,
   };
 }

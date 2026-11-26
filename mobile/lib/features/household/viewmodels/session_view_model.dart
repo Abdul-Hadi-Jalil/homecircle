@@ -28,12 +28,17 @@ class SessionViewModel extends ChangeNotifier {
     required this.store,
     required this.realtime,
     this.loadProfile,
+    this.minSplash = Duration.zero,
   });
   final AuthRepository auth;
   final HouseholdRepository repository;
   final LocalStore store;
   final RealtimeScope realtime;
   final Future<Map<String, dynamic>> Function()? loadProfile;
+  /// Minimum time the animated splash stays visible on launch.
+  final Duration minSplash;
+  late bool splashDone = minSplash == Duration.zero;
+  Timer? _splashTimer;
   Map<String, dynamic>? profile;
   StreamSubscription<AuthIdentity?>? _subscription;
   AuthIdentity? user;
@@ -94,6 +99,12 @@ class SessionViewModel extends ChangeNotifier {
 
   Future<void> start() async {
     if (_subscription != null) return;
+    if (!splashDone) {
+      _splashTimer = Timer(minSplash, () {
+        splashDone = true;
+        _notify();
+      });
+    }
     _subscription = auth.changes.listen(
       (identity) {
         authCallbackError = false;
@@ -215,14 +226,22 @@ class SessionViewModel extends ChangeNotifier {
     }
   }
 
-  Future<void> createHousehold(String name, {String? description}) async {
+  Future<void> createHousehold(
+    String name, {
+    String? description,
+    String? avatarKey,
+  }) async {
     if (switching || restoring || user == null) return;
     switching = true;
     errorCode = null;
     _notify();
     final generation = _generation;
     try {
-      final created = await repository.create(name, description);
+      final created = await repository.create(
+        name,
+        description,
+        avatarKey: avatarKey,
+      );
       if (!_current(generation)) return;
       switching = false;
       await selectHousehold(created.id, inviteAfterCreation: true);
@@ -319,6 +338,7 @@ class SessionViewModel extends ChangeNotifier {
   @override
   void dispose() {
     _disposed = true;
+    _splashTimer?.cancel();
     ++_generation;
     unawaited(_subscription?.cancel());
     unawaited(realtime.switchTo(null));

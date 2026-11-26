@@ -93,7 +93,7 @@ unconfigured. Confirmed failures and their fixes are recorded in the issue regis
   defaults are documented in `backend/.env.example`, `backend/app/core/config.py` and
   `backend/app/db/pool.py`.
 - Secure existing-keystore signing support and blank example configuration were added.
-  Version `1.0.0+2` was selected for this candidate. The package ID was retained pending
+  Version `1.0.0+1` was selected for this candidate. The package ID was retained pending
   owner confirmation. `mobile/android/app/build.gradle.kts`,
   `mobile/android/key.properties.example`, `mobile/pubspec.yaml`, `.gitignore`.
 - Regression coverage was added in `backend/tests/test_release_hardening.py`,

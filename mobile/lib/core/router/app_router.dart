@@ -6,6 +6,7 @@ import '../../features/auth/views/auth_view.dart';
 import '../../features/auth/views/onboarding_view.dart';
 import '../../features/auth/views/auth_notice_view.dart';
 import '../../features/household/views/membership_views.dart';
+import '../../features/splash/splash_screen.dart';
 import '../../features/dashboard/views/home_view.dart';
 import '../../features/household/viewmodels/session_view_model.dart';
 import '../../features/household/views/household_view.dart';
@@ -22,7 +23,7 @@ import '../../features/notifications/views/notification_settings_screen.dart';
 import '../../features/tasks/views/task_form_screen.dart';
 import '../../features/tasks/views/task_details_screen.dart';
 import '../localization/generated/app_localizations.dart';
-import '../widgets/app_widgets.dart';
+import '../widgets/mock_widgets.dart';
 import 'route_guard.dart';
 
 GoRouter createRouter(SessionViewModel session) => GoRouter(
@@ -30,7 +31,8 @@ GoRouter createRouter(SessionViewModel session) => GoRouter(
   refreshListenable: session,
   redirect: (context, state) => routeRedirect(
     path: state.uri.path,
-    restoring: session.restoring || session.switching,
+    restoring:
+        session.restoring || session.switching || !session.splashDone,
     signedIn: session.user != null,
     hasHousehold: session.activeHousehold != null,
     passwordRecovery: session.passwordRecovery,
@@ -40,7 +42,7 @@ GoRouter createRouter(SessionViewModel session) => GoRouter(
     unauthenticatedPath: session.loggedOut
         ? '/login'
         : session.onboardingCompleted
-        ? '/welcome'
+        ? '/login'
         : '/onboarding',
     inviteAfterCreate: session.inviteAfterCreate,
   ),
@@ -78,15 +80,12 @@ GoRouter createRouter(SessionViewModel session) => GoRouter(
     GoRoute(
       path: '/bootstrap',
       name: 'bootstrap',
-      builder: (context, state) => AppScaffold(
-        title: AppLocalizations.of(context)!.bootstrap,
-        body: const AppLoadingIndicator(),
-      ),
+      builder: (context, state) => const SplashScreen(),
     ),
     GoRoute(
       path: '/welcome',
       name: 'welcome',
-      builder: (context, state) => const WelcomeView(),
+      redirect: (context, state) => '/login',
     ),
     for (final route in [
       ('login', '/login'),
@@ -113,7 +112,7 @@ GoRouter createRouter(SessionViewModel session) => GoRouter(
     GoRoute(
       path: '/households/join',
       name: 'joinHousehold',
-      builder: (context, state) => const MembershipView(mode: 'join'),
+      redirect: (context, state) => '/households',
     ),
     StatefulShellRoute.indexedStack(
       builder: (context, state, shell) => NavigationShell(shell: shell),
@@ -147,7 +146,7 @@ GoRouter createRouter(SessionViewModel session) => GoRouter(
               name: 'tasks',
               builder: (context, state) => TasksScreen(
                 key: ValueKey(
-                  'tasks-${session.scopeRevision}-${state.uri.queryParameters['item']}-${state.uri.queryParameters['active']}-${state.uri.queryParameters['priority']}',
+                  'tasks-${session.scopeRevision}-${state.uri.queryParameters['item']}-${state.uri.queryParameters['active']}-${state.uri.queryParameters['priority']}-${state.uri.queryParameters['assignment']}-${state.uri.queryParameters['status']}',
                 ),
                 linkedItemId: state.uri.queryParameters['item'],
                 initialFilters: state.uri.queryParameters['active'] == 'true'
@@ -156,6 +155,18 @@ GoRouter createRouter(SessionViewModel session) => GoRouter(
                         'exclude_shopping': 'true',
                         if (state.uri.queryParameters['priority'] == 'urgent')
                           'priority': 'urgent',
+                        if (state.uri.queryParameters['assignment'] != null)
+                          'assignment':
+                              state.uri.queryParameters['assignment']!,
+                      }
+                    : state.uri.queryParameters['assignment'] != null ||
+                          state.uri.queryParameters['status'] != null
+                    ? {
+                        if (state.uri.queryParameters['assignment'] != null)
+                          'assignment':
+                              state.uri.queryParameters['assignment']!,
+                        if (state.uri.queryParameters['status'] != null)
+                          'status': state.uri.queryParameters['status']!,
                       }
                     : null,
               ),
@@ -323,40 +334,6 @@ GoRouter createRouter(SessionViewModel session) => GoRouter(
   ],
 );
 
-class WelcomeView extends StatelessWidget {
-  const WelcomeView({super.key});
-  @override
-  Widget build(BuildContext context) {
-    final l = AppLocalizations.of(context)!;
-    return AppScaffold(
-      title: l.appName,
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsetsDirectional.all(24),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(Icons.home_outlined, size: 64),
-              const SizedBox(height: 24),
-              Text(l.tagline),
-              const SizedBox(height: 24),
-              AppPrimaryButton(
-                label: l.login,
-                onPressed: () => context.goNamed('login'),
-              ),
-              const SizedBox(height: 8),
-              AppSecondaryButton(
-                label: l.register,
-                onPressed: () => context.goNamed('register'),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
 class NavigationShell extends StatelessWidget {
   const NavigationShell({required this.shell, super.key});
   final StatefulNavigationShell shell;
@@ -368,31 +345,16 @@ class NavigationShell extends StatelessWidget {
     );
     return Scaffold(
       body: KeyedSubtree(key: ValueKey(revision), child: shell),
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: shell.currentIndex,
-        onDestinationSelected: (index) =>
+      bottomNavigationBar: AppBottomNav(
+        index: shell.currentIndex,
+        onSelected: (index) =>
             shell.goBranch(index, initialLocation: index == shell.currentIndex),
-        destinations: [
-          NavigationDestination(
-            icon: const Icon(Icons.home_outlined),
-            label: l.home,
-          ),
-          NavigationDestination(
-            icon: const Icon(Icons.inventory_2_outlined),
-            label: l.inventory,
-          ),
-          NavigationDestination(
-            icon: const Icon(Icons.checklist),
-            label: l.tasks,
-          ),
-          NavigationDestination(
-            icon: const Icon(Icons.chat_bubble_outline),
-            label: l.chat,
-          ),
-          NavigationDestination(
-            icon: const Icon(Icons.person_outline),
-            label: l.profile,
-          ),
+        items: [
+          (Icons.home_outlined, l.home),
+          (Icons.inventory_2_outlined, l.inventory),
+          (Icons.check_box_outlined, l.tasks),
+          (Icons.chat_bubble_outline, l.chat),
+          (Icons.person_outline, l.profile),
         ],
       ),
     );
